@@ -1,958 +1,686 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Affordable Care Health Coverage : 2022 ACA Health Plans</title>
-<meta name="viewport" content="width=device-width; initial-scale=1.0;">
-<style>
-:root {
-  --bg-color: #eeeded;
-  --accent: #003DA2;
-  --accent2: #FF5823;
-  --accent3: #f0de36;
-  --darkaccent2: #a50f0e;
-  --black: #000;
-  --bs-gutter-x: 3rem;
-}
-
-*, ::after, ::before {
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		html,
+body {
+  height: 100%;
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  font-family: "DM Sans", sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.4;
-  margin: 0;
-  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
 }
-
-.h1, .h2 { font-size: 3rem; }
-.h3 { font-size: 2rem; }
-.h4 { font-size: 1.75rem; }
-.h5 { font-size: 1.5rem; }
-.h6 { font-size: 1.25rem; }
-
-img { max-width: 100%; }
-
-p { font-size: 1rem; }
-
-ul { list-style: none; margin: 0; padding: 0; }
 
 .container {
-  max-width: 100%;
-  position: relative;
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-right: auto;
-  margin-left: auto;
-
-  @media (min-width: 576px) { max-width: 540px; }
-  @media (min-width: 768px) { max-width: 720px; }
-  @media (min-width: 992px) { max-width: 960px; }
-  @media (min-width: 1200px) { max-width: 1140px; }
-  @media (min-width:1400px) { max-width: 1320px; }
-
-  .row { display: flex; flex-wrap: wrap; }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-.mainWrapper {
-  header {
-    padding: 0.5rem 0;
-    @media (min-width: 992px) { padding: 1rem 0; }
-    background-color: #fff;
-    box-shadow: 0 1.125rem 2.25rem -1.188rem rgba(0, 0, 0, 0.4);
-    position: relative;
+#score {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 2em;
+  font-weight: 900;
+}
+
+#introduction {
+  width: 200px;
+  height: 150px;
+  position: absolute;
+  font-weight: 600;
+  font-size: 0.8em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  transition: opacity 2s;
+}
+
+#restart {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  border-radius: 50%;
+  color: white;
+  background-color: red;
+  border: none;
+  font-weight: 700;
+  font-size: 1.2em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: none;
+  cursor: pointer;
+}
+
+#perfect {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+#youtube,
+#youtube-card {
+  display: none;
+}
+
+@media (min-height: 425px) {
+  /** Youtube logo by https://codepen.io/alvaromontoro */
+  #youtube {
     z-index: 2;
+    display: block;
+    width: 100px;
+    height: 70px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: red;
+    border-radius: 50% / 11%;
+    transform: scale(0.8);
+    transition: transform 0.5s;
+  }
 
-    .logo-wrapper {
-      a {
-        img {
-          max-width: 2rem;
-          @media (min-width: 992px) { max-width: 3rem; }
-        }
-      }
-    }
+  #youtube:hover,
+  #youtube:focus {
+    transform: scale(0.9);
   }
-  .hero-section {
-    background-image: url('images/walmart3c.webp');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 46%;
-    background-color: var(--bg-color);
-    padding: 3rem 0;
-    @media (min-width: 992px) {
-      padding: 4rem 0;
-    }
-    .container {
-      padding: 0 0.5rem;
-      .row {
-        height: 70vh;
-        align-items: end;
-        @media (min-width: 992px) {
-          align-items: center;
-        }
-        .hero-container {
-          background-color: #fff;
-          padding: 1.5rem;
-          border-radius: 8px;
-          width: 100%;
-          flex: 0 0 auto;
-          @media (min-width: 992px) {
-            width: 60%;
-          }
-          .headline-wrapper {
-            h1 {
-              color: var(--accent);
-              line-height: 1.2;
-              font-size: calc(1.375rem + 1.5vw);
-              font-weight: bold;
-              @media (min-width: 1200px) {
-                font-size: 2.25rem;
-              }
-            }
-          }
-        }
-        .sub-hero-section {
-          .hero-section-wrapper {
-            .hero-section-wrapper-content {
-              h2 {
-                font-size: calc(1.325rem + .9vw);
-                line-height: 1.2;
-                margin-bottom: 1rem;
-              }
-              p {
-                margin-bottom: 1rem;
-                @media (min-width: 992px) {
-                  font-size: 1.125rem;
-                }
-              }
-            }
-            .hero-sectiom-image {
-              margin-bottom: 1rem;
-            }
-            .cta {
-              a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                font-size: 1.5rem;
-                font-weight: 700;
-                background-color: var(--accent2);
-                color: #fff;
-                padding: 0.5rem 1rem;
-                border-radius: 10px;
-                img {
-                  max-width: 40px;
-                  margin-left: 0.5rem;
-                }
-                transition: all .2s ease-in-out;
-                &:hover, &:focus {
-                  background-color: var(--darkaccent2);
-                }
-              }
-              span {
-                margin-top: .5rem;
-                display: block;
-                text-align: center;
-                @media (min-width: 992px) {
-                  margin-top: 1rem;
-                }
-                font-size: 1rem;
-              }
-            }
-          }
-        }
-        .congrats {
-          margin: 1rem auto;
-          max-width: 580px;
-          width: 100%;
-          background-color: #fff;
-          box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.07);
-          padding: 1.25rem;
-          @media (min-width: 992px) {
-              padding: 2rem;
-              text-align: left;
-          }
-          border-radius: 18px;
-          text-align: center;
-          h2 {
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-            font-size: 1.4rem;
-            line-height: 120%;
-            @media (min-width: 992px) {
-              font-size: 2rem;
-            }
-          }
-          a {
-            display: block;
-            margin: 1rem 0;
-            background-color: var(--accent2);
-            color: #fff;
-            font-weight: bold;
-            text-decoration: none;
-            padding: 1rem;
-            font-size: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.07);
-            transition: all .2s ease-in-out;
-            &:hover, &:focus {
-              background-color: var(--darkaccent2); 
-            }
-          }
-          p {
-            span {
-              color: #0d1282;
-              font-weight: bold;
-            }
-          }
-          img {
-            margin-top: 1rem;
-          }
-        }
-        .question-wrapper {
-          flex: 0 0 auto;
-          width: 100%;
-          @media (min-width:992px) {
-            background-color: #fff;
-            box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.07);
-            padding: 3rem;
-            border-radius: 10px;
-            width: 60%;
-          }
-          .headline-wrapper {
-            h1 {
-              color: #fff;
-              font-size: 2rem;
-              text-align: center;
-              line-height: 1.2;
-              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-              @media (min-width:1200px) {
-                color: var(--black);
-                font-size: 1.75rem;
-                text-shadow: none;
-              }
-            }
-          }
-          .question-item {
-            .question {
-              position: relative;
-              background-color: #fff;
-              box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.07);
-              padding: 1.5rem;
-              text-align: center;
-              @media (min-width: 992px) {
-                  padding: 0;
-                  background-color: transparent;
-                  box-shadow: none;
-                  margin: 0;
-                  text-align: left;
-              }
-              border-radius: 18px;
-              margin: 1rem auto;
-              max-width: 580px;
-              width: 100%;
-              h2 {
-                color: var(--accent);
-                font-size: calc(1.3rem + .6vw);
-                line-height: 1.2;
-                font-weight: 700;
-                @media (min-width:1200px) {
-                  font-size: 2.25rem;
-                }
-              }
-              a {
-                text-align: center;
-                display: block;
-                margin: 1rem 0;
-                background-color: var(--accent2);
-                color: #fff;
-                font-weight: bold;
-                text-decoration: none;
-                padding: 1rem;
-                font-size: 1.5rem;
-                border-radius: 8px;
-                box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.07);
-              }
-            }
-            
-          }
-          h1 {
-            color: #fff;
-          }
-        }
-      }
-    }
+
+  #youtube::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 7.5%;
+    left: -6%;
+    width: 112%;
+    height: 85%;
+    background: red;
+    border-radius: 9% / 50%;
   }
-  .logo-strip-section {
+
+  #youtube::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    width: 45px;
+    height: 30px;
+    border: 15px solid transparent;
+    box-sizing: border-box;
+    border-left: 30px solid white;
+  }
+
+  #youtube span {
+    font-size: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  #youtube:hover + #youtube-card {
+    display: block;
+    position: absolute;
+    bottom: 12px;
+    left: 10px;
+    padding: 25px 25px 25px 130px;
+    width: 300px;
     background-color: white;
-    padding-top: 2rem;
-    @media (min-width: 992px) {
-      padding-top: 4rem;
-    }
-    .logo-strip-headline {
-      text-align: center;
-      flex: 0 0 auto;
-      width: 100%;
-      h1 {
-        font-size: 1rem;
-        font-weight: 400;
-        letter-spacing: 2px;
-        color: var(--accent);
-      }
-    }
-    .logo-strip {
-      flex: 0 0 auto;
-      width: 100%;
-      margin: 1rem 0;
-      .logoitem {
-        max-width: 38.75rem;
-        margin: 1rem auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        gap: 0.5rem;
-        @media (min-width: 992px) {
-          max-width: 50rem;
-        }
-        img {
-          flex: 0 0 auto;
-          width: 25%;
-          margin-bottom: 0.25rem;
-          @media (min-width: 992px) {
-            width: 15%;
-          }
-        }
-      }
-    }
-  }
-  .section1 {
-    background-color: #fff;
-    padding: 3rem 0;
-    @media (min-width: 992px) {
-      padding: 4rem 0;
-    }
-    .section-1-content {
-      flex: 0 0 auto;
-      width: 70%;
-      margin: 0 auto;
-      text-align: center;
-      h1 {
-        color: var(--accent);
-        margin-bottom: 1rem;
-        line-height: 120%;
-        font-size: calc(1.375rem + 1.5vw);
-        @media (min-width: 1200px) {
-          font-size: 2.5rem;
-        }
-      }
-      h2 {
-        font-size: calc(1.275rem + .3vw);
-        font-weight: 500;
-        @media (min-width: 1200px) {
-          font-size: 1.5rem;
-        }
-      }
-      .cta-holder {
-        max-width: 580px;
-        margin: 1rem auto;
-        a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background-color: var(--accent2);
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            img {
-              max-width: 40px;
-              margin-left: 0.5rem;
-            }
-            transition: all .2s ease-in-out;
-            &:hover, &:focus {
-              background-color: var(--darkaccent2);
-            }
-        }
-        span {
-          margin-top: .5rem;
-          text-align: center;
-          font-size: 1rem;
-          display: block;
-        }
-      }
-    }
-    .item-benefits {
-      margin: 2rem 0;
-      padding: 0 1rem;
-      ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content:center;
-        li {
-          flex: 0 0 auto;
-          
-          padding: 0 0.5rem;
-          margin-bottom: 1rem;
-          @media (min-width: 992px) {
-            width: 25%;
-            padding: 0 1rem;
-          }
-          .benefit {
-            border-radius: 5px;
-            box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.12);
-            position: relative;
-            overflow: hidden;
-            max-height: 342px;
-            @media (min-width: 992px) {
-              max-height: 240px;
-            }
-            .benefitImage {
-              position: relative;
-              img {
-                min-height: 342px;
-                min-width: 342px;
-                max-height: 342px;
-                max-width: 342px;
-                @media (max-width: 992px) {
-                  min-height: 255px;
-                  min-width: 440px;
-                  max-height: 255px;
-                  max-width: 440px;
-                }
-              }
-            }
-            .benefitHeadline {
-              background: rgba(0, 0, 0, 0.4);
-              position: absolute;
-              top:0%;
-              left:0%;
-              right:0%;
-              bottom:0%;
-              width: 100%;
-              height: 100%;
-              display: flex;
-              align-items: end;
-              padding: 1rem;
-              p {
-                margin-left: 0.5rem;
-                font-weight: bold;
-                color: #fff;
-                font-size: 1.2rem;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  .testimonial {
-    padding: 3rem 0;
-    text-align: center;
-    @media (min-width: 992px) {
-      padding: 4rem 0;
-    }
-    img {
-      max-width: 100%;
-      @media (min-width: 992px) {
-        max-width: 580px;
-      }
-    }
-    .testimonial-headline {
-      flex: 0 0 auto;
-      width: 100%;
-      h1 {
-        color: var(--accent);
-        margin-bottom: 1rem;
-        line-height: 120%;
-        font-size: calc(1.375rem + 1.5vw);
-        @media (min-width: 1200px) {
-          font-size: 2.5rem;
-        }
-      }
-    }
-    .testimonial-content-holder {
-      flex: 0 0 auto;
-      width: 100%;
-      h3 {
-        font-weight: 500;
-      }
-    }
-    .testimonial-list {
-      display: flex;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-      .testimonial-item {
-        margin-bottom: 1rem;
-        flex: 0 0 auto;
-        width: 100%;
-        padding: 0 1rem;
-        margin-bottom: 1rem;
-        @media (min-width: 992px) {
-          width: 33%;
-        }
-        .testimonial-inner {
-          background-color: var(--bg-color);
-          padding: 1.56rem;
-          text-align: left;
-          box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.05);
-          border-radius: 10px;
-          .testimonial-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            .testimonial-left {
-              img {
-                max-width: 50%;
-                border-radius: 10px;
-              }
-            }
-            .testimonial-right {
-              .star-rating {
-                display: flex;
-                img {
-                  width: 150px;
-                }
-              }
-            }
-          }
-          .testimonial-bottom {
-            h3 {
-              margin-bottom: 0.5rem;
-            }
-          }
-        }
-      }
-    }
-  }
-  .footer {
-    background-color: var(--bg-color);
-    padding: 3rem 0 1rem 0;
-    .top-footer {
-      p {
-        font-size: .875rem;
-        color: rgba();
-      }
-    }
-    .bottom-footer {
-      .footer-navigation {
-        flex: 0 0 auto;
-          width: 100%;
-        margin: 1rem 0;
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-        @media(min-width:992px) {
-          justify-content: space-between;
-        }
-        .footer-copyright {
-          flex: 0 0 auto;
-          width: 100%;
-          @media(min-width:992px) {
-            width: auto;
-          }
-        }
-        .footer-navigation-wrapper {
-          flex: 0 0 auto;
-          width: 100%;
-          @media(min-width:992px) {
-            width: auto;
-          }
-          ul {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            li {
-              a {
-                text-decoration: none;
-                color: var(--black);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  .policy-wrapper {
-    .policy-title {
-      padding: 2rem 0;
-      h1 {
-        font-size: calc(1.375rem + 1.5vw);
-        @media (min-width:1200px) {
-          font-size: 2.5rem;;
-        } 
-      }
-      flex: 0 0 auto;
-      width: 100%;
-      border-bottom: 1px solid gray;
-      margin-bottom: 2rem;
-    }
-    .policy-paragraph {
-      padding-bottom: 4rem;
-      p {
-        margin-bottom: .5rem;
-      }
-      h2 {
-        font-size: calc(1.325rem + .9vw);
-        margin: 1rem 0;
-        @media(min-width:1200px) {
-          font-size: 2rem;
-        }
-      }
-      h3 {
-        font-size: calc(1.3rem + .6vw);
-        margin-bottom: 1rem;
-        @media(min-width:1200px) {
-          font-size: 1.75rem;
-        }
-      }
-      h3 {
-        font-size: calc(1.275rem + .3vw);
-        @media(min-width:1200px) {
-          font-size: 1.5rem;
-        }
-      }
-      ul {
-        list-style-type: disc;
-        margin-bottom: .5rem;
-      }
-    }
   }
 }
-.logoDiv a img {max-height:80px;padding-top: 5px;}
-@media (max-width:576px) {
-  .logoDiv{margin: auto;}
-}
-header {padding: 0 !important;}
-.footer-content p,.footer-copyright {font-size: 16px !important;color: #666666;text-align: justify;}
-.footer-copyright,.footer-copyright p {margin: auto;text-align: center;}
 
-.fomo {
-    z-index: 9999;
-    box-shadow: 0px 0px 15px #00000029;
-    border-radius: 8px;
-    padding: 10px 0;
-    background-color: white;
-    position: fixed;
-    bottom: -110px;
-    left: 15px;
-    left: 0px;
-    height: 75px;
-    width: 400px;
-    border: 3px solid #f4f4f4;
-    padding: 0 15px;
-    transition: all 400ms;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+		
+		
+		
+		
+		
 
-    &.is-visible {
-        bottom: 15px;
-    }
-
-    .product_image {
-        flex: 0 0 auto;
-        height: 80%;
-    }
-
-    .wrapper {
-        flex: 0 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 75%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 25%;
-        .buyer {
-            font-size: 13px;
-        }
-
-        .product_name {
-            font-weight: 600;
-            text-decoration: none;
-            color: #00bf42;
-            line-height: 2;
-        }
-
-        .time {
-            font-size: 13px;
-        }
-
-        .amount {
-            font-weight: bold;
-        }
-    }
-}
 	</style>
+	
 </head>
 <body>
-<div class="mainWrapper">
-   <header>
-      <div class="container">
-         <div class="row">
-            <div class="logoDiv"><a href="#"><img src="images/AffordableHealthCoverage.png"></a></div>
-         </div>
-      </div>
-   </header>
-   <div class="hero-section">
-      <div class="container">
-         <div class="row">
-            <div class="hero-container">
-               <div class="headline-wrapper">
-                  <h1>Americans in UP have only 3 days to claim their FREE $6400* Subsidy!</h1>
-               </div>
-               <div class="sub-hero-section">
-                  <div class="hero-section-wrapper">
-                     <div class="hero-section-wrapper-content">
-                        <h2></h2>
-                        <p>Thanks to a new government subsidiary program, UP residents could get up to $6400* allowance for the everyday expense.</p>
-                     </div>
-                     <div class="cta"><a id="cta-click" href="/imageslander-1/income?vl_click_id=wngi33p0achij1htid7tv6na&amp;generator=internal&amp;type=inbuilt&amp;utm_source=&amp;utm_medium=&amp;utm_campaign=&amp;utm_adset=&amp;utm_ad=&amp;site_id=&amp;placement=&amp;externalclickid=&amp;device_type=DESKTOP&amp;browser=Chrome&amp;os=MacOS">I Want My Card <img loading="lazy" src="images/arrow.svg" alt=""></a><span>37 Available Slots Left, Act Now!</span></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="section1">
-      <div class="container">
-         <div class="row">
-            <div class="section-1-content">
-               <h1>Check for the New Subsidy for Minimum Wage Americans</h1>
-               <h2>Claim up to $6400 SUBSIDY to pay for all your health care needs.</h2>
-               <h2>Anything left over can be used:</h2>
-               <div class="cta-holder"><a id="cta-click" href="/imageslander-1/income">I Want My Card <img loading="lazy" src="images/arrow.svg" alt=""></a><span>37 Available Slots Left, Act Now!</span></div>
-            </div>
-            <div class="item-benefits">
-               <ul>
-                  <li>
-                     <div class="benefit">
-                        <div class="benefitImage"><img loading="lazy" src="images/groceries.webp"></div>
-                        <div class="benefitHeadline">
-                           <p>Groceries</p>
-                        </div>
-                     </div>
-                  </li>
-                  <li>
-                     <div class="benefit">
-                        <div class="benefitImage"><img loading="lazy" src="images/rent.webp"></div>
-                        <div class="benefitHeadline">
-                           <p>Rent</p>
-                        </div>
-                     </div>
-                  </li>
-                  <li>
-                     <div class="benefit">
-                        <div class="benefitImage"><img loading="lazy" src="images/gas.webp"></div>
-                        <div class="benefitHeadline">
-                           <p>Gas</p>
-                        </div>
-                     </div>
-                  </li>
-                  <li>
-                     <div class="benefit">
-                        <div class="benefitImage"><img loading="lazy" src="images/shopping.webp"></div>
-                        <div class="benefitHeadline">
-                           <p>Shopping</p>
-                        </div>
-                     </div>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="testimonial">
-      <div class="container">
-         <div class="row">
-            <div class="testimonial-headline">
-               <h1>Try Yourself Today!</h1>
-               <img loading="lazy" src="images/trustpilot-logo.png" alt="">
-            </div>
-            <div class="testimonial-content-holder">
-               <p>We strive to offer you the best service, as evidenced by our Trustpilot star rating.</p>
-            </div>
-            <div class="testimonial-list">
-               <div class="testimonial-item">
-                  <div class="testimonial-inner">
-                     <div class="testimonial-top">
-                        <div class="testimonial-left"><img loading="lazy" src="images/user-1.jpeg"></div>
-                        <div class="testimonial-right">
-                           <div class="star-rating"><img loading="lazy" src="images/star.png" alt=""></div>
-                        </div>
-                     </div>
-                     <div class="testimonial-bottom">
-                        <h3>Floyd Miles</h3>
-                        <p>I just received mine fast! They worked tirelessly to secure the financial subsidy I needed, and their dedication to customer satisfaction is unmatched.</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="testimonial-item">
-                  <div class="testimonial-inner">
-                     <div class="testimonial-top">
-                        <div class="testimonial-left"><img loading="lazy" src="images/user-2.jpeg"></div>
-                        <div class="testimonial-right">
-                           <div class="star-rating"><img loading="lazy" src="images/star.png" alt=""></div>
-                        </div>
-                     </div>
-                     <div class="testimonial-bottom">
-                        <h3>Michael Anderson</h3>
-                        <p>Just in time when i need it the most! I can't thank US Support enough for their prompt assistance. Their team's commitment to me is truly commendable</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="testimonial-item">
-                  <div class="testimonial-inner">
-                     <div class="testimonial-top">
-                        <div class="testimonial-left"><img loading="lazy" src="images/user-4.jpeg"></div>
-                        <div class="testimonial-right">
-                           <div class="star-rating"><img loading="lazy" src="images/star.png" alt=""></div>
-                        </div>
-                     </div>
-                     <div class="testimonial-bottom">
-                        <h3>Olivia Martinez</h3>
-                        <p>I was in a financial bind, and US Support came to the rescue. Their team's dedication and service to people are top-notch, and I couldn't be happier with their help.</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="testimonial-item">
-                  <div class="testimonial-inner">
-                     <div class="testimonial-top">
-                        <div class="testimonial-left"><img loading="lazy" src="images/user-3.jpeg"></div>
-                        <div class="testimonial-right">
-                           <div class="star-rating"><img loading="lazy" src="images/star.png" alt=""></div>
-                        </div>
-                     </div>
-                     <div class="testimonial-bottom">
-                        <h3>David Wilson</h3>
-                        <p>I was amazed by how quickly US Support acted to help me as a minimum wage earner. Their dedication is clear and their service is outstanding. Highly recommend them!</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="testimonial-item">
-                  <div class="testimonial-inner">
-                     <div class="testimonial-top">
-                        <div class="testimonial-left"><img loading="lazy" src="images/user-3.jpeg"></div>
-                        <div class="testimonial-right">
-                           <div class="star-rating"><img loading="lazy" src="images/star.png" alt=""></div>
-                        </div>
-                     </div>
-                     <div class="testimonial-bottom">
-                        <h3>Sarah Thompson</h3>
-                        <p>In a financial pinch, US Support was a lifesaver. Their team's dedication and top-notch service made a huge difference. Extremely grateful for their help!</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="testimonial-item">
-                  <div class="testimonial-inner">
-                     <div class="testimonial-top">
-                        <div class="testimonial-left"><img loading="lazy" src="images/user-3.jpeg"></div>
-                        <div class="testimonial-right">
-                           <div class="star-rating"><img loading="lazy" src="images/star.png" alt=""></div>
-                        </div>
-                     </div>
-                     <div class="testimonial-bottom">
-                        <h3>Emily Rodriguez</h3>
-                        <p>I was amazed by how quickly US Support acted to help me as a minimum wage earner. Their dedication is clear and their service is outstanding. Highly recommend them!</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="footer">
-      <div class="container top-footer">
-         <div class="row">
-            <div class="footer-content">
-               <p>Smart Insurance IQ INC is not an insurance or operating company but connects individuals with insurance
-                providers and other affiliates. Plans are insured or covered by a Medicare Advantage organization
-                with a Medicare contract and/or a Medicare-approved Part D sponsor. Enrollment in the plan depends on
-                the plan's contract renewal with Medicare. Possible options include, but are not limited to Major Medical
-                Plans, Short Term Plans, Christian Health Plans, Health Sharing Plans, discount cards and Fixed Indemnity
-                Plans. Descriptions are for informational purposes only and subject to change. Smart Insurance IQ INC is not
-                affiliated with any insurance plan nor does it represent or endorse any plan. We do not offer every
-                plan available in your area. Any information we provide is limited to those plans we do offer in your
-                area. Please contact Medicare.gov or 1-800 MEDICARE to get information on all of your options.
-                By using this site, you acknowledge that you have read and agree to the Terms of Service, and Privacy
-                Policy. Not affiliated with the U. S. government or federal Medicare program. A licensed agent may
-                contact you regarding this insurance-related information.</p>
-            </div>
-         </div>
-      </div>
-      <div class="container bottom-footer">
-         <div class="row">
-            <div class="footer-navigation">
-               <div class="footer-copyright">
-                  <p>© Copyright 2023 | All Rights Reserved</p>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-<div id="fomo" class="fomo">
-  <img loading="lazy" src="data:image/png;base64,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" class="product_image">
-  <div class="wrapper">
-     <div class="buyer"><span class="user_name">Paul N. Parsons</span> from <span class="location">Harvey, LA</span> Qualified For $<span class="amount">6400</span> Subsidy Card.</div>
-     <div class="time"><span class="number">23</span><span class="type">seconds</span> ago</div>
-  </div>
+	<div class="container">
+  <div id="score"></div>
+  <canvas id="game" width="375" height="375"></canvas>
+  <div id="introduction">Hold down the mouse to stretch out a stick</div>
+  <div id="perfect">DOUBLE SCORE</div>
+  <button id="restart">RESTART</button>
 </div>
 
-<div id="fomo1" class="fomo">
-  <img loading="lazy" src="data:image/png;base64,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" class="product_image">
-  <div class="wrapper">
-     <div class="buyer"><span class="user_name">Velia E. Dunn</span> from <span class="location">Topeka, KS</span> Qualified For $<span class="amount">6400</span> Subsidy Card.</div>
-     <div class="time"><span class="number">41</span><span class="type">seconds</span> ago</div>
-  </div>
-</div>
 
-<div id="fomo2" class="fomo">
-  <img loading="lazy" src="data:image/png;base64,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" class="product_image">
-  <div class="wrapper">
-     <div class="buyer"><span class="user_name">Mary T. Pritts</span> from <span class="location">Los Angeles, CA</span> Qualified For $<span class="amount">6400</span> Subsidy Card.</div>
-     <div class="time"><span class="number">28</span><span class="type">seconds</span> ago</div>
-  </div>
-</div>
+	<script>
+		/*
 
-<div id="fomo3" class="fomo">
-  <img loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAC9FBMVEUAAAANFTNmX0R6ZkJ5Z0R6aEWxooN5Z0F6ZUB2ZkV7Z0F8Z0AzQkWu/fwKDiMQHEhqvL5feHGZj3x/e1sVI1puYTwTIDd4ZEB7jHUQGkFjYkiHelWelXKGhmhLX1QTI1oKEC0IDiZXoqNBQTIIChWCgWQUIlmHg2QTKWJKmZ2p+vqn7ekrY2ApLzl8aknkvpyv//4yQTmllXGW/Pw5aWeD4+p+Z0Z/aUSAaUgFBgaCa0aGUzJFMxiAakAVLWuIWTJWRCNMOB1cTSxjTScGCA4LCweFbUpmUy7PmYS/iHKDbEJlWjtcSSY8KxEMGT2CUzBfLhirnHiNeFL99eaOWzhqWTIKDiIRJmCYYk2CTi0KESpjORwAAgPOkICUaEFyZEBuPyhNKiBTPB9tPR6omHWcZFYnFg3Vloi9fWqoYFR7ZkSPYTpcUzr9/fDXpZK1emWPgmCqcF+JfFh6bUycaEZrXzwIChYzGxX969nvybGxoHyZi2m0fmiwg2analqRW0lxZ0iFUUR4akKWYkFyWjl1Six9Syt2QyYyIg752crJjHu4g3GwcmKYgFujd1OgXEmYV0cQHEeIXjhzYDTy1r7WrpjbnI9Rioi/iXyteGihhGCtelp/cU6gb06HdUt3RzNyNCxZMSQWEQv8//n748/kpZbBmH+wmHSaamG2cF6hb12RfleEd1UUIVWERzhNPilOIhPhtp/Ig3ahaEuHXEd7ZjxPSjlnOi9FIhUfEAw6GwvnwqzFjoc8dHXCf3GjeG2ujmx+cV+JZlORcE9uRTtDKyZjNSRlQiFcIhoRFxj2z7/ttqPCnougg3WydnGhknA1X16ucFdlX0x9UUePUjt+TzouOTd7UjUvJClsSCUfISIwKBgWCgRao6duqKHYuZ3MpJHIlZBwaVx3XlUtS0tvUkGSUEFONzmB2tm+t61hmZRKXF2rbU+MTDscJDHF/fzmzLwjLF4pJ0p7Wzx9zs3B08RKkpaVlYvkkHXa/f6X391y0ddbcGgHAAAANnRSTlMA/hOdUjH87L+I9d8o7th0/vv569nYkWxNSN7ag3Ny7+zs5tK7urqbm5IuG+bk4MTCtaSUgFLynHY8AAAJM0lEQVRIx4zS22vTcBQH8OLUTeeLiijeXkR896Hp2oSkCUm2JGVtaGAltZlpKcMWrJlhuFqtvaN0D62Ktl2FgpushQ62ypyg0yIVFIbDC2OCoo/qk/+Ap/WCd/0+99Pv+Z0Tw2+zYWdXT2/35s3dew4e2rfB8J/Zdbg71k6Zy1OUqhL69kO7/q3W7d047mCOxUbLYoOiBCuKorZFG7t93z/cXodjfNxRapS0siQ1oDGfJ62q1Yqqf6Xr90x3YK2maUpZxCiIAAxoxkbu+ePAXVjWN+0Y3ziuaaFSSCvnKZYlYNRMxoZabSjB7/3963owLutzAFyuLWvhUDUvSBK0gbQSBEHZCII8uO43F+jFOKzagdVQO5IUk8hoLcpLFGGDSsGWQYM7tvziujGO4zowPKrrWiiPxEierK+tZTKoSqBABZIghJ/lul4MASgC9NV4frQmSSTfTrBeF1SQAkURLCWQ7I4fp+3BMARrQ59P04PBUh7+nY/VtHsl3YqSLCgBnihJFMn2/LhPCGdmRIcvXIuWSnmF5XVF0RPKKJ9gVVUQKEGQ8iQrsaqy6bv7NTp9XBkaQyUetZIxsRpLsFIiQbCsRFltNkKASgFVYVp9/TfYi0DMiFkUfcuhqL8OR6BIc7naSKyuyjLLwin9lQwsCBZLkeSBr27TZ8aYzaLDocGbBPhGWZlVGnmpJdvllrror9B9NF3xw7fAWp/v/7JRoxHBEDOECfvCJbTeYBMJNZH4mFxdbcmy3Gq1Fv23aLqvr89N+/0E+W7r18JjSNtxSFgMh3lrsFoQsYbRmHwx7IXAtHa7feGzfDnmR6188HNlN4JgWOeJWSassYKyPD6dZbgmuHTbeNOpVFJerNA07R4bmyVsMWVHZ6WIEYFAZVnUwjWFHS1MLxWanlwuCX3ysCWH4/hgyrvwEqR/4WE9o0eV9mK7AGKYiYMzlqvLVVNCCi8tNT0e3JX2etMupyc3aGnT9ALtrizY7WsVRVG6AG42Gk0YBpsBKC6LTJbMRiYm4OcuiyU+54x74pbBQRwPuOSxW7Ozdu8YrQT53fB1G2GpJgQxAWW4jaFs4ZixCNDjjJ8eeDJUHDk+58RzgUBuMCXPwotTR93Rm0F+g2EnOMQMrSaGYURfWMxmmUhxslgcGeg/PX/6yEjxJJ7MeQIBGF32Ju2u4b7omxV9p6HLCAgxm0xmBmJizIlCIRIpvi/29w+cHbowMDJ0bdj7YtKD45ZUOu1MO5NroytBfZOhB+mMClBcWso2mx9bKjMxMXn8/OX+42fnZ849cI/NcxOTngCOu1Ipl+Vkbm0teJPvMfQCxMCZCpdeP54uND/CyYampvqPnB85Yzl37ejK24hn5vQEQIvL5Uo5T55000Ge3G3YjIBCjKbCq1eXLl2aigSupeX7F65ePX+n//jT4ft3p6YmZwaKxck4NFog8blKZUUntxnghe3NNF9dPHX71G2QQ/FnN66fPzFz9dHA0w8zkQuRK0dGnjyZCzjxwQ6cd9P1qL79U6N1GppkHMcBfHaf6yCCetFNdB9U4kNlb55ACdxAeWbiUz7EM49Kk4lHmCZR4RFqbOqiUFNLA60sZmu6teFkN6u1Nca2dh8d66C7N/2eVRQd1Pf95/n9n9//9zz/f5aMTjnGFXOwsLBQd5PF1iv5MRZeNZzPsjjst2xsllhcHnmm4h3mAdy/0++/KywpODk1a8Zu6A39wmNtMGgGKGexFYaHfFN7SRUrbrcb7kcsuDgO8HvF09er8wEuzppJp8sYsquFWq32G4SSIqLiSrEcl9rtUodBUi6JPDvF2wMQZijT0Z5/5GTJyqxpdIjsqvYolxv8VhHWKuqxekIuCg7F7NKIwf5wfw6Px9ufs5MQ0B7sO1myNWuijGrPVW7gKFdbWPYVkg9z9XjIFYo4pNLnPgfk4c6dvMOHKeivbXtUWdA3HUaOynHu0aPcYF1ZEUCb0mD02Vwhcb3keaLG99zB5xv5Kt6pUwf2wARk+p5WlTyonARDLqPDOwLUmuvq5WKW1VZcTJqM0EvcFqvxmUj+NaPxhOLUJZVqz5nWnEOjTwd3jVVOhs9KxmDQz1GwTo5bcJytJMlrRl88HrHBA8LFxddMCeIE+xaMXY730enc9wNH8rGN1IfMYMge67QAdS6LR1yUJL3D1ZkaUiIdKmf1yD2mlmP9t61smN/DOaLTotwb16sxbCHASbAb9z5oA1yz3NPX3/CyiC860k/GbvAdMf2V3qaWKVMqW5QKyf1bqvOnReBEGYFAsGj8Z0VnFHyoA1jU09ffU1evH1KWS+w1g6pLJ4zp0dH5YZK02ST3VQdyRJncO5mzNBot++vvEd7xXogLXdWFxC6zmWV3xC0GX+ttPdsTTvb2NhkMCqUNCnozxJ0b3jEOhzNnHE5gMAoO6rgBqFmPR3Q32bFYsUfqS1cP6q2eZLLJKlFQO3T7UYLQ3E2McZyc5d+PgIKCiy+DgUAgWB+Xsj1K0kg2GXMJIVKlZ+NisQtX2Az8s61evyafoIHDoODXbGLM5xbCBNSFFKS8qCmcTleYakpRdcdtNsslxssjUkerX+TXlLZzIFj2j2OO0WgeDXCDZSyDqcJXc9fnbWwlEGRvm7DK4gq54tIhL0H4NZcxYAIMW/TTwdrw8sUnrrlMbuUn41JpzNSSKEUQFBEKr4nFuHLId0dDaDoxDg2YAPbwRza/ffHmrVZ3M2lt8FRUhFuIUiECEhWi4aawya+pJtqdTidVT7Aq6+esn/1xdvf7spu91oZeuYX0V9fWgkQpOtwymE74X+dF8/KgL1j2L1eddbNfjHR3z28MNzYkKxKJjo4OdByq0U4inR5+BY4ZhYLZcF35Vc7uHumeN6+ysbFysL1trFaNIODUSOkNYBBmVIBxFvzmYLVbRrpGnjxxu+c9HRhoQ9FxBzD/NZNieTSaM7oa1vmHbJs79437iXtuqrm5uWPvOMTQzldMYFDOGY1CP/+cHSs+Q8V3Kbe7uRYBiQrQztdMYEyn2hldAPv316ydm0q5u7qaB9qEeym3t51JhaZ2Lp3zj6v19g1d71KpFJRE1Gr08rgT0BbMmfAfl/m1K7rcA7UIigkEeZRbvgYW+X+ZtWThquxly2hLF6xeMwd24A/5ApQqTFUtOpeDAAAAAElFTkSuQmCC" class="product_image">
-  <div class="wrapper">
-     <div class="buyer"><span class="user_name">Wanda D. Petersen</span> from <span class="location">El Paso, TX</span> Qualified For $<span class="amount">5600</span> Subsidy Card.</div>
-     <div class="time"><span class="number">40</span><span class="type">minutes</span> ago</div>
-  </div>
-</div>
 
-<div id="fomo4" class="fomo">
-  <img loading="lazy" src="data:image/png;base64,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" class="product_image">
-  <div class="wrapper">
-     <div class="buyer"><span class="user_name">Peter M. Galles</span> from <span class="location">Hamilton, MS</span> Qualified For $<span class="amount">5200</span> Subsidy Card.</div>
-     <div class="time"><span class="number">27</span><span class="type">minutes</span> ago</div>
-  </div>
-</div>
-<script>
-const elements = ['fomo', 'fomo1', 'fomo2', 'fomo3', 'fomo4'];
-function toggleFomoClass(element) {
-  element.classList.add('is-visible');
-  setTimeout(() => element.classList.remove('is-visible'), 5000); 
+
+If you want to know how this game was made, check out this video, that explains how it's made: 
+
+https://youtu.be/eue3UdFvwPo
+
+Follow me on twitter for more: https://twitter.com/HunorBorbely
+
+*/
+
+// Extend the base functionality of JavaScript
+Array.prototype.last = function () {
+  return this[this.length - 1];
+};
+
+// A sinus function that acceps degrees instead of radians
+Math.sinus = function (degree) {
+  return Math.sin((degree / 180) * Math.PI);
+};
+
+// Game data
+let phase = "waiting"; // waiting | stretching | turning | walking | transitioning | falling
+let lastTimestamp; // The timestamp of the previous requestAnimationFrame cycle
+
+let heroX; // Changes when moving forward
+let heroY; // Only changes when falling
+let sceneOffset; // Moves the whole game
+
+let platforms = [];
+let sticks = [];
+let trees = [];
+
+// Todo: Save high score to localStorage (?)
+
+let score = 0;
+
+// Configuration
+const canvasWidth = 375;
+const canvasHeight = 375;
+const platformHeight = 100;
+const heroDistanceFromEdge = 10; // While waiting
+const paddingX = 100; // The waiting position of the hero in from the original canvas size
+const perfectAreaSize = 10;
+
+// The background moves slower than the hero
+const backgroundSpeedMultiplier = 0.2;
+
+const hill1BaseHeight = 100;
+const hill1Amplitude = 10;
+const hill1Stretch = 1;
+const hill2BaseHeight = 70;
+const hill2Amplitude = 20;
+const hill2Stretch = 0.5;
+
+const stretchingSpeed = 4; // Milliseconds it takes to draw a pixel
+const turningSpeed = 4; // Milliseconds it takes to turn a degree
+const walkingSpeed = 4;
+const transitioningSpeed = 2;
+const fallingSpeed = 2;
+
+const heroWidth = 17; // 24
+const heroHeight = 30; // 40
+
+const canvas = document.getElementById("game");
+canvas.width = window.innerWidth; // Make the Canvas full screen
+canvas.height = window.innerHeight;
+
+const ctx = canvas.getContext("2d");
+
+const introductionElement = document.getElementById("introduction");
+const perfectElement = document.getElementById("perfect");
+const restartButton = document.getElementById("restart");
+const scoreElement = document.getElementById("score");
+
+// Initialize layout
+resetGame();
+
+// Resets game variables and layouts but does not start the game (game starts on keypress)
+function resetGame() {
+  // Reset game progress
+  phase = "waiting";
+  lastTimestamp = undefined;
+  sceneOffset = 0;
+  score = 0;
+
+  introductionElement.style.opacity = 1;
+  perfectElement.style.opacity = 0;
+  restartButton.style.display = "none";
+  scoreElement.innerText = score;
+
+  // The first platform is always the same
+  // x + w has to match paddingX
+  platforms = [{ x: 50, w: 50 }];
+  generatePlatform();
+  generatePlatform();
+  generatePlatform();
+  generatePlatform();
+
+  sticks = [{ x: platforms[0].x + platforms[0].w, length: 0, rotation: 0 }];
+
+  trees = [];
+  generateTree();
+  generateTree();
+  generateTree();
+  generateTree();
+  generateTree();
+  generateTree();
+  generateTree();
+  generateTree();
+  generateTree();
+  generateTree();
+
+  heroX = platforms[0].x + platforms[0].w - heroDistanceFromEdge;
+  heroY = 0;
+
+  draw();
 }
-function cycleFomoClasses() {
-  let i = 0;
-  setInterval(() => {
-    toggleFomoClass(document.getElementById(elements[i]));
-    i = (i + 1) % elements.length; 
-  }, 5000);
+
+function generateTree() {
+  const minimumGap = 30;
+  const maximumGap = 150;
+
+  // X coordinate of the right edge of the furthest tree
+  const lastTree = trees[trees.length - 1];
+  let furthestX = lastTree ? lastTree.x : 0;
+
+  const x =
+    furthestX +
+    minimumGap +
+    Math.floor(Math.random() * (maximumGap - minimumGap));
+
+  const treeColors = ["#6D8821", "#8FAC34", "#98B333"];
+  const color = treeColors[Math.floor(Math.random() * 3)];
+
+  trees.push({ x, color });
 }
-cycleFomoClasses(); 
-</script>
+
+function generatePlatform() {
+  const minimumGap = 40;
+  const maximumGap = 200;
+  const minimumWidth = 20;
+  const maximumWidth = 100;
+
+  // X coordinate of the right edge of the furthest platform
+  const lastPlatform = platforms[platforms.length - 1];
+  let furthestX = lastPlatform.x + lastPlatform.w;
+
+  const x =
+    furthestX +
+    minimumGap +
+    Math.floor(Math.random() * (maximumGap - minimumGap));
+  const w =
+    minimumWidth + Math.floor(Math.random() * (maximumWidth - minimumWidth));
+
+  platforms.push({ x, w });
+}
+
+resetGame();
+
+// If space was pressed restart the game
+window.addEventListener("keydown", function (event) {
+  if (event.key == " ") {
+    event.preventDefault();
+    resetGame();
+    return;
+  }
+});
+
+window.addEventListener("mousedown", function (event) {
+  if (phase == "waiting") {
+    lastTimestamp = undefined;
+    introductionElement.style.opacity = 0;
+    phase = "stretching";
+    window.requestAnimationFrame(animate);
+  }
+});
+
+window.addEventListener("mouseup", function (event) {
+  if (phase == "stretching") {
+    phase = "turning";
+  }
+});
+
+window.addEventListener("resize", function (event) {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  draw();
+});
+
+window.requestAnimationFrame(animate);
+
+// The main game loop
+function animate(timestamp) {
+  if (!lastTimestamp) {
+    lastTimestamp = timestamp;
+    window.requestAnimationFrame(animate);
+    return;
+  }
+
+  switch (phase) {
+    case "waiting":
+      return; // Stop the loop
+    case "stretching": {
+      sticks.last().length += (timestamp - lastTimestamp) / stretchingSpeed;
+      break;
+    }
+    case "turning": {
+      sticks.last().rotation += (timestamp - lastTimestamp) / turningSpeed;
+
+      if (sticks.last().rotation > 90) {
+        sticks.last().rotation = 90;
+
+        const [nextPlatform, perfectHit] = thePlatformTheStickHits();
+        if (nextPlatform) {
+          // Increase score
+          score += perfectHit ? 2 : 1;
+          scoreElement.innerText = score;
+
+          if (perfectHit) {
+            perfectElement.style.opacity = 1;
+            setTimeout(() => (perfectElement.style.opacity = 0), 1000);
+          }
+
+          generatePlatform();
+          generateTree();
+          generateTree();
+        }
+
+        phase = "walking";
+      }
+      break;
+    }
+    case "walking": {
+      heroX += (timestamp - lastTimestamp) / walkingSpeed;
+
+      const [nextPlatform] = thePlatformTheStickHits();
+      if (nextPlatform) {
+        // If hero will reach another platform then limit it's position at it's edge
+        const maxHeroX = nextPlatform.x + nextPlatform.w - heroDistanceFromEdge;
+        if (heroX > maxHeroX) {
+          heroX = maxHeroX;
+          phase = "transitioning";
+        }
+      } else {
+        // If hero won't reach another platform then limit it's position at the end of the pole
+        const maxHeroX = sticks.last().x + sticks.last().length + heroWidth;
+        if (heroX > maxHeroX) {
+          heroX = maxHeroX;
+          phase = "falling";
+        }
+      }
+      break;
+    }
+    case "transitioning": {
+      sceneOffset += (timestamp - lastTimestamp) / transitioningSpeed;
+
+      const [nextPlatform] = thePlatformTheStickHits();
+      if (sceneOffset > nextPlatform.x + nextPlatform.w - paddingX) {
+        // Add the next step
+        sticks.push({
+          x: nextPlatform.x + nextPlatform.w,
+          length: 0,
+          rotation: 0
+        });
+        phase = "waiting";
+      }
+      break;
+    }
+    case "falling": {
+      if (sticks.last().rotation < 180)
+        sticks.last().rotation += (timestamp - lastTimestamp) / turningSpeed;
+
+      heroY += (timestamp - lastTimestamp) / fallingSpeed;
+      const maxHeroY =
+        platformHeight + 100 + (window.innerHeight - canvasHeight) / 2;
+      if (heroY > maxHeroY) {
+        restartButton.style.display = "block";
+        return;
+      }
+      break;
+    }
+    default:
+      throw Error("Wrong phase");
+  }
+
+  draw();
+  window.requestAnimationFrame(animate);
+
+  lastTimestamp = timestamp;
+}
+
+// Returns the platform the stick hit (if it didn't hit any stick then return undefined)
+function thePlatformTheStickHits() {
+  if (sticks.last().rotation != 90)
+    throw Error(`Stick is ${sticks.last().rotation}°`);
+  const stickFarX = sticks.last().x + sticks.last().length;
+
+  const platformTheStickHits = platforms.find(
+    (platform) => platform.x < stickFarX && stickFarX < platform.x + platform.w
+  );
+
+  // If the stick hits the perfect area
+  if (
+    platformTheStickHits &&
+    platformTheStickHits.x + platformTheStickHits.w / 2 - perfectAreaSize / 2 <
+      stickFarX &&
+    stickFarX <
+      platformTheStickHits.x + platformTheStickHits.w / 2 + perfectAreaSize / 2
+  )
+    return [platformTheStickHits, true];
+
+  return [platformTheStickHits, false];
+}
+
+function draw() {
+  ctx.save();
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+  drawBackground();
+
+  // Center main canvas area to the middle of the screen
+  ctx.translate(
+    (window.innerWidth - canvasWidth) / 2 - sceneOffset,
+    (window.innerHeight - canvasHeight) / 2
+  );
+
+  // Draw scene
+  drawPlatforms();
+  drawHero();
+  drawSticks();
+
+  // Restore transformation
+  ctx.restore();
+}
+
+restartButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  resetGame();
+  restartButton.style.display = "none";
+});
+
+function drawPlatforms() {
+  platforms.forEach(({ x, w }) => {
+    // Draw platform
+    ctx.fillStyle = "black";
+    ctx.fillRect(
+      x,
+      canvasHeight - platformHeight,
+      w,
+      platformHeight + (window.innerHeight - canvasHeight) / 2
+    );
+
+    // Draw perfect area only if hero did not yet reach the platform
+    if (sticks.last().x < x) {
+      ctx.fillStyle = "red";
+      ctx.fillRect(
+        x + w / 2 - perfectAreaSize / 2,
+        canvasHeight - platformHeight,
+        perfectAreaSize,
+        perfectAreaSize
+      );
+    }
+  });
+}
+
+function drawHero() {
+  ctx.save();
+  ctx.fillStyle = "black";
+  ctx.translate(
+    heroX - heroWidth / 2,
+    heroY + canvasHeight - platformHeight - heroHeight / 2
+  );
+
+  // Body
+  drawRoundedRect(
+    -heroWidth / 2,
+    -heroHeight / 2,
+    heroWidth,
+    heroHeight - 4,
+    5
+  );
+
+  // Legs
+  const legDistance = 5;
+  ctx.beginPath();
+  ctx.arc(legDistance, 11.5, 3, 0, Math.PI * 2, false);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-legDistance, 11.5, 3, 0, Math.PI * 2, false);
+  ctx.fill();
+
+  // Eye
+  ctx.beginPath();
+  ctx.fillStyle = "white";
+  ctx.arc(5, -7, 3, 0, Math.PI * 2, false);
+  ctx.fill();
+
+  // Band
+  ctx.fillStyle = "red";
+  ctx.fillRect(-heroWidth / 2 - 1, -12, heroWidth + 2, 4.5);
+  ctx.beginPath();
+  ctx.moveTo(-9, -14.5);
+  ctx.lineTo(-17, -18.5);
+  ctx.lineTo(-14, -8.5);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(-10, -10.5);
+  ctx.lineTo(-15, -3.5);
+  ctx.lineTo(-5, -7);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function drawRoundedRect(x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x, y + radius);
+  ctx.lineTo(x, y + height - radius);
+  ctx.arcTo(x, y + height, x + radius, y + height, radius);
+  ctx.lineTo(x + width - radius, y + height);
+  ctx.arcTo(x + width, y + height, x + width, y + height - radius, radius);
+  ctx.lineTo(x + width, y + radius);
+  ctx.arcTo(x + width, y, x + width - radius, y, radius);
+  ctx.lineTo(x + radius, y);
+  ctx.arcTo(x, y, x, y + radius, radius);
+  ctx.fill();
+}
+
+function drawSticks() {
+  sticks.forEach((stick) => {
+    ctx.save();
+
+    // Move the anchor point to the start of the stick and rotate
+    ctx.translate(stick.x, canvasHeight - platformHeight);
+    ctx.rotate((Math.PI / 180) * stick.rotation);
+
+    // Draw stick
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, -stick.length);
+    ctx.stroke();
+
+    // Restore transformations
+    ctx.restore();
+  });
+}
+
+function drawBackground() {
+  // Draw sky
+  var gradient = ctx.createLinearGradient(0, 0, 0, window.innerHeight);
+  gradient.addColorStop(0, "#BBD691");
+  gradient.addColorStop(1, "#FEF1E1");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+  // Draw hills
+  drawHill(hill1BaseHeight, hill1Amplitude, hill1Stretch, "#95C629");
+  drawHill(hill2BaseHeight, hill2Amplitude, hill2Stretch, "#659F1C");
+
+  // Draw trees
+  trees.forEach((tree) => drawTree(tree.x, tree.color));
+}
+
+// A hill is a shape under a stretched out sinus wave
+function drawHill(baseHeight, amplitude, stretch, color) {
+  ctx.beginPath();
+  ctx.moveTo(0, window.innerHeight);
+  ctx.lineTo(0, getHillY(0, baseHeight, amplitude, stretch));
+  for (let i = 0; i < window.innerWidth; i++) {
+    ctx.lineTo(i, getHillY(i, baseHeight, amplitude, stretch));
+  }
+  ctx.lineTo(window.innerWidth, window.innerHeight);
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function drawTree(x, color) {
+  ctx.save();
+  ctx.translate(
+    (-sceneOffset * backgroundSpeedMultiplier + x) * hill1Stretch,
+    getTreeY(x, hill1BaseHeight, hill1Amplitude)
+  );
+
+  const treeTrunkHeight = 5;
+  const treeTrunkWidth = 2;
+  const treeCrownHeight = 25;
+  const treeCrownWidth = 10;
+
+  // Draw trunk
+  ctx.fillStyle = "#7D833C";
+  ctx.fillRect(
+    -treeTrunkWidth / 2,
+    -treeTrunkHeight,
+    treeTrunkWidth,
+    treeTrunkHeight
+  );
+
+  // Draw crown
+  ctx.beginPath();
+  ctx.moveTo(-treeCrownWidth / 2, -treeTrunkHeight);
+  ctx.lineTo(0, -(treeTrunkHeight + treeCrownHeight));
+  ctx.lineTo(treeCrownWidth / 2, -treeTrunkHeight);
+  ctx.fillStyle = color;
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function getHillY(windowX, baseHeight, amplitude, stretch) {
+  const sineBaseY = window.innerHeight - baseHeight;
+  return (
+    Math.sinus((sceneOffset * backgroundSpeedMultiplier + windowX) * stretch) *
+      amplitude +
+    sineBaseY
+  );
+}
+
+function getTreeY(x, baseHeight, amplitude) {
+  const sineBaseY = window.innerHeight - baseHeight;
+  return Math.sinus(x) * amplitude + sineBaseY;
+}
+
+
+	</script>
+	
 </body>
 </html>
