@@ -1,1 +1,15 @@
+:root {color-scheme: light dark;}
+@media (prefers-color-scheme: light) {
+  .element {color: black;background-color: white;}
+}
+@media (prefers-color-scheme: dark) {
+  .element {color: white;background-color: black;}
+}
+html{color-scheme:light dark;}
+:root {color-scheme: light dark;}
+.element {
+  color: light-dark(black, white);
+  background-color: light-dark(white, black);
+}
+<details><summary>title</summary>tab data tab data tab data tab data </details>
 
