@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mufasa</title>
+    <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.net/8.0.4/video-js.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .mufasaPopup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .mufasaClose-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size:40px;
+            color: white;
+            cursor: pointer;
+            border: 2px #FFF solid;
+            padding: 0px 11px;
+            border-radius: 50px;
+            z-index:999;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .mute-toggle {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 16px;
+            color: white;
+            background: none;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 2000;
+        }
+
+        .mute-toggle img {
+            width: 24px;
+            height: 24px;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- mufasaPopup Container -->
+    <div class="mufasaPopup" id="video-mufasaPopup">
+        <span class="mufasaClose-btn" id="close-mufasaPopup">&times;</span>
+        <button class="mute-toggle" id="mute-toggle">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/mute.png" alt="Mute" id="mute-icon" />
+        </button>
+        <video id="mufasaPopup-video" class="video-js vjs-default-skin" autoplay muted playsinline></video>
+    </div>
+
+    <!-- Video.js JS -->
+    <script src="https://vjs.zencdn.net/8.0.4/video.min.js"></script>
+    <script>
+        const videoUrl = 'https://vid.amarujala.com/uploaded_videos/2024/12/17/1TnvQF8.m3u8'; // Replace with your M3U8 URL
+
+        // Initialize Video.js player
+        const player = videojs('mufasaPopup-video', {
+            autoplay: true,
+            muted: true,
+            controls: false, // Hide default controls
+            preload: 'auto',
+            responsive: true,
+            fluid: true,
+        });
+
+        // Load the M3U8 source
+        player.src({
+            src: videoUrl,
+            type: 'application/x-mpegURL',
+        });
+
+        // mufasaPopup handling
+        const mufasaPopup = document.getElementById('video-mufasaPopup');
+        const closemufasaPopup = document.getElementById('close-mufasaPopup');
+        const muteToggle = document.getElementById('mute-toggle');
+        const muteIcon = document.getElementById('mute-icon');
+
+        // Auto-open the mufasaPopup on page load
+        window.addEventListener('load', () => {
+            mufasaPopup.classList.add('active');
+            player.play();
+        });
+
+        // Close mufasaPopup
+        closemufasaPopup.addEventListener('click', () => {
+            mufasaPopup.style.display = 'none';
+            player.pause();
+        });
+
+        // Mute/unmute toggle
+        muteToggle.addEventListener('click', () => {
+            if (player.muted()) {
+                player.muted(false);
+                muteIcon.src = 'https://img.icons8.com/ios-filled/50/ffffff/speaker.png'; // Unmute icon
+            } else {
+                player.muted(true);
+                muteIcon.src = 'https://img.icons8.com/ios-filled/50/ffffff/mute.png'; // Mute icon
+            }
+        });
+    </script>
+</body>
+</html>
