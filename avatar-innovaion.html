@@ -5,15 +5,6 @@
   <title>Avatar Overlay Innovation</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body {
-      margin:0;
-      font-family:Arial, sans-serif;
-      height:200vh;
-      background-image:url("images/AUBG.png");
-      background-size:contain;
-      background-repeat:no-repeat;
-      overflow:hidden;
-    }
     .mainAvatarFrame { width:100%; height:100%; position:fixed; top:0; left:0;z-index:9999999;}
     .page-content { padding:20px; }
 
@@ -169,6 +160,30 @@
         right:150px;
         font-size:16px;
         padding:5px 8px;
+      }
+    }
+
+
+    
+
+
+
+
+    @media (min-width:600px) {
+      body {
+      margin:0;
+      font-family:Arial, sans-serif;
+      height:200vh;
+      background-image:url("https://kamalkant.github.io/AUBG.png");
+      background-size:contain;
+      background-repeat:no-repeat;
+      overflow:hidden;
+    }
+    }
+    @media (max-width:600px) {
+      body{
+        background-image:url("https://kamalkant.github.io/bgskinM.png");
+        background-size: cover;
       }
     }
   </style>
