@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Avatar Overlay Innovation</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body {
+      margin:0;
+      font-family:Arial, sans-serif;
+      height:200vh;
+      background-image:url("../images/AUBG.png");
+      background-size:contain;
+      background-repeat:no-repeat;
+      overflow:hidden;
+    }
+    .mainAvatarFrame { width:100%; height:100%; position:fixed; top:0; left:0;z-index:9999999;}
+    .page-content { padding:20px; }
+
+    #overlay { position:fixed; inset:0; z-index:9999; pointer-events:none; }
+
+    .overlay-panel {
+      position:absolute;
+      color:#fff;
+      opacity:0;
+      width:400px;
+      height:150px;
+      box-sizing:border-box;
+      pointer-events:auto;
+    }
+
+    #panel4 {
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      position: absolute;
+    }
+
+    #panel4.show {
+      animation: expandToFull .1s forwards;
+    }
+
+    @keyframes expandToFull {
+      0% { width:100%; height:100%; opacity:0; }
+      10% { opacity:1; }
+      100% {
+        width:100%;
+        height:100%;
+        top:0;
+        left:0;
+        border-radius:0;
+        opacity:1;
+      }
+    }
+
+    /* First background video */
+    .AVfire {
+      position:absolute;
+      top:0;
+      left:0;
+      z-index:1;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+    }
+    .AVfire video {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* Second/trailer video */
+    #overlayVideo {
+      opacity:0;
+      transition:opacity .1s ease;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,1);
+      object-fit:cover;
+      display:block;
+      z-index:999;
+    }
+
+    #panel4.playing #overlayVideo {
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    /* Skip / Close button – top-right */
+    #closeOverlayBtn {
+      display:none;
+      position:absolute;
+      top:20px;
+      right:20px;
+      background:rgba(255,255,255,.2);
+      border:none;
+      color:#fff;
+      padding:6px 10px;
+      font-size:20px;
+      cursor:pointer;
+      z-index:10000;
+      backdrop-filter:blur(5px);
+      border-radius:6px;
+    }
+
+    /* extra close button on trailer – top-left */
+    #closeSecondBtn {
+      display:none;
+      position:absolute;
+      top:20px;
+      left:20px;
+      z-index:10001;
+      background:rgba(0,0,0,.45);
+      color:#fff;
+      border:none;
+      padding:6px 10px;
+      font-size:20px;
+      cursor:pointer;
+      border-radius:6px;
+    }
+
+    #overlayVideo, #closeOverlayBtn, #closeSecondBtn { z-index:9998; }
+
+    @media (max-width:600px) {
+      #closeOverlayBtn, #closeSecondBtn {
+        font-size:16px;
+        padding:6px 8px;
+        top:12px;
+      }
+    }
+    .overlay-panel.show.playing #AVfire{
+      display: none;
+    }
+    .overlay-panel.show.playing #overlayVideo{
+      height: auto;
+    }
+    .overlay-panel.show.playing:has(#overlayVideo){
+      background-color: black;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="mainAvatarFrame" id="mainAvatarFrame">
+    <div class="page-content"></div>
+    <div id="overlay">
+      <div id="panel4" class="overlay-panel">
+        <div class="AVfire" id="AVfire">
+          <video id="overlayVideo2" muted playsinline preload="auto" crossorigin="anonymous" aria-hidden="true"></video>
+        </div>
+        <!-- removed autoplay and set preload to none -->
+        <video id="overlayVideo" controls muted playsinline preload="none"></video>
+        <button id="closeOverlayBtn">Skip / Close ✕</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+    (function () {
+        const panel4 = document.getElementById('panel4');
+        const overlay = document.getElementById('overlay');
+        const mainAvatarFrame = document.getElementById('mainAvatarFrame');
+        const firstVideo = document.getElementById('overlayVideo2'); // intro
+        const secondVideo = document.getElementById('overlayVideo'); // trailer
+        const closeBtn = document.getElementById('closeOverlayBtn');
+        const closeSecondBtn = document.getElementById('closeSecondBtn'); // optional
+
+        // --- SIMPLE CONFIG ---
+        const MOV_SRC = 'https://vid.amarujala.com/gam/output_bg11M.mov';
+        const WEBM_SRC = 'https://vid.amarujala.com/gam/output_bg11M.webm';
+        const TRAILER_MP4 = 'https://vid.amarujala.com/gam/avatarTrailer.mp4';
+        const FIRST_START_DELAY_MS = 10; // How many seconds *before* end to start loading second video
+        const SECOND_PRELOAD_LEAD_SEC = 5; // 1 second before end
+
+        // --- HELPERS ---
+
+        // Determine if we should use the .mov file (Safari OR Chrome on iOS)
+        function shouldUseMov() {
+            const ua = navigator.userAgent;
+            const vendor = navigator.vendor || "";
+
+            // 1. Existing Safari Detection
+            const isAppleVendor = /Apple Computer/.test(vendor);
+            const isChromium = /Chrome|Chromium|CriOS|EdgiOS|OPiOS/.test(ua);
+            const isFirefox = /Firefox|FxiOS/.test(ua);
+            const isSafari = isAppleVendor && /Safari/.test(ua) && !isChromium && !isFirefox;
+
+            // 2. Chrome on iOS Detection (CriOS)
+            const isIOSChrome = /CriOS/.test(ua);
+
+            // Return true if it is Safari OR Chrome on iOS
+            return isSafari || isIOSChrome;
+        }
+
+        function setSource(videoEl, src, type) {
+            while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
+            const s = document.createElement('source');
+            s.src = src;
+            if (type) s.type = type;
+            videoEl.appendChild(s);
+            try {
+                videoEl.load();
+            } catch (e) {}
+        }
+
+        function endOverlay() {
+            try {
+                firstVideo.pause();
+            } catch (e) {}
+            try {
+                secondVideo.pause();
+            } catch (e) {}
+            overlay.style.display = 'none';
+            mainAvatarFrame.style.display = 'none';
+        }
+
+        let trailerPreloaded = false; // second video file loaded?
+        let secondVisibleStarted = false; // second video shown+playing?
+
+        // Preload the second video (file starts loading, still invisible)
+        function preloadSecondVideo() {
+            if (trailerPreloaded) return;
+            trailerPreloaded = true;
+            // set its source and trigger loading
+            setSource(secondVideo, TRAILER_MP4, 'video/mp4');
+            secondVideo.preload = 'auto';
+            try {
+                secondVideo.load();
+            } catch (e) {}
+            // It stays opacity:0 because .playing is not yet added to panel4
+        }
+
+        // Make the second video visible and start playing
+        function startSecondVideoVisible() {
+            if (secondVisibleStarted) return;
+            secondVisibleStarted = true;
+            panel4.classList.add('playing'); // CSS makes #overlayVideo opacity:1
+            closeBtn.style.display = 'block';
+            if (closeSecondBtn) closeSecondBtn.style.display = 'block';
+            secondVideo.play().catch(err => {
+                console.warn('Second video autoplay failed:', err);
+            });
+        }
+
+        // --- MAIN FLOW ---
+        (function init() {
+            // 1) Expand panel
+            setTimeout(() => {
+                panel4.classList.add('show');
+                panel4.setAttribute('aria-hidden', 'false');
+            }, 20);
+
+            // 2) Set source for the FIRST video based on Browser Type
+            if (shouldUseMov()) {
+                // Loads .mov for Safari AND Chrome on iOS
+                setSource(firstVideo, MOV_SRC, 'video/quicktime');
+            } else {
+                // Loads .webm for everyone else (Chrome Desktop, Android, Firefox, etc.)
+                setSource(firstVideo, WEBM_SRC, 'video/webm');
+            }
+
+            // 3) FIRST VIDEO: when loaded, start after small delay
+            firstVideo.addEventListener('loadeddata', () => {
+                setTimeout(() => {
+                    firstVideo.play().catch(err => {
+                        console.warn('First video autoplay failed:', err);
+                    });
+                }, FIRST_START_DELAY_MS);
+            }, {
+                once: true
+            });
+
+            // 4) While first video is playing, watch time and preload second 1s before end
+            firstVideo.addEventListener('timeupdate', () => {
+                const duration = firstVideo.duration;
+                // If duration isn't ready yet, skip
+                if (!isFinite(duration) || duration <= 0) return;
+                const remaining = duration - firstVideo.currentTime;
+
+                // Start loading the second video a bit before the end
+                if (!trailerPreloaded && remaining <= SECOND_PRELOAD_LEAD_SEC) {
+                    preloadSecondVideo();
+                }
+            });
+
+            // 5) When FIRST video ENDS: ensure preloaded, then show+play second
+            firstVideo.addEventListener('ended', () => {
+                if (!trailerPreloaded) {
+                    // In case preload didn't happen due to missing timeupdate
+                    preloadSecondVideo();
+                }
+                startSecondVideoVisible();
+            }, {
+                once: true
+            });
+
+            // 6) When SECOND video ENDS → close overlay
+            secondVideo.addEventListener('ended', () => {
+                endOverlay();
+            }, {
+                once: true
+            });
+
+            // 7) Close buttons
+            closeBtn.addEventListener('click', endOverlay);
+            if (closeSecondBtn) closeSecondBtn.addEventListener('click', endOverlay);
+
+            // 8) ESC key also closes
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') endOverlay();
+            });
+        })();
+    })();
+</script>
+
+
+</body>
+</html>
