@@ -159,7 +159,7 @@
         top:12px;
         right:150px;
         font-size:16px;
-        padding:6px 8px;
+        padding:5px 8px;
       }
     }
 
@@ -177,7 +177,7 @@
       background-image:url("https://kamalkant.github.io/AUBG.png");
       background-size:contain;
       background-repeat:no-repeat;
-      overflow:hidden;
+      /* overflow:hidden; */
     }
     }
     @media (max-width:600px) {
@@ -185,6 +185,12 @@
         background-image:url("https://kamalkant.github.io/bgskinM.png");
         background-size: cover;
       }
+    }
+    body:has(.overlay-panel.show.playing) {
+      overflow: hidden !important;
+    }
+    body:has(#mainAvatarFrame[style="display: none;"] .overlay-panel.show.playing) {
+      overflow: auto !important;
     }
   </style>
 </head>
@@ -203,7 +209,6 @@
       </div>
     </div>
   </div>
-
 <script>
 (function () {
     const muteBtn = document.getElementById("muteToggleBtn");
