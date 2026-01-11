@@ -114,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // INTERSECTION OBSERVER FOR FADE-IN ANIMATIONS
   // ============================================
   const observerOptions = {
-    threshold: 0.15,
-    rootMargin: "0px 0px -80px 0px",
+    threshold: 0.05,
+    rootMargin: "0px 0px 0px 0px",
   };
 
   const observer = new IntersectionObserver(function (entries) {
@@ -258,15 +258,15 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     },
     {
-      threshold: 0.1,
-      rootMargin: "0px 0px -100px 0px",
+      threshold: 0.05,
+      rootMargin: "0px 0px 50px 0px",
     }
   );
   
   sections.forEach((section) => {
     section.style.opacity = "0";
-    section.style.transform = "translateY(40px)";
-    section.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out";
+    section.style.transform = "translateY(30px)";
+    section.style.transition = "opacity 0.4s ease-out, transform 0.4s ease-out";
     sectionObserver.observe(section);
   });
 });
