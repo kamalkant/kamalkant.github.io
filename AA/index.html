@@ -1452,15 +1452,30 @@
         }
         
         // Hook into game logic
+        const triggeredWords = new Set();
+        
         document.addEventListener('DOMContentLoaded', function() {
             const originalHandleMouseUp = window.handleMouseUp;
             if (originalHandleMouseUp) {
                 window.handleMouseUp = function() {
                     originalHandleMouseUp.call(this);
-                    // Check if a word was just found
-                    if (document.querySelectorAll("#word-container .highlight").length > 0) {
-                        showBlankDivOnWordComplete();
-                    }
+                    
+                    // Get all highlighted words
+                    const highlightedWords = document.querySelectorAll("#word-container .word.highlight");
+                    
+                    // Check if a NEW word was just completed (has highlight class)
+                    highlightedWords.forEach(wordElement => {
+                        const wordText = wordElement.textContent.trim();
+                        
+                        // Only trigger animation if this word hasn't triggered it before
+                        if (!triggeredWords.has(wordText)) {
+                            // Verify it actually has the highlight class (meaning it's completed)
+                            if (wordElement.classList.contains('highlight')) {
+                                triggeredWords.add(wordText);
+                                showBlankDivOnWordComplete();
+                            }
+                        }
+                    });
                 };
             }
         });
