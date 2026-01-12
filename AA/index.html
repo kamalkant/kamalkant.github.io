@@ -1,1 +1,1470 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>शब्द खोज - रोज खेलें और नए शब्द सीखें</title>
+    <meta name="description"
+        content="शब्द खोज - रोज खेलें और नए शब्द सीखें, अक्षरों को सही क्रम में चुनें और शब्द बनाएं - Hindi Word Game - Play to learn new words daily">
+    <meta name="keywords" content="shabd khoj, शब्द खोज, hindi word games">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .header {
+            display: grid;
+            color: #000;
+            width: 100%;
+            max-width: 415px;
+            padding-top: 0;
+            align-items: center;
+            grid-template-columns: 1fr 5fr 1fr;
+            padding: 5px 0;
+            padding-bottom: 0;
+            color: #FFF;
+            background-color: #E31E25;
+
+        }
+
+        svg {
+            cursor: pointer;
+        }
+
+        .header.hdr2 {
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            padding: 5px 0;
+            background-image: url(https://staticimg.amarujala.com/assets/images/2022/04/26/auplus-top-icon_6267de55dc09b.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-color: #250000;
+            border-top: 1px rgba(255, 255, 255, 0.3) solid;
+            border-bottom: 1px rgba(255, 255, 255, 0.3) solid;
+            margin-bottom: 10px;
+        }
+
+        .header.hdr2 .score.scr4 {
+            text-align: left;
+            padding-left: 12px;
+        }
+
+        .header.hdr2 .score.scr5 {
+            text-align: right;
+            padding-right: 12px;
+            position: relative;
+        }
+
+        .header>.score {
+            text-align: center;
+        }
+
+        .header>.score.scr1 {
+            text-align: center;
+        }
+
+        .header>.score.scr1>span {
+            background-color: #250000;
+            padding: 0px 7px;
+            cursor: pointer;
+            border-radius: 7px;
+        }
+
+        .header>.score.scr3 {
+            text-align: center;
+        }
+
+        .header>.score>p {
+            margin: 7.5px 0;
+        }
+
+        .header>.refesh {
+            cursor: pointer;
+        }
+
+        .header>.score>span {
+            padding: 0;
+            font-size: 2rem;
+            display: inline-block;
+            text-align: center;
+            vertical-align: text-bottom;
+        }
+
+        #crossword-container {
+            margin-bottom: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 16px;
+        }
+
+        button {
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            text-align: center;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background-color: transparent;
+            margin: 5px 5px;
+        }
+
+        /* Highlight class for selected cells */
+        .highlight {
+            background-color: #ffff99;
+            opacity: .7;
+            /* Light yellow */
+        }
+
+        /* .highlight-found {
+        background-color: #ff6699; /*  
+    } */
+
+        button.correct {
+            background-color: #d4edda;
+            /* Light green */
+        }
+
+        button.incorrect {
+            background-color: #f8d7da;
+            /* Light red */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+
+        #word-container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .word {
+            padding: 2px 7px 0px;
+            border: 1px solid #000;
+            cursor: pointer;
+            font-size: 18px;
+            background-color: #f0f0f0;
+        }
+
+        .word.highlight {
+            background-color: #ffff99;
+            /* Light yellow for selected words */
+        }
+
+        .highlight {
+            background-color: #eeaf24;
+            opacity: .7;
+            /* Light yellow for selected cells */
+        }
+
+        /* Popup container */
+        #congratulations-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Popup content */
+        .popup-content {
+            background:#FF5252 url('https://staticimg.amarujala.com/assets/images/2025/11/25/popup-back_692536ac54f5a.png') no-repeat center center / cover;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            margin: auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 270px;
+            min-height: 200px;
+            padding-bottom: 30px;
+            padding-top: 20px;
+        }
+        .popup-content .close{width: 36px; height: 36px; position: absolute; top: 0px; right:0px; background: none; border-radius: 50%; font-weight: 700; font-size: 18px; line-height: 20px; display: flex; justify-content: center; align-items: center; text-decoration: none; color: #fff;z-index:1}
+        .popup-content h1{
+            color:#fff;
+            font-size: 24px;
+            line-height: 34px;
+            font-weight: 700;
+            margin:20px auto;
+        }
+        .popup-content h1 img{
+            display: inline;
+            vertical-align: top;
+        }
+        .popup-content h1 span{
+            color:#FDCB06;
+            display: inline;
+        }
+        .popup-content p{
+            color:#fff;
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 900;
+            margin:0 0 10px;
+        }
+        .popup-content p.bold{
+            font-weight: 700;
+        }
+        .popup-content p b{
+            color:#FDCB06;
+            font-weight: 900;
+        }
+        .popup-content p span{
+            color:#000;
+            font-weight: 1000;
+        }
+        .popup-content button{
+            width: 100%;
+            max-width: 200px;
+            height: 45px;
+            background-color: #fff;
+            border-radius: 5px;
+            color:#000;
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 700;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        .popup-content button:hover {
+            background: #fff !important;
+            opacity: 1 !important;
+            border-radius: 5px !important;
+        }
+        #backBtn_popup::after {
+            content: "Exit";
+            top:43px;
+            color:#fff;
+        }
+        
+        .btm-btm{display: flex; align-items: center; justify-content: center;flex-direction: column;}
+
+        /* Crackers animation */
+        .crackers {
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .cracker {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            position: absolute;
+            border-radius: 50%;
+            animation: cracker-explosion 1s infinite;
+        }
+
+        .cracker1 {
+            top: -50px;
+            left: -30px;
+        }
+
+        .cracker2 {
+            top: -50px;
+            right: -30px;
+        }
+
+        .cracker3 {
+            top: 0;
+            left: -20px;
+        }
+
+        /* Hidden class to hide the popup initially */
+        .hidden {
+            display: none;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        /* Keyframes for cracker explosion */
+        @keyframes cracker-explosion {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* .match-start {
+        position: relative;
+    }
+    
+    .match-end.DL {
+        clip-path: polygon(40% 0%, 100% 0, 100% 100%, 40% 100%, 0% 50%);
+        rotate: -45deg;
+    }
+    .match-end.D {
+        clip-path: polygon(40% 0%, 100% 0, 100% 100%, 40% 100%, 0% 50%);
+        rotate: -90deg;
+    }
+    .match-end.DR {
+        clip-path: polygon(40% 0%, 100% 0, 100% 100%, 40% 100%, 0% 50%);
+        rotate: -135deg;
+    }
+
+
+    .match-end.UL {
+        clip-path: polygon(40% 0%, 100% 0, 100% 100%, 40% 100%, 0% 50%);
+        rotate: 45deg;
+    }
+    .match-end.U {
+        clip-path: polygon(40% 0%, 100% 0, 100% 100%, 40% 100%, 0% 50%);
+        rotate: 90deg;
+    }
+    .match-end.UR {
+        clip-path: polygon(40% 0%, 100% 0, 100% 100%, 40% 100%, 0% 50%);
+        rotate: 135deg;
+    }
+
+    .match-end.L {
+        clip-path: polygon(40% 0%, 100% 0, 100% 100%, 40% 100%, 0% 50%);
+        rotate: 0deg;
+    }
+    .match-end.R {
+        clip-path: polygon(40% 0%, 100% 0, 100% 100%, 40% 100%, 0% 50%);
+        rotate: -180deg;
+    } */
+
+        /* .match-end.D {border-radius:0 0 50px 50px;}
+    .match-end.U{border-radius:50px 50px 0 0;}
+    .match-end.L {border-radius:50px 0 0 50px;}
+    .match-end.R {border-radius: 0 50px 50px 0;} */
+
+
+
+
+        .match-end {}
+
+        button:hover {
+            background-color: yellow;
+        }
+
+
+
+
+        body {
+            margin: 0;
+            padding: 0 0 100px;
+        }
+
+        .mainC {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 500px;
+            min-width: 300px;
+        }
+
+        td {
+            padding: 0;
+        }
+
+        #crossword-container {
+            display: inline-block;
+            width: calc(100% - 50px);
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 390px !important;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 1px 1px 4px 1px rgba(221, 221, 221, 0.65);
+        }
+
+        button {
+            padding: 0 !important;
+            font-size: 20px;
+            aspect-ratio: 1/1;
+        }
+
+        /* button:hover{background-color: rgba(0, 0, 0, 0.05);}
+    .highlight-found:hover {background-color:#ff6699;} */
+        #crossword {
+            width: 100%;
+        }
+
+        td {
+            width: 40px;
+            height: auto;
+            position: relative;
+            border-width: 0;
+        }
+
+        .word {
+            background-color: #E31E25;
+            color: #FFF;
+            opacity: 1;
+            border-radius: 7px;
+        }
+
+        .word.highlight {
+            border: 0;
+            background-color: #E31E25;
+            opacity: 0.3;
+        }
+
+        #word-container {
+            justify-content: center;
+        }
+
+        .selector {
+            position: absolute;
+            height: 10px;
+            width: 1000px;
+            background-color: #eeaf24;
+            display: none;
+            transform-origin: left center;
+            opacity: .7;
+            border-radius: 20px;
+            z-index: 9;
+            pointer-events: none;
+        }
+
+        .matched-selector {
+            z-index: 1;
+            position: absolute;
+            display: none !important;
+        }
+
+        #word-container {
+            padding: 10px 5px;
+            width: calc(100% - 25px);
+            margin: auto;
+            max-width: 420px !important;
+            border-radius: 5px;
+            background-color: #2f2f2f;
+            box-shadow: 1px 1px 4px 1px rgba(221, 221, 221, 0.65);
+        }
+
+        #selector_found_1 {
+            background-color: green;
+        }
+
+        #selector_found_2 {
+            background-color: blue;
+        }
+
+        #selector_found_3 {
+            background-color: violet;
+        }
+
+        #selector_found_4 {
+            background-color: skyblue;
+        }
+
+        button.highlight {
+            border-radius: 100px;
+        }
+
+        button.highlight-found {
+            background-color: red;
+            border-radius: 100px;
+        }
+
+        button.highlight-found::after {
+            content: " ";
+            position: absolute;
+            width: 140%;
+            height: 15px;
+            background-color: red;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: -20%;
+        }
+
+        button.match-start::after {
+            width: 140% !important;
+            background-color: rgb(142, 78, 78) !important;
+
+        }
+
+        button.match-end::after {
+            width: 140% !important;
+            display: none !important;
+        }
+
+        button.highlight-found.D::after {
+            rotate: 90deg;
+        }
+
+        button.highlight-found.DL::after {
+            rotate: -45deg;
+            width: 230%;
+            left: -65%;
+        }
+
+        button.highlight-found.DR::after {
+            rotate: 45deg;
+            width: 230%;
+            left: -65%;
+        }
+
+        button.highlight-found.UL::after {
+            rotate: 45deg;
+            width: 230%;
+            left: -65%;
+        }
+
+        button.highlight-found.UR::after {
+            rotate: -45deg;
+            width: 230%;
+            left: -65%;
+        }
+
+        button.highlight-found.U::after {
+            rotate: 90deg;
+        }
+
+        button.D.match-start::after {
+            rotate: 90deg;
+            transform: translate(45%);
+        }
+
+        button.L.match-start::after {
+            transform: translate(-45%);
+        }
+
+        button.R.match-start::after {
+            transform: translate(40%);
+        }
+
+        button.DL.match-start::after {
+            rotate: -45deg;
+            width: 140%;
+            left: -20%;
+            transform: translate(-45%);
+        }
+
+        button.DR.match-start::after {
+            rotate: 45deg;
+            width: 230%;
+            left: -25%;
+            transform: translate(40%);
+        }
+
+        button.UL.match-start::after {
+            rotate: 45deg;
+            width: 230%;
+            left: -20%;
+            transform: translate(-40%);
+        }
+
+        button.UR.match-start::after {
+            rotate: -45deg;
+            width: 230%;
+            left: -30%;
+            transform: translate(45%);
+        }
+
+        button.U.match-start::after {
+            rotate: 90deg;
+            transform: translate(-35%);
+        }
+
+        /* button.D.match-end::after{rotate: 90deg;transform: translate(45%);}
+    button.L.match-end::after{transform: translate(-45%);}
+    button.R.match-end::after{transform: translate(-40%);}
+    button.DL.match-end::after{rotate: -45deg;width:140%;left: -20%;transform: translate(-45%);}
+    button.DR.match-end::after{rotate:45deg;width: 230%;left: -25%;transform: translate(40%);}
+    button.UL.match-end::after{rotate:45deg;width: 230%;left:-20%;transform: translate(-40%);}
+    button.UR.match-end::after{rotate:-45deg;width: 230%;left: -30%;transform: translate(45%);}
+    button.U.match-end::after{rotate:90deg;transform: translate(-35%);} */
+
+
+
+
+
+
+        button>span {
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+            color: #000;
+            font-weight: 600;
+        }
+
+        button.highlight-found>span {
+            color: #FFF;
+        }
+
+        button.highlight:hover {
+            background-color: red;
+        }
+
+        button:hover {
+            background-color: #eeaf24 !important;
+            opacity: .7 !important;
+            border-radius: 100px;
+        }
+
+
+        /* button.highlight-found::before {
+        content: " ";
+        position: absolute;
+        width:15px;
+        height:30px;
+        opacity: .7;
+        z-index:999;
+        background-color:red;
+        transform-origin:85% 100%;
+    }
+    button.highlight-found::before {
+        transform-origin: bottom center;
+        rotate: 180deg;
+    }
+    button.highlight-found.UL::before,button.highlight-found.DR::before
+    {rotate:135deg !important;} */
+
+
+
+        /* button[class="highlight-found UL"]::before
+    ,button[class="highlight-found DR"]::before
+    {rotate: 45deg;transform: scaleX(1.9);z-index:99;width:10px !important;} */
+
+
+
+
+        /* button[class="highlight-found UR"]::before
+    ,button[class="highlight-found DL"]::before 
+    {rotate:135deg;z-index: 99;width: 50px !important;transform-origin: bottom left;height: 10px;background-color: red;top:15px;} */
+        /* button[class="highlight-found UR"]::after
+    ,button[class="highlight-found DL"]::after 
+    {rotate:135deg;z-index: 99;width: 50px !important;transform-origin: bottom left;height: 10px;background-color: red;top:15px;} */
+
+
+
+        /* .match-start::before {border-radius:50px;}
+    .D.match-start::before {rotate: 180deg;}
+    .L.match-start::before {rotate: -90deg;}
+    .UL.match-start::before {rotate: -45deg;}
+    .DR.match-start::before {rotate: 135deg;}
+    .UR.match-start::before {rotate: 45deg;}
+    .R.match-start::before {rotate: 90deg;}
+    .DL.match-start::before {rotate: -135deg;}
+
+
+
+
+    .match-end::before {border-radius:50px;}
+    .D.match-end::before {rotate: 180deg;}
+    .L.match-end::before {rotate: -90deg;}
+    .UL.match-end::before {rotate: -45deg;}
+    .DR.match-end::before {rotate:135deg;}
+    .UR.match-end::before {rotate: 45deg;}
+    .R.match-end::before {rotate: 90deg;}
+    .DL.match-end::before {rotate:-135deg;} */
+        button.highlight-found.C1,
+        button.highlight-found.C1::after,
+        button.C1:hover {
+            background-color: rgb(17, 0, 255) !important;
+            opacity: 1 !important;
+        }
+
+        button.highlight-found.C2,
+        button.highlight-found.C2::after,
+        button.C2:hover {
+            background-color: rgb(255, 0, 43) !important;
+            opacity: 1 !important;
+        }
+
+        button.highlight-found.C3,
+        button.highlight-found.C3::after,
+        button.C3:hover {
+            background-color: rgb(168, 98, 0) !important;
+            opacity: 1 !important;
+        }
+
+        button.highlight-found.C4,
+        button.highlight-found.C4::after,
+        button.C4:hover {
+            background-color: rgb(172, 0, 188) !important;
+            opacity: 1 !important;
+        }
+
+        button.highlight-found.C5,
+        button.highlight-found.C5::after,
+        button.C5:hover {
+            background-color: rgb(14, 75, 19) !important;
+            opacity: 1 !important;
+        }
+
+        button.highlight-found.C6,
+        button.highlight-found.C6::after,
+        button.C6:hover {
+            background-color: rgb(0, 109, 159) !important;
+            opacity: 1 !important;
+        }
+
+        button.highlight-found.C7,
+        button.highlight-found.C7::after,
+        button.C7:hover {
+            background-color: rgb(159, 0, 156) !important;
+            opacity: 1 !important;
+        }
+
+        button.highlight-found.C8,
+        button.highlight-found.C8::after,
+        button.C8:hover {
+            background-color: rgb(0, 159, 72) !important;
+            opacity: 1 !important;
+        }
+
+        button.highlight-found.C9,
+        button.highlight-found.C9::after,
+        button.C9:hover {
+            background-color: rgb(134, 47, 209) !important;
+            opacity: 1 !important;
+        }
+
+        button.highlight-found.C10,
+        button.highlight-found.C10::after,
+        button.C10:hover {
+            background-color: rgb(48, 241, 5) !important;
+            opacity: 1 !important;
+        }
+
+        @keyframes confetti-slow {
+            0% {
+                transform: translate3d(0, 0, 0) rotateX(0) rotateY(0);
+            }
+
+            100% {
+                transform: translate3d(25px, 105vh, 0) rotateX(360deg) rotateY(180deg);
+            }
+        }
+
+        @keyframes confetti-medium {
+            0% {
+                transform: translate3d(0, 0, 0) rotateX(0) rotateY(0);
+            }
+
+            100% {
+                transform: translate3d(100px, 105vh, 0) rotateX(100deg) rotateY(360deg);
+            }
+        }
+
+        @keyframes confetti-fast {
+            0% {
+                transform: translate3d(0, 0, 0) rotateX(0) rotateY(0);
+            }
+
+            100% {
+                transform: translate3d(-50px, 105vh, 0) rotateX(10deg) rotateY(250deg);
+            }
+        }
+
+        .containerHwp {
+            width: 100vw !important;
+            height: 100vh !important;
+            background: #f0f0f0;
+            position: fixed !important;
+        }
+
+        .confetti-container {
+            perspective: 700px;
+            position: absolute;
+            overflow: hidden;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .confetti {
+            position: absolute;
+            z-index: 1;
+            top: -10px;
+            border-radius: 0%;
+        }
+
+        .confetti--animation-slow {
+            animation: confetti-slow 2.25s linear 1 forwards;
+        }
+
+        .confetti--animation-medium {
+            animation: confetti-medium 1.75s linear 1 forwards;
+        }
+
+        .confetti--animation-fast {
+            animation: confetti-fast 1.25s linear 1 forwards;
+        }
+
+        span#add_score {
+            display: none;
+        }
+
+        span.add_score {
+            display: inline-block !important;
+        }
+
+        span.add_point {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: calc(100% - 30px);
+            height: 100%;
+            overflow: hidden;
+        }
+
+        span.add_point>span#add_score {
+            position: absolute;
+            left: 0;
+            top: 35px;
+            font-size: 25px;
+            color: #ffdc74;
+            animation-name: AnimScore;
+            animation-duration: 1s;
+            opacity: 0;
+        }
+
+        @keyframes AnimScore {
+            0% {
+                top: 35px;
+                left: 0;
+                scale: 1;
+                opacity: 0;
+            }
+
+            20% {
+                top: 3px;
+                left: 0;
+                scale: 1;
+                opacity: 1;
+            }
+
+            60% {
+                top: 3px;
+                left: 0;
+                scale: 1;
+                opacity: 1;
+            }
+
+            100% {
+                top: 3px;
+                left: 100%;
+                scale: .1;
+                opacity: 0;
+            }
+        }
+
+        span#add_score::before {
+            content: "+";
+        }
+
+        #backBtn_popup {
+            float: left;
+            background-color: #250000;
+            padding: 4px 5px 0px;
+            border-radius: 7px;
+            margin-top: 4px;
+        }
+
+        #backBtn_popup::after,
+        #refresh_popup::after {
+            position: absolute;
+            top: 45px;
+            left: calc(50% - 50px);
+            right: 0;
+            font-size: 13px;
+            width: 100px;
+            font-weight: 700;
+        }
+
+        #backBtn_popup::after {
+            content: "Exit";
+            top: 43px;
+        }
+
+        #refresh_popup::after {
+            content: "पुनः खेलें";
+            color:#000;
+        }
+
+        #refresh_popup {
+            float: right;
+        }
+
+        #backBtn_popup,
+        #refresh_popup {
+            display: inline-block;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .confetti-container {
+            pointer-events: none;
+        }
+
+        .tourIntro {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            position: absolute;
+            aspect-ratio: 10 / 16.5;
+            max-width: 415px;
+            min-height: 65vh;
+        }
+
+        .introPlayer {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .introPlayer>img {
+            width: 100%;
+            position: absolute;
+            z-index: 2;
+        }
+
+        .tourIntro::after,
+        .tourIntro::before {
+            position: absolute;
+            content: "  ";
+            width: 100%;
+            height: 200px;
+            z-index: 3;
+            background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.0));
+        }
+
+        .tourIntro::before {
+            content: " ";
+            height: 150px;
+            bottom: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+            text-align: center;
+            align-content: center;
+            color: #FFF;
+            font-size: 1.5em;
+        }
+
+        .introBtn {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100px;
+            z-index: 4;
+        }
+
+        .introBtn>a {
+            color: #FFF;
+            text-decoration: none;
+            float: right;
+            margin: 20px;
+        }
+
+        .introBtn>.introSkip {
+            float: left;
+            margin: 20px;
+            padding: 10px;
+            border: 3px #FFF solid;
+            border-radius: 10px;
+
+        }
+
+        body.setIntro>.tourIntro {
+            display: none;
+        }
+
+        .btm-btm {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    
+
+    <script>
+            window.dataLayer = window.dataLayer || [];
+    </script>
+</head>
+
+<body id="setIntro">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5M8X46V" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Intro div -->
+    <style>
+        .pageIntro {
+            width: 100%;
+            position: absolute;
+            max-width: 420px;
+            min-height: 65vh;
+            aspect-ratio: 10 / 16.5;
+            background-color: #f0f0f0;
+            z-index: 9;
+            padding-bottom: 60px;
+        }
+
+        .pageIntro .imageIntro {
+            width: 100%;
+            background: url('https://spiderimg.amarujala.com/assets/images/2024/09/13/crossword-game-new_66e3d6e0e923e.gif') top center / contain no-repeat;
+            aspect-ratio: 10 / 11.2;
+            max-width: 415px;
+            min-height: 50vh;
+            margin: 5px auto 10px;
+        }
+
+        .pageIntro .skip_pageIntro {
+            width: 100%;
+            height: 44px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9;
+            box-sizing: border-box;
+        }
+
+        .pageIntro .skip_pageIntro p {
+            width: 190px;
+            height: 44px;
+            background: #E31E25;
+            color: #fff;
+            border-radius: 25px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .pageIntro .header {
+            height: 44px;
+            padding-bottom: 5px;
+        }
+
+        .pageIntro .header.hdr2 {
+            height: 34px;
+            background-image: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .pageIntro .header>.score.scr2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #F6C906
+        }
+
+        body.setIntro>.pageIntro {
+            display: none !important;
+        }
+
+        .fullpage_loader {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999999
+        }
+
+        .fullpage_loader .img_with_text {
+            width: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -36px 0 0 -50px;
+            text-align: center
+        }
+
+        .fullpage_loader .img_with_text img {
+            max-width: 32px
+        }
+
+        .fullpage_loader .img_with_text p {
+            padding: 10px;
+            text-align: center;
+            color: #e5e5e5;
+            margin: 0
+        }
+    </style>
+        <div class="pageIntro" id="pageIntro" style="display: none !important">
+        <div class="header">
+            <div class="score scr1">
+                <span><a href='https://www.amarujala.com' style="color:#fff">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
+                            <path fill="#250000" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="48" d="M244 400L100 256l144-144M120 256h292" />
+                        </svg></a>
+                </span>
+            </div>
+            <div class="score scr2">
+                शब्द खोज
+            </div>
+        </div>
+        <div class="header hdr2">अक्षरों को सही क्रम में चुनें और शब्द बनाएं</div>
+        <a href="#0" id="darkLight">
+            <div class="imageIntro"></div>
+            <div class="skip_pageIntro">
+                <p>खेलना शुरू करें</p>
+            </div>
+        </a>
+    </div>
+    <div id="ajax-loader" class="fullpage_loader" style="display:none;">
+        <div class="img_with_text">
+            <img src="https://staticimg.amarujala.com/assets/images/2019/07/12/throbber-12_5d288d258d383.gif" />
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- Intro div cl-->
+    <div class="header">
+        <div class="score scr1" id="backBtn">
+            <span><a href='https://www.amarujala.com' style="color:#fff">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
+                        <path fill="#250000" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="48" d="M244 400L100 256l144-144M120 256h292" />
+                    </svg></a>
+            </span>
+        </div>
+        <div class="score scr2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="m17.618 5.968l1.453-1.453l1.414 1.414l-1.453 1.453A9 9 0 1 1 12 4c2.125 0 4.078.736 5.618 1.968M12 20a7 7 0 1 0 0-14a7 7 0 0 0 0 14M11 8h2v6h-2zM8 1h8v2H8z" />
+            </svg>
+            <span id="timer" class="timer">00:00</span>
+        </div>
+        <div class="score  scr3">
+            <div id="refresh" class="refesh">
+                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24">
+                    <path fill="#250000"
+                        d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464"
+                        opacity="1" />
+                    <path fill="white"
+                        d="M12.01 5.25a6.59 6.59 0 0 0-6.55 5.833H5a.75.75 0 0 0-.53 1.281l1.168 1.167a.75.75 0 0 0 1.06 0l1.169-1.167a.75.75 0 0 0-.53-1.28h-.364A5.09 5.09 0 0 1 12.01 6.75a5.08 5.08 0 0 1 3.838 1.743a.75.75 0 1 0 1.13-.986A6.58 6.58 0 0 0 12.01 5.25m6.352 5.22a.75.75 0 0 0-1.06 0l-1.168 1.166a.75.75 0 0 0 .53 1.28h.363a5.09 5.09 0 0 1-5.036 4.334a5.08 5.08 0 0 1-3.839-1.743a.75.75 0 0 0-1.13.987a6.58 6.58 0 0 0 4.969 2.256a6.59 6.59 0 0 0 6.549-5.833H19a.75.75 0 0 0 .53-1.281z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="header hdr2">
+        <div class="score scr4">
+            <p>Best Score : <span id="best_score">0</span></p>
+        </div>
+        <div class="score scr5">
+            <p>Score : <span id="score">0</span>
+                <span class="add_point">
+                    <span id="add_score">0</span>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="mainC">
+        <div id="crossword-container">
+            <table id="crossword"></table>
+        </div>
+        <div id="word-container"></div>
+        <div id="congratulations-popup" class="js-container containerHwp hidden">
+            <div class="popup-content">
+                <a href="https://www.amarujala.com/games/shabd-khoj?cache_clear=1&in_app=app&fullscreen=1" class="close"
+                    id="shab_khoj_close">&#10005;</a>
+                <h1 id="msg_with_coin"><img width="32" height="32"
+                src="https://staticimg.amarujala.com/assets/images/2025/11/18/aucoin_691c11e38ab1e.png" alt="AU Coin"
+                title="AU Coin" /> <span>10</span> कॉइन्स अर्जित करने के लिए <span>बधाई!</span></h1>
+                <h1 id="msg_without_coin">अच्छा प्रयास!</h1>
+                <p id="congratulations-msg"></p>
+                <div class="crackers">
+                    <div class="cracker cracker1"></div>
+                    <div class="cracker cracker2"></div>
+                    <div class="cracker cracker3"></div>
+                </div>
+                <div class="btm-btm">
+                    <div class="score scr1" id="backBtn_popup" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512">
+                            <path fill="#250000" stroke="white" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="48" d="M244 400L100 256l144-144M120 256h292" />
+                        </svg>
+                    </div>
+                    <div class="refesh" id="refresh_popup" data-count="0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24">
+                            <path fill="#250000"
+                                d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464"
+                                opacity="1" />
+                            <path fill="white"
+                                d="M12.01 5.25a6.59 6.59 0 0 0-6.55 5.833H5a.75.75 0 0 0-.53 1.281l1.168 1.167a.75.75 0 0 0 1.06 0l1.169-1.167a.75.75 0 0 0-.53-1.28h-.364A5.09 5.09 0 0 1 12.01 6.75a5.08 5.08 0 0 1 3.838 1.743a.75.75 0 1 0 1.13-.986A6.58 6.58 0 0 0 12.01 5.25m6.352 5.22a.75.75 0 0 0-1.06 0l-1.168 1.166a.75.75 0 0 0 .53 1.28h.363a5.09 5.09 0 0 1-5.036 4.334a5.08 5.08 0 0 1-3.839-1.743a.75.75 0 0 0-1.13.987a6.58 6.58 0 0 0 4.969 2.256a6.59 6.59 0 0 0 6.549-5.833H19a.75.75 0 0 0 .53-1.281z" />
+                        </svg>
+                    </div>
+                    <button id="claim" style="display: none;">क्लेम करें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="selector" class="selector"></div>
+    <style> #shabdkhoj_webtoapp, .shabdkhoj_webtoapp_back { display: none; text-align: center;box-sizing: border-box; } #shabdkhoj_webtoapp.visible { display: block; } #shabdkhoj_webtoapp { width: 100%; left: 0; background: #363B3F; position: fixed; bottom: 0px; z-index: 99999; box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1); -webkit-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; padding: 20px 20px 10px; transform: translate(0px, 500px); color: #fff } #shabdkhoj_webtoapp button.close { display: block; width: 24px; height: 24px; background-color: transparent; box-sizing: border-box; text-transform: uppercase; -webkit-appearance: none; -moz-appearance: none; appearance: none; border: 0; position: absolute; top: 10px; right: 10px; cursor: pointer; } #shabdkhoj_webtoapp button.close::after { content: '\2715'; background: none; width: 24px; height: 24px; text-align: center; display: flex; color: #fff; font-family: Helvetica, sans-serif; font-size: 18px; line-height: 24px; justify-content: center; align-items: center } #shabdkhoj_webtoapp .innerWrap { width: 100%; max-width: 750px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 10px auto; } #shabdkhoj_webtoapp .relatedIcon { width: 60px; height: 60px; position: absolute; left: 50%; top: -30px; transform: translateX(-50%); z-index: 1; display: flex; justify-content: center; align-items: center; background-color: #252121; border-radius: 50%; padding: 6px; } #shabdkhoj_webtoapp .relatedIcon svg, #shabdkhoj_webtoapp .relatedIcon img { width: 100%; height: auto; max-width: 32px; } #shabdkhoj_webtoapp .innerWrap h3 { font-size: 24px; line-height: 28px; font-weight: 600; margin: 12px 0; } #shabdkhoj_webtoapp .innerWrap p { font-size: 16px; line-height: 22px; font-weight: 600; margin-bottom: 20px; } #shabdkhoj_webtoapp .innerWrap p img { width: 18px; height: 18px; vertical-align: middle; } #shabdkhoj_webtoapp a.btndownload { width: 100%; max-width: 414px; height: 44px; background: #E31E25; color: #fff; box-sizing: border-box; text-transform: uppercase; -webkit-appearance: none; -moz-appearance: none; appearance: none; cursor: pointer; border: 0; padding: 8px 10px; font-size: 16px; line-height: 20px; font-weight: 700; display: flex; align-items: center;justify-content: center;text-decoration: none;} #shabdkhoj_webtoapp .qrWrapper { display: none; } .shabdkhoj_webtoapp_back { display: none; opacity: 0; position: fixed; left: 0; top: 0; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.2); -webkit-transition: opacity 0.5s ease-in-out; -moz-transition: opacity 0.5s ease-in-out; transition: opacity 0.5s ease-in-out; z-index: 9999; } .shabdkhoj_webtoapp_back.visible { display: block } @media only screen and (min-width:991px) { #shabdkhoj_webtoapp button.close { display: block; } #shabdkhoj_webtoapp .innerWrap p { font-size: 20px; line-height: 26px; } #shabdkhoj_webtoapp .innerWrap p img { width: 32px; height: 32px; } #shabdkhoj_webtoapp a.btndownload { display: none; } #shabdkhoj_webtoapp .qrWrapper { width: 100%; max-width: 490px; position: relative; background-color: #fff; border-radius: 16px; display: flex; justify-content: space-around; } #shabdkhoj_webtoapp .qrWrapper .qrImage { width: 150px; height: 150px; padding:10px; } #shabdkhoj_webtoapp .qrText { width: 100%; position: relative; padding: 24px; display: flex; justify-content: space-between; align-items: center; flex-direction: column; } #shabdkhoj_webtoapp .qrText h4 { font-size: 16px; line-height: 24px; color: #000; margin: 0; } #shabdkhoj_webtoapp .qrText a { display: inline-flex; } #shabdkhoj_webtoapp .qrText img { width: 100%; max-width: 150px; height: auto; } } @media only screen and (min-width: 991px) { .popup-content{ top:40%; } }</style>
+    <div id="shabdkhoj_webtoapp">
+        <button class="close" id="bs_close"></button>
+
+        <div class="innerWrap">
+            <div class="relatedIcon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect x="0.599001" y="0.0191667" width="30.7645" height="31.9617" stroke="#252121"
+                        stroke-width="0.0383333"></rect>
+                    <path
+                        d="M15.982 19.3333V22M9.56472 13.3717C10.1698 13.3333 10.9157 13.3333 11.8749 13.3333H20.089C21.0483 13.3333 21.7942 13.3333 22.3992 13.3717M9.56472 13.3717C8.80963 13.4196 8.27393 13.5273 7.81669 13.7693C7.09219 14.1528 6.50317 14.7647 6.13402 15.5173C5.71436 16.3731 5.71436 17.4931 5.71436 19.7333V21.6C5.71436 23.8403 5.71436 24.9603 6.13402 25.816C6.50317 26.5687 7.09219 27.1805 7.81669 27.564C8.64032 28 9.71852 28 11.8749 28H20.089C22.2455 28 23.3236 28 24.1473 27.564C24.8718 27.1805 25.4608 26.5687 25.8299 25.816C26.2496 24.9603 26.2496 23.8403 26.2496 21.6V19.7333C26.2496 17.4931 26.2496 16.3731 25.8299 15.5173C25.4608 14.7647 24.8718 14.1528 24.1473 13.7693C23.69 13.5273 23.1543 13.4196 22.3992 13.3717M9.56472 13.3717V10.6667C9.56472 6.98477 12.4378 4 15.982 4C19.5261 4 22.3992 6.98477 22.3992 10.6667V13.3717"
+                        stroke="white" stroke-width="2.55556" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
+            <p id="bs_text"></p>
+            <a href="https://www.amarujala.com/?utm_source=au&utm_medium=web_to_app_bottomsheet&utm_campaign=web_to_app&app_only=true" class="btndownload">ऐप डाउनलोड करें</a>
+            <div class="qrWrapper">
+                <img class="qrImage" width="233" height="233" src="https://staticimg.amarujala.com/assets/images/2025/12/26/qr-code-4_694e303e42abe.png" alt="Amar Ujala App Download"
+                    title="Amar Ujala App Download">
+                <div class="qrText">
+                    <h4>ऐप डाउनलोड करने के लिए कृपया अपने फ़ोन में QR स्कैन करें</h4>
+                    <a href="https://apps.apple.com/in/app/amar-ujala-hindi-news/id1028364855" target="_blank">
+                        <img width="186" height="55" src="https://staticimg.amarujala.com/assets/images/2025/09/04/app-store-download_68b9416ae56c1.png" alt="Amar Ujala App Download"
+                            title="Amar Ujala App Download">
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.org.AmarUjala.news&hl=en_IN" target="_blank">
+                        <img width="186" height="55" src="https://staticimg.amarujala.com/assets/images/2025/09/04/google-play-download_68b941d99f66e.png" alt="Amar Ujala App Download"
+                            title="Amar Ujala App Download">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shabdkhoj_webtoapp_back"></div>
+    <script>
+                    _request_client = 'web';
+                var min_score = '500';
+        const k = 'dtiura7l3w4nnu8jw7hs0h55r235iwyk';
+
+        // Hindi words from database
+                    const hindiWordsFromDB = [{"word":"\u0917\u093e\u0921\u093c\u0940","syllables":["\u0917\u093e","\u0921\u093c\u0940"],"akshar_count":2},{"word":"\u0924\u093f\u0915\u094d\u0924\u093e","syllables":["\u0924\u093f","\u0915\u094d\u0924\u093e"],"akshar_count":2},{"word":"\u0905\u091c","syllables":["\u0905","\u091c"],"akshar_count":2},{"word":"\u0915\u093f\u0938\u094d\u092e\u0903","syllables":["\u0915\u093f","\u0938\u094d\u092e\u0903"],"akshar_count":2},{"word":"\u091c\u093e\u0939","syllables":["\u091c\u093e","\u0939"],"akshar_count":2},{"word":"\u0918\u0928","syllables":["\u0918","\u0928"],"akshar_count":2},{"word":"\u0938\u093e\u0917\u0930","syllables":["\u0938\u093e","\u0917","\u0930"],"akshar_count":3},{"word":"\u092c\u0947\u0930\u094b\u0915","syllables":["\u092c\u0947","\u0930\u094b","\u0915"],"akshar_count":3},{"word":"\u0927\u093e\u0930\u093f\u092f\u093e\u0901","syllables":["\u0927\u093e","\u0930\u093f","\u092f\u093e\u0901"],"akshar_count":3},{"word":"\u092a\u094d\u0930\u092c\u0941\u0926\u094d\u0927","syllables":["\u092a\u094d\u0930","\u092c\u0941","\u0926\u094d\u0927"],"akshar_count":3},{"word":"\u091a\u0941\u092e\u094d\u092c\u0915","syllables":["\u091a\u0941","\u092e\u094d\u092c","\u0915"],"akshar_count":3},{"word":"\u092a\u0924\u094d\u0924\u093f\u092f\u094b\u0902","syllables":["\u092a","\u0924\u094d\u0924\u093f","\u092f\u094b\u0902"],"akshar_count":3},{"word":"\u091a\u0902\u0926\u094d\u0930\u092a\u0941\u0937\u094d\u092a","syllables":["\u091a\u0902","\u0926\u094d\u0930","\u092a\u0941","\u0937\u094d\u092a"],"akshar_count":4},{"word":"\u0938\u093f\u0926\u094d\u0927\u093e\u0938\u0928","syllables":["\u0938\u093f","\u0926\u094d\u0927\u093e","\u0938","\u0928"],"akshar_count":4},{"word":"\u0905\u0935\u093f\u0939\u093f\u0924","syllables":["\u0905","\u0935\u093f","\u0939\u093f","\u0924"],"akshar_count":4},{"word":"\u0905\u0939\u093f\u0935\u0930","syllables":["\u0905","\u0939\u093f","\u0935","\u0930"],"akshar_count":4},{"word":"\u0928\u0924\u0940\u091c\u0928","syllables":["\u0928","\u0924\u0940","\u091c","\u0928"],"akshar_count":4},{"word":"\u0905\u092d\u0947\u0926\u094d\u092f\u0924\u093e","syllables":["\u0905","\u092d\u0947","\u0926\u094d\u092f","\u0924\u093e"],"akshar_count":4},{"word":"\u0915\u0941\u091f\u0941\u092e\u094d\u092c\u0938\u092d\u093e","syllables":["\u0915\u0941","\u091f\u0941","\u092e\u094d\u092c","\u0938","\u092d\u093e"],"akshar_count":5},{"word":"\u0936\u0941\u092d\u0932\u0915\u094d\u0937\u0923\u093e","syllables":["\u0936\u0941","\u092d","\u0932","\u0915\u094d\u0937","\u0923\u093e"],"akshar_count":5},{"word":"\u0917\u093e\u0902\u0927\u0940\u0928\u0917\u0930","syllables":["\u0917\u093e\u0902","\u0927\u0940","\u0928","\u0917","\u0930"],"akshar_count":5},{"word":"\u092c\u0939\u0941\u0935\u091a\u0928","syllables":["\u092c","\u0939\u0941","\u0935","\u091a","\u0928"],"akshar_count":5},{"word":"\u0918\u091f\u094b\u0926\u094d\u0918\u093e\u091f\u0928","syllables":["\u0918","\u091f\u094b","\u0926\u094d\u0918\u093e","\u091f","\u0928"],"akshar_count":5},{"word":"\u092a\u0926\u094d\u092e\u093f\u0928\u0940\u0935\u0928","syllables":["\u092a","\u0926\u094d\u092e\u093f","\u0928\u0940","\u0935","\u0928"],"akshar_count":5},{"word":"\u0917\u0917\u0928\u092e\u0902\u091c\u0930\u0940","syllables":["\u0917","\u0917","\u0928","\u092e\u0902","\u091c","\u0930\u0940"],"akshar_count":6},{"word":"\u092a\u0941\u0923\u094d\u092f\u092b\u0932\u0926\u093e\u092f\u0940","syllables":["\u092a\u0941","\u0923\u094d\u092f","\u092b","\u0932","\u0926\u093e","\u092f\u0940"],"akshar_count":6},{"word":"\u0930\u091a\u0928\u093e\u0924\u094d\u092e\u0915\u0924\u093e","syllables":["\u0930","\u091a","\u0928\u093e","\u0924\u094d\u092e","\u0915","\u0924\u093e"],"akshar_count":6},{"word":"\u0928\u0935\u091c\u093e\u0924\u0936\u093f\u0936\u0941","syllables":["\u0928","\u0935","\u091c\u093e","\u0924","\u0936\u093f","\u0936\u0941"],"akshar_count":6},{"word":"\u0938\u093e\u0927\u093e\u0930\u0923\u091c\u0928","syllables":["\u0938\u093e","\u0927\u093e","\u0930","\u0923","\u091c","\u0928"],"akshar_count":6},{"word":"\u0908\u0936\u094d\u0935\u0930\u0938\u0941\u0916\u093e\u0924\u094d\u092e\u093e","syllables":["\u0908","\u0936\u094d\u0935","\u0930","\u0938\u0941","\u0916\u093e","\u0924\u094d\u092e\u093e"],"akshar_count":6},{"word":"\u0915\u094d\u0937\u0940\u0923","syllables":["\u0915\u094d\u0937\u0940","\u0923"],"akshar_count":2},{"word":"\u0917\u0924\u0915\u093e","syllables":["\u0917","\u0924","\u0915\u093e"],"akshar_count":3},{"word":"\u0928\u093f\u0939\u093e\u0908","syllables":["\u0928\u093f","\u0939\u093e","\u0908"],"akshar_count":3},{"word":"\u092a\u093e\u0935\u0924\u094d\u0930","syllables":["\u092a\u093e","\u0935","\u0924\u094d\u0930"],"akshar_count":3},{"word":"\u0935\u094d\u092f\u0935\u091a\u094d\u091b\u0947\u0926\u0928","syllables":["\u0935\u094d\u092f","\u0935","\u091a\u094d\u091b\u0947","\u0926","\u0928"],"akshar_count":5},{"word":"\u0935\u0938\u0941\u0915\u0940","syllables":["\u0935","\u0938\u0941","\u0915\u0940"],"akshar_count":3},{"word":"\u0935\u093f\u0935\u093e\u0926\u0917\u094d\u0930\u0938\u094d\u0924","syllables":["\u0935\u093f","\u0935\u093e","\u0926","\u0917\u094d\u0930","\u0938\u094d\u0924"],"akshar_count":5},{"word":"\u0915\u093f\u0930\u093e\u0928\u093e","syllables":["\u0915\u093f","\u0930\u093e","\u0928\u093e"],"akshar_count":3},{"word":"\u0936\u0941\u092d\u091a\u093f\u0902\u0924\u0915","syllables":["\u0936\u0941","\u092d","\u091a\u093f\u0902","\u0924","\u0915"],"akshar_count":5},{"word":"\u0938\u093f\u0902\u0939\u0928\u093e\u0926","syllables":["\u0938\u093f\u0902","\u0939","\u0928\u093e","\u0926"],"akshar_count":4}];
+        
+    </script>
+    
+    <script defer
+        src="https://staticasset.amarujala.com/v1/js/crypto-js.min.js?v=msdhjsgdghsh"></script>
+    <script defer type="text/javascript" src = "https://staticasset.amarujala.com/v1/js/shabdkhoj.min.js?id=fc9d8c00d3734f70f983"></script>
+
+    <script defer
+        src="https://staticasset.amarujala.com/v1/js/jquery-3.6.0.min.js?v=msdhjsgdghsh"></script>
+    <script defer
+        src="https://staticasset.amarujala.com/v1/js/jquery.scrolldepth.min.js?v=msdhjsgdghsh"></script>
+    <script type="text/javascript" src="https://staticasset.amarujala.com/v1/js/main.js?id=0d86fbdd20b0b043194d" defer></script>
+    <style>
+        @keyframes zoomInOut {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            10% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            80% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+        }
+        .zoom-animation {
+            animation: zoomInOut 2s ease-in-out forwards;
+        }
+        @keyframes popFlair {
+            0% {
+                transform: translate(var(--tx), var(--ty)) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(var(--tx) * 2.5), calc(var(--ty) * 2.5)) scale(0);
+                opacity: 0;
+            }
+        }
+        @keyframes popFlair2 {
+            0% {
+                transform: translate(var(--tx), var(--ty)) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(var(--tx) * 2), calc(var(--ty) * 2)) scale(0);
+                opacity: 0;
+            }
+        }
+        @keyframes popFlair3 {
+            0% {
+                transform: translate(var(--tx), var(--ty)) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(var(--tx) * 3), calc(var(--ty) * 3)) scale(0);
+                opacity: 0;
+            }
+        }
+        .pop-flair {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: popFlair 1.2s ease-out forwards;
+        }
+        .pop-flair2 {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: popFlair2 1.6s ease-out forwards;
+        }
+        .pop-flair3 {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: popFlair3 2s ease-out forwards;
+        }
+    </style>
+    <script>
+        const FLAIR_CONFIG = {
+            colors: ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA502', '#FF69B4'],
+            layers: [
+                { count: 36, class: 'pop-flair', distMin: 40, distMax: 60, glowSize: 18, angleOffset: 0 },
+                { count: 18, class: 'pop-flair2', distMin: 50, distMax: 75, glowSize: 12, angleOffset: Math.PI / 36 },
+                { count: 12, class: 'pop-flair3', distMin: 60, distMax: 90, glowSize: 8, angleOffset: Math.PI / 10 }
+            ],
+            animationDuration: 3500,
+            imageWidth: '280px',
+            imageHeight: '120px'
+        };
+
+        // Generic flair creator function
+        function createFlairLayer(container, layerConfig, totalCount) {
+            const flairs = [];
+            for (let i = 0; i < layerConfig.count; i++) {
+                const flair = document.createElement("div");
+                flair.className = layerConfig.class;
+                flair.style.left = "50%";
+                flair.style.top = "50%";
+                
+                const color = FLAIR_CONFIG.colors[Math.floor(Math.random() * FLAIR_CONFIG.colors.length)];
+                flair.style.backgroundColor = color;
+                
+                const angle = (i / layerConfig.count) * Math.PI * 2 + layerConfig.angleOffset;
+                const distance = layerConfig.distMin + Math.random() * (layerConfig.distMax - layerConfig.distMin);
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                flair.style.setProperty('--tx', tx + 'px');
+                flair.style.setProperty('--ty', ty + 'px');
+                flair.style.boxShadow = `0 0 ${layerConfig.glowSize}px ${FLAIR_CONFIG.colors[Math.floor(Math.random() * FLAIR_CONFIG.colors.length)]}`;
+                
+                container.appendChild(flair);
+                flairs.push(flair);
+            }
+            return flairs;
+        }
+
+        // Add blank black div on word complete
+        function showBlankDivOnWordComplete(){
+            const container = document.getElementById("crossword-container");
+            if (!container) return;
+            
+            const div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.width = FLAIR_CONFIG.imageWidth;
+            div.style.height = FLAIR_CONFIG.imageHeight;
+            div.style.backgroundColor = "transparent";
+            div.style.backgroundImage = "url('img1.png')";
+            div.style.backgroundSize = "contain";
+            div.style.backgroundRepeat = "no-repeat";
+            div.style.backgroundPosition = "center";
+            div.style.zIndex = "998";
+            div.style.top = "50%";
+            div.style.left = "50%";
+            div.style.borderRadius = "5px";
+            div.className = "zoom-animation";
+            
+            container.style.position = "relative";
+            container.appendChild(div);
+            
+            // Create all flair layers
+            const allFlairs = [];
+            FLAIR_CONFIG.layers.forEach(layerConfig => {
+                const flairs = createFlairLayer(container, layerConfig, FLAIR_CONFIG.layers.length);
+                allFlairs.push(...flairs);
+            });
+            
+            // Auto cleanup after animation completes
+            setTimeout(() => {
+                div.remove();
+                allFlairs.forEach(flair => flair.remove());
+            }, FLAIR_CONFIG.animationDuration);
+        }
+        
+        // Hook into game logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const originalHandleMouseUp = window.handleMouseUp;
+            if (originalHandleMouseUp) {
+                window.handleMouseUp = function() {
+                    originalHandleMouseUp.call(this);
+                    // Check if a word was just found
+                    if (document.querySelectorAll("#word-container .highlight").length > 0) {
+                        showBlankDivOnWordComplete();
+                    }
+                };
+            }
+        });
+    </script>
+</body>
+
+</html>
