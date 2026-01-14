@@ -1,0 +1,688 @@
+/* ===================================
+   Keyframe Animations
+   =================================== */
+
+/* Background Gradient Animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Float Animation for Mascot */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Scale In */
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Bounce In */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Shake Animation for Incorrect */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* Star Pop Animation */
+@keyframes starPop {
+    0% {
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+/* Star Glow Animation */
+@keyframes starGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(251, 191, 36, 1));
+    }
+}
+
+/* Confetti Fall */
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Sparkle Animation */
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1) rotate(180deg);
+        opacity: 1;
+    }
+}
+
+/* Wiggle Animation */
+@keyframes wiggle {
+    0%, 100% {
+        transform: rotate(-3deg);
+    }
+    50% {
+        transform: rotate(3deg);
+    }
+}
+
+/* Glow Pulse */
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(139, 92, 246, 1);
+    }
+}
+
+/* Bounce */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Rotate */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Slide Up */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Slide Down */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Zoom In */
+@keyframes zoomIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Zoom Out */
+@keyframes zoomOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Flip In */
+@keyframes flipIn {
+    from {
+        transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+    to {
+        transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+/* Heart Beat */
+@keyframes heartBeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    14% {
+        transform: scale(1.3);
+    }
+    28% {
+        transform: scale(1);
+    }
+    42% {
+        transform: scale(1.3);
+    }
+    70% {
+        transform: scale(1);
+    }
+}
+
+/* Tada */
+@keyframes tada {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    10%, 20% {
+        transform: scale(0.9) rotate(-3deg);
+    }
+    30%, 50%, 70%, 90% {
+        transform: scale(1.1) rotate(3deg);
+    }
+    40%, 60%, 80% {
+        transform: scale(1.1) rotate(-3deg);
+    }
+}
+
+/* Jello */
+@keyframes jello {
+    0%, 100% {
+        transform: skewX(0deg) skewY(0deg);
+    }
+    30% {
+        transform: skewX(25deg) skewY(25deg);
+    }
+    40% {
+        transform: skewX(-15deg) skewY(-15deg);
+    }
+    50% {
+        transform: skewX(15deg) skewY(15deg);
+    }
+    65% {
+        transform: skewX(-5deg) skewY(-5deg);
+    }
+    75% {
+        transform: skewX(5deg) skewY(5deg);
+    }
+}
+
+/* Rubber Band */
+@keyframes rubberBand {
+    0%, 100% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scaleX(1.25) scaleY(0.75);
+    }
+    40% {
+        transform: scaleX(0.75) scaleY(1.25);
+    }
+    50% {
+        transform: scaleX(1.15) scaleY(0.85);
+    }
+    65% {
+        transform: scaleX(0.95) scaleY(1.05);
+    }
+    75% {
+        transform: scaleX(1.05) scaleY(0.95);
+    }
+}
+
+/* Swing */
+@keyframes swing {
+    20% {
+        transform: rotate(15deg);
+    }
+    40% {
+        transform: rotate(-10deg);
+    }
+    60% {
+        transform: rotate(5deg);
+    }
+    80% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Flash */
+@keyframes flash {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
+    25%, 75% {
+        opacity: 0;
+    }
+}
+
+/* ===================================
+   Particle Animations
+   =================================== */
+
+.particle {
+    position: absolute;
+    pointer-events: none;
+}
+
+.confetti {
+    width: 10px;
+    height: 10px;
+    animation: confettiFall 3s linear forwards;
+}
+
+.sparkle-particle {
+    width: 20px;
+    height: 20px;
+    animation: sparkle 1s ease-out forwards;
+}
+
+/* ===================================
+   Utility Animation Classes
+   =================================== */
+
+.animate-bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-wiggle {
+    animation: wiggle 0.5s ease-in-out;
+}
+
+.animate-tada {
+    animation: tada 1s ease-in-out;
+}
+
+.animate-jello {
+    animation: jello 1s ease-in-out;
+}
+
+.animate-heartbeat {
+    animation: heartBeat 1.3s ease-in-out;
+}
+
+.animate-swing {
+    animation: swing 1s ease-in-out;
+}
+
+.animate-flash {
+    animation: flash 1s ease-in-out;
+}
+
+.animate-rubber-band {
+    animation: rubberBand 1s ease-in-out;
+}
+
+/* ===================================
+   Celebration Effects
+   =================================== */
+
+.celebration-burst {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.word-complete-effect {
+    animation: zoomIn 0.3s ease-out, glowPulse 0.5s ease-in-out;
+}
+
+.level-complete-effect {
+    animation: tada 1s ease-out;
+}
+
+/* ===================================
+   Mascot Animations
+   =================================== */
+
+.mascot-happy {
+    animation: heartBeat 0.8s ease-in-out;
+}
+
+.mascot-encouraging {
+    animation: bounce 0.6s ease-in-out;
+}
+
+.mascot-celebrating {
+    animation: tada 1s ease-in-out;
+}
+
+.mascot-thinking {
+    animation: swing 1s ease-in-out;
+}
+
+/* ===================================
+   Grid Reveal Animation
+   =================================== */
+
+.grid-reveal {
+    animation: flipIn 0.5s ease-out;
+}
+
+.cell-reveal {
+    animation: zoomIn 0.3s ease-out;
+    animation-fill-mode: backwards;
+}
+
+/* Stagger cell reveals */
+.cell-reveal:nth-child(1) { animation-delay: 0.05s; }
+.cell-reveal:nth-child(2) { animation-delay: 0.1s; }
+.cell-reveal:nth-child(3) { animation-delay: 0.15s; }
+.cell-reveal:nth-child(4) { animation-delay: 0.2s; }
+.cell-reveal:nth-child(5) { animation-delay: 0.25s; }
+.cell-reveal:nth-child(6) { animation-delay: 0.3s; }
+.cell-reveal:nth-child(7) { animation-delay: 0.35s; }
+.cell-reveal:nth-child(8) { animation-delay: 0.4s; }
+.cell-reveal:nth-child(9) { animation-delay: 0.45s; }
+.cell-reveal:nth-child(10) { animation-delay: 0.5s; }
+
+/* ===================================
+   Button Hover Effects
+   =================================== */
+
+.btn-hover-lift:hover {
+    animation: bounce 0.5s ease-in-out;
+}
+
+.btn-hover-glow:hover {
+    animation: glowPulse 1s ease-in-out infinite;
+}
+
+/* ===================================
+   Screen Transitions
+   =================================== */
+
+.screen-enter {
+    animation: slideUp 0.4s ease-out;
+}
+
+.screen-exit {
+    animation: slideDown 0.4s ease-in;
+}
+
+/* ===================================
+   Toast Animations
+   =================================== */
+
+.toast-enter {
+    animation: slideInRight 0.3s ease-out;
+}
+
+.toast-exit {
+    animation: slideInRight 0.3s ease-in reverse;
+}
+
+/* ===================================
+   Modal Animations
+   =================================== */
+
+.modal-enter {
+    animation: scaleIn 0.3s ease-out;
+}
+
+.modal-exit {
+    animation: zoomOut 0.3s ease-in;
+}
+
+/* ===================================
+   Loading Spinner
+   =================================== */
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(139, 92, 246, 0.3);
+    border-top-color: #8B5CF6;
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+}
+
+/* ===================================
+   Progress Bar Animation
+   =================================== */
+
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+}
+
+.progress-bar-fill {
+    animation: progressFill 1s ease-out;
+}
+
+/* ===================================
+   Combo Multiplier Animation
+   =================================== */
+
+@keyframes comboScale {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.combo-multiplier {
+    animation: comboScale 0.5s ease-out, glowPulse 1s ease-in-out infinite;
+}
+
+/* ===================================
+   Achievement Unlock Animation
+   =================================== */
+
+.achievement-unlock {
+    animation: slideDown 0.5s ease-out, tada 1s ease-out 0.5s;
+}
+
+/* ===================================
+   Coin Collect Animation
+   =================================== */
+
+@keyframes coinCollect {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) scale(0.3);
+        opacity: 0;
+    }
+}
+
+.coin-collect {
+    animation: coinCollect 1s ease-out forwards;
+}
+
+/* ===================================
+   Power-Up Activation
+   =================================== */
+
+.powerup-activate {
+    animation: rubberBand 0.8s ease-out, glowPulse 2s ease-in-out infinite;
+}
+
+/* ===================================
+   Hint Reveal Animation
+   =================================== */
+
+.hint-reveal {
+    animation: flash 0.5s ease-in-out 3;
+}
+
+/* ===================================
+   Timer Warning Animation
+   =================================== */
+
+@keyframes timerWarning {
+    0%, 100% {
+        color: #EF4444;
+    }
+    50% {
+        color: #FBBF24;
+    }
+}
+
+.timer-warning {
+    animation: timerWarning 1s ease-in-out infinite, pulse 1s ease-in-out infinite;
+}
+
+/* ===================================
+   Streak Fire Animation
+   =================================== */
+
+@keyframes streakFire {
+    0%, 100% {
+        transform: scale(1) rotate(-5deg);
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+        filter: hue-rotate(20deg);
+    }
+}
+
+.streak-fire {
+    animation: streakFire 0.5s ease-in-out infinite;
+}
+
+/* ===================================
+   Leaderboard Entry Animation
+   =================================== */
+
+.leaderboard-entry {
+    animation: slideInRight 0.5s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.leaderboard-entry:nth-child(1) { animation-delay: 0.1s; }
+.leaderboard-entry:nth-child(2) { animation-delay: 0.2s; }
+.leaderboard-entry:nth-child(3) { animation-delay: 0.3s; }
+.leaderboard-entry:nth-child(4) { animation-delay: 0.4s; }
+.leaderboard-entry:nth-child(5) { animation-delay: 0.5s; }
+
+/* ===================================
+   Daily Challenge Badge
+   =================================== */
+
+.daily-badge {
+    animation: rotate 20s linear infinite, glowPulse 2s ease-in-out infinite;
+}
+
+/* ===================================
+   Level Unlock Animation
+   =================================== */
+
+.level-unlock {
+    animation: zoomIn 0.5s ease-out, bounce 1s ease-out 0.5s;
+}
