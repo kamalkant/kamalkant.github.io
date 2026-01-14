@@ -1,1 +1,381 @@
+<!DOCTYPE html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Fun and engaging crossword puzzle game for kids and casual players"
+    />
+    <title>Word Quest - Crossword Adventure</title>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=OpenDyslexic&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="animations.css" />
+  </head>
+  <body>
+    <!-- Particle Container for Celebrations -->
+    <div id="particles-container" aria-hidden="true"></div>
+
+    <!-- Main Container -->
+    <div id="app" class="app-container">
+      <!-- Home Screen -->
+      <div id="home-screen" class="screen active">
+        <div class="home-content">
+          <h1 class="game-title">
+            <span class="title-word" data-i18n="gameTitle">शब्द खोज</span>
+          </h1>
+          <p class="game-subtitle" data-i18n="gameSubtitle">क्रॉसवर्ड साहसिक</p>
+          
+          <!-- Language Selector -->
+          <div class="language-selector">
+            <select id="language-select" class="language-dropdown">
+              <option value="hi" selected>हिन्दी</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+
+          <div class="mascot-container">
+            <div
+              id="mascot"
+              class="mascot"
+              role="img"
+              aria-label="Friendly owl mascot"
+            ></div>
+          </div>
+
+          <!-- Quick Play Buttons -->
+          <div class="quick-play-section">
+            <h3 data-i18n="quickPlay">त्वरित खेल</h3>
+            <div class="quick-play-buttons">
+              <button class="btn-quick-play btn-easy" data-difficulty="easy">
+                <span data-i18n="easy">आसान</span>
+              </button>
+              <button class="btn-quick-play btn-medium" data-difficulty="medium">
+                <span data-i18n="medium">मध्यम</span>
+              </button>
+              <button class="btn-quick-play btn-hard" data-difficulty="hard">
+                <span data-i18n="hard">कठिन</span>
+              </button>
+            </div>
+          </div>
+          
+          <div class="menu-buttons">
+            <button id="btn-play" class="btn btn-primary btn-large">
+              <span class="btn-icon">🎮</span>
+              <span data-i18n="play">खेलें</span>
+            </button>
+            <button id="btn-daily" class="btn btn-secondary">
+              <span class="btn-icon">⭐</span>
+              <span data-i18n="dailyChallenge">दैनिक चुनौती</span>
+            </button>
+            <button id="btn-levels" class="btn btn-secondary">
+              <span class="btn-icon">🗺️</span>
+              <span data-i18n="levelMap">स्तर मानचित्र</span>
+            </button>
+            <button id="btn-achievements" class="btn btn-secondary">
+              <span class="btn-icon">🏆</span>
+              <span data-i18n="achievements">उपलब्धियां</span>
+            </button>
+            <button id="btn-leaderboard" class="btn btn-secondary">
+              <span class="btn-icon">📊</span>
+              <span data-i18n="leaderboard">लीडरबोर्ड</span>
+            </button>
+            <button id="btn-settings" class="btn btn-secondary">
+              <span class="btn-icon">⚙️</span>
+              <span data-i18n="settings">सेटिंग्स</span>
+            </button>
+          </div>
+
+          <div class="stats-bar">
+            <div class="stat-item">
+              <span class="stat-icon">🔥</span>
+              <span id="streak-display">0</span>
+              <span class="stat-label" data-i18n="dayStreak">दिन की लकीर</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">⭐</span>
+              <span id="coins-display">0</span>
+              <span class="stat-label" data-i18n="coins">सिक्के</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Screen -->
+      <div id="game-screen" class="screen">
+        <div class="game-header">
+          <button id="btn-back" class="btn-icon-only" aria-label="Back to menu">
+            ← Back
+          </button>
+          <div class="level-info">
+            <span id="level-number">Level 1</span>
+            <span id="level-category" class="category-badge">Animals</span>
+          </div>
+          <div class="game-stats">
+            <div class="stat">
+              <span class="stat-icon">⏱️</span>
+              <span id="timer-display">00:00</span>
+            </div>
+            <div class="stat">
+              <span class="stat-icon">🎯</span>
+              <span id="score-display">0</span>
+            </div>
+            <div class="stat">
+              <span class="stat-icon">⭐</span>
+              <span id="coins-game-display">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-content">
+          <div class="grid-container">
+            <div
+              id="crossword-grid"
+              class="crossword-grid"
+              role="grid"
+              aria-label="Crossword puzzle grid"
+            ></div>
+          </div>
+
+          <div class="game-sidebar">
+            <div class="mascot-game">
+              <div id="mascot-game" class="mascot mascot-small"></div>
+              <div id="mascot-message" class="mascot-message">
+                Let's solve this puzzle!
+              </div>
+            </div>
+
+            <div class="clues-section">
+              <h3>Current Clue</h3>
+              <div id="current-clue" class="current-clue">
+                Select a word to see the clue
+              </div>
+            </div>
+
+            <div class="all-clues">
+              <div class="clues-group">
+                <h4>Across</h4>
+                <div id="clues-across" class="clues-list"></div>
+              </div>
+              <div class="clues-group">
+                <h4>Down</h4>
+                <div id="clues-down" class="clues-list"></div>
+              </div>
+            </div>
+
+            <div class="power-ups">
+              <h4>Power-Ups</h4>
+              <div class="power-up-buttons">
+                <button
+                  id="btn-hint"
+                  class="btn-power-up"
+                  aria-label="Use hint"
+                >
+                  <span class="power-icon">💡</span>
+                  <span class="power-count" id="hint-count">3</span>
+                </button>
+                <button
+                  id="btn-reveal"
+                  class="btn-power-up"
+                  aria-label="Reveal letter"
+                >
+                  <span class="power-icon">🔍</span>
+                  <span class="power-count" id="reveal-count">2</span>
+                </button>
+                <button
+                  id="btn-freeze"
+                  class="btn-power-up"
+                  aria-label="Freeze timer"
+                >
+                  <span class="power-icon">❄️</span>
+                  <span class="power-count" id="freeze-count">1</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- On-Screen Keyboard for Mobile -->
+        <div id="on-screen-keyboard" class="on-screen-keyboard">
+          <div class="keyboard-row">
+            <button class="key" data-key="Q">Q</button>
+            <button class="key" data-key="W">W</button>
+            <button class="key" data-key="E">E</button>
+            <button class="key" data-key="R">R</button>
+            <button class="key" data-key="T">T</button>
+            <button class="key" data-key="Y">Y</button>
+            <button class="key" data-key="U">U</button>
+            <button class="key" data-key="I">I</button>
+            <button class="key" data-key="O">O</button>
+            <button class="key" data-key="P">P</button>
+          </div>
+          <div class="keyboard-row">
+            <button class="key" data-key="A">A</button>
+            <button class="key" data-key="S">S</button>
+            <button class="key" data-key="D">D</button>
+            <button class="key" data-key="F">F</button>
+            <button class="key" data-key="G">G</button>
+            <button class="key" data-key="H">H</button>
+            <button class="key" data-key="J">J</button>
+            <button class="key" data-key="K">K</button>
+            <button class="key" data-key="L">L</button>
+          </div>
+          <div class="keyboard-row">
+            <button class="key" data-key="Z">Z</button>
+            <button class="key" data-key="X">X</button>
+            <button class="key" data-key="C">C</button>
+            <button class="key" data-key="V">V</button>
+            <button class="key" data-key="B">B</button>
+            <button class="key" data-key="N">N</button>
+            <button class="key" data-key="M">M</button>
+            <button class="key key-backspace" data-key="BACKSPACE">⌫</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level Complete Screen -->
+      <div id="complete-screen" class="screen">
+        <div class="complete-content">
+          <h2 class="complete-title">Level Complete!</h2>
+          <div class="stars-container" id="stars-container">
+            <div class="star">⭐</div>
+            <div class="star">⭐</div>
+            <div class="star">⭐</div>
+          </div>
+
+          <div class="complete-stats">
+            <div class="complete-stat">
+              <span class="stat-label">Score</span>
+              <span class="stat-value" id="final-score">0</span>
+            </div>
+            <div class="complete-stat">
+              <span class="stat-label">Time</span>
+              <span class="stat-value" id="final-time">00:00</span>
+            </div>
+            <div class="complete-stat">
+              <span class="stat-label">Coins Earned</span>
+              <span class="stat-value" id="coins-earned">0</span>
+            </div>
+          </div>
+
+          <div id="fun-fact" class="fun-fact"></div>
+
+          <div class="complete-buttons">
+            <button id="btn-next-level" class="btn btn-primary btn-large">
+              Next Level →
+            </button>
+            <button id="btn-replay" class="btn btn-secondary">Replay</button>
+            <button id="btn-home" class="btn btn-secondary">Home</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level Map Screen -->
+      <div id="levels-screen" class="screen">
+        <div class="screen-header">
+          <button class="btn-back-header" id="btn-back-levels">← Back</button>
+          <h2>Level Map</h2>
+        </div>
+        <div class="levels-container" id="levels-container"></div>
+      </div>
+
+      <!-- Achievements Screen -->
+      <div id="achievements-screen" class="screen">
+        <div class="screen-header">
+          <button class="btn-back-header" id="btn-back-achievements">
+            ← Back
+          </button>
+          <h2>Achievements</h2>
+        </div>
+        <div class="achievements-container" id="achievements-container"></div>
+      </div>
+
+      <!-- Leaderboard Screen -->
+      <div id="leaderboard-screen" class="screen">
+        <div class="screen-header">
+          <button class="btn-back-header" id="btn-back-leaderboard">
+            ← Back
+          </button>
+          <h2>Weekly Leaderboard</h2>
+        </div>
+        <div class="leaderboard-container" id="leaderboard-container"></div>
+      </div>
+
+      <!-- Settings Screen -->
+      <div id="settings-screen" class="screen">
+        <div class="screen-header">
+          <button class="btn-back-header" id="btn-back-settings">← Back</button>
+          <h2>Settings</h2>
+        </div>
+        <div class="settings-container">
+          <div class="setting-item">
+            <label for="toggle-dyslexic">Dyslexia-Friendly Font</label>
+            <input type="checkbox" id="toggle-dyslexic" class="toggle" />
+          </div>
+          <div class="setting-item">
+            <label for="toggle-colorblind">Color-Blind Mode</label>
+            <input type="checkbox" id="toggle-colorblind" class="toggle" />
+          </div>
+          <div class="setting-item">
+            <label for="toggle-sound">Sound Effects</label>
+            <input type="checkbox" id="toggle-sound" class="toggle" checked />
+          </div>
+          <div class="setting-item">
+            <label for="toggle-music">Background Music</label>
+            <input type="checkbox" id="toggle-music" class="toggle" checked />
+          </div>
+          <div class="setting-item">
+            <button id="btn-reset-progress" class="btn btn-danger">
+              Reset All Progress
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Modal Overlay -->
+    <div id="modal-overlay" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">×</button>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script src="js/i18n.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/puzzles.js"></script>
+    <script src="js/grid.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/scoring.js"></script>
+    <script src="js/currency.js"></script>
+    <script src="js/powerups.js"></script>
+    <script src="js/streaks.js"></script>
+    <script src="js/achievements.js"></script>
+    <script src="js/leaderboard.js"></script>
+    <script src="js/levels.js"></script>
+    <script src="js/daily-challenge.js"></script>
+    <script src="js/adaptive.js"></script>
+    <script src="js/educational.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/mascot.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>
