@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=OpenDyslexic&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=OpenDyslexic&display=swap"
       rel="stylesheet"
     />
 
@@ -31,17 +31,9 @@
       <div id="home-screen" class="screen active">
         <div class="home-content">
           <h1 class="game-title">
-            <span class="title-word" data-i18n="gameTitle">शब्द खोज</span>
+            <span class="title-word">Word Quest</span>
           </h1>
-          <p class="game-subtitle" data-i18n="gameSubtitle">क्रॉसवर्ड साहसिक</p>
-          
-          <!-- Language Selector -->
-          <div class="language-selector">
-            <select id="language-select" class="language-dropdown">
-              <option value="hi" selected>हिन्दी</option>
-              <option value="en">English</option>
-            </select>
-          </div>
+          <p class="game-subtitle">Crossword Adventure</p>
 
           <div class="mascot-container">
             <div
@@ -54,16 +46,16 @@
 
           <!-- Quick Play Buttons -->
           <div class="quick-play-section">
-            <h3 data-i18n="quickPlay">त्वरित खेल</h3>
+            <h3>Quick Play</h3>
             <div class="quick-play-buttons">
               <button class="btn-quick-play btn-easy" data-difficulty="easy">
-                <span data-i18n="easy">आसान</span>
+                <span>Easy</span>
               </button>
               <button class="btn-quick-play btn-medium" data-difficulty="medium">
-                <span data-i18n="medium">मध्यम</span>
+                <span>Medium</span>
               </button>
               <button class="btn-quick-play btn-hard" data-difficulty="hard">
-                <span data-i18n="hard">कठिन</span>
+                <span>Hard</span>
               </button>
             </div>
           </div>
@@ -71,27 +63,27 @@
           <div class="menu-buttons">
             <button id="btn-play" class="btn btn-primary btn-large">
               <span class="btn-icon">🎮</span>
-              <span data-i18n="play">खेलें</span>
+              <span>Play</span>
             </button>
             <button id="btn-daily" class="btn btn-secondary">
               <span class="btn-icon">⭐</span>
-              <span data-i18n="dailyChallenge">दैनिक चुनौती</span>
+              <span>Daily Challenge</span>
             </button>
             <button id="btn-levels" class="btn btn-secondary">
               <span class="btn-icon">🗺️</span>
-              <span data-i18n="levelMap">स्तर मानचित्र</span>
+              <span>Level Map</span>
             </button>
             <button id="btn-achievements" class="btn btn-secondary">
               <span class="btn-icon">🏆</span>
-              <span data-i18n="achievements">उपलब्धियां</span>
+              <span>Achievements</span>
             </button>
             <button id="btn-leaderboard" class="btn btn-secondary">
               <span class="btn-icon">📊</span>
-              <span data-i18n="leaderboard">लीडरबोर्ड</span>
+              <span>Leaderboard</span>
             </button>
             <button id="btn-settings" class="btn btn-secondary">
               <span class="btn-icon">⚙️</span>
-              <span data-i18n="settings">सेटिंग्स</span>
+              <span>Settings</span>
             </button>
           </div>
 
@@ -99,12 +91,12 @@
             <div class="stat-item">
               <span class="stat-icon">🔥</span>
               <span id="streak-display">0</span>
-              <span class="stat-label" data-i18n="dayStreak">दिन की लकीर</span>
+              <span class="stat-label">Day Streak</span>
             </div>
             <div class="stat-item">
               <span class="stat-icon">⭐</span>
               <span id="coins-display">0</span>
-              <span class="stat-label" data-i18n="coins">सिक्के</span>
+              <span class="stat-label">Coins</span>
             </div>
           </div>
         </div>
@@ -354,7 +346,6 @@
     </div>
 
     <!-- JavaScript Modules -->
-    <script src="js/i18n.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/puzzles.js"></script>
     <script src="js/grid.js"></script>
