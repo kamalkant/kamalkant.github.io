@@ -1079,3 +1079,12 @@ body.theme-sunset .game-title,body.theme-sunset .nav-btn svg path,body.theme-roy
   color: #FFF;
   stroke: #FFF;
 }
+#wordGrid[style="grid-template-columns: repeat(5, 1fr);"] {
+  
+}
+#wordGrid[style="grid-template-columns: repeat(6, 1fr);"] {
+  
+}
+#wordGrid[style="grid-template-columns: repeat(7, 1fr);"] {
+  
+}
