@@ -1,7 +1,7 @@
 // ===== Game Configuration =====
 const CONFIG = {
-    GRID_ROWS: 8,      // Vertical grid size (number of rows) - default for medium
-    GRID_COLS: 8,      // Horizontal grid size (number of columns) - default for medium
+    GRID_ROWS: 5,      // Vertical grid size (number of rows) - default for medium
+    GRID_COLS: 5,      // Horizontal grid size (number of columns) - default for medium
     TIMER_DURATION: 600, // seconds
     POINTS_PER_WORD: 100,
     HINT_PENALTY: 50,
@@ -12,7 +12,7 @@ const CONFIG = {
 const DIFFICULTY_SETTINGS = {
     easy: { min: 4, max: 5, rows: 5, cols: 5 },
     medium: { min: 6, max: 8, rows: 6, cols: 6 },
-    hard: { min: 9, max: 12, rows: 8, cols: 8 }
+    hard: { min: 9, max: 12, rows: 7, cols: 7 }
 };
 
 // Helper function to split text into grapheme clusters
@@ -110,7 +110,7 @@ class GameState {
             vibration: localStorage.getItem('vibrationEnabled') !== 'false',
             theme: localStorage.getItem('gameTheme') || 'default',
             language: localStorage.getItem('gameLanguage') || 'hindi',
-            difficulty: localStorage.getItem('gameDifficulty') || 'medium'
+            difficulty: localStorage.getItem('gameDifficulty') || 'easy'
         };
         
         this.applyTheme(this.settings.theme);
