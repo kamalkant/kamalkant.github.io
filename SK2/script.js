@@ -690,9 +690,6 @@ function handleCellTouchStart(e) {
 function handleCellTouchMove(e) {
     if (!game.isGameActive) return;
     
-    // Unlock audio on iOS when user swipes on grid
-    if (window.unlockAudio) window.unlockAudio();
-    
     e.preventDefault();
     const touch = e.touches[0];
     const element = document.elementFromPoint(touch.clientX, touch.clientY);
@@ -710,9 +707,6 @@ function handleCellTouchEnd(e) {
 
 function selectCell(index) {
     if (game.selectedCells.includes(index)) return;
-    
-    // Unlock audio on iOS when cell is selected
-    if (window.unlockAudio) window.unlockAudio();
     
     game.selectedCells.push(index);
     game.currentWord = game.selectedCells.map(i => game.grid[i]).join('');
