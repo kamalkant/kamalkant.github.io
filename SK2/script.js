@@ -10,9 +10,9 @@ const CONFIG = {
 
 // Difficulty settings
 const DIFFICULTY_SETTINGS = {
-    easy: { min: 4, max: 5, rows: 5, cols: 5 },
-    medium: { min: 6, max: 8, rows: 6, cols: 6 },
-    hard: { min: 9, max: 12, rows: 7, cols: 7 }
+    easy: { min: 5, max: 6, rows: 5, cols: 5, maxWordLength: 4 },
+    medium: { min: 6, max: 8, rows: 6, cols: 6, maxWordLength: 5 },
+    hard: { min: 9, max: 12, rows: 7, cols: 7, maxWordLength: 6 }
 };
 
 // Helper function to split text into grapheme clusters
@@ -175,25 +175,56 @@ class GameState {
         const numWords = Math.floor(Math.random() * (difficultyRange.max - difficultyRange.min + 1)) + difficultyRange.min;
         const selected = [];
         const gridDims = this.getGridDimensions();
-        const maxLen = Math.max(gridDims.rows, gridDims.cols);
         const isEnglish = this.settings.language === 'english';
         const wordList = isEnglish ? ENGLISH_WORDS : HINDI_WORDS;
         const charList = isEnglish ? ENGLISH_CHARACTERS : HINDI_CHARACTERS;
         
-        while (selected.length < numWords) {
+        // Use maxWordLength from difficulty settings
+        const maxWordLength = difficultyRange.maxWordLength;
+        
+        // Filter words by length first
+        let eligibleWords = [];
+        if (isEnglish) {
+            eligibleWords = wordList.filter(word => word.length <= maxWordLength);
+        } else {
+            eligibleWords = wordList.filter(wordArr => wordArr.length <= maxWordLength);
+        }
+        
+        // If not enough eligible words, expand the length limit
+        if (eligibleWords.length < numWords) {
+            console.warn(`Not enough words of length <= ${maxWordLength}. Expanding to grid size.`);
+            const maxLen = Math.max(gridDims.rows, gridDims.cols);
             if (isEnglish) {
-                const word = wordList[Math.floor(Math.random() * wordList.length)];
-                if (word.length <= maxLen && !selected.includes(word)) {
+                eligibleWords = wordList.filter(word => word.length <= maxLen);
+            } else {
+                eligibleWords = wordList.filter(wordArr => wordArr.length <= maxLen);
+            }
+        }
+        
+        // Randomly select words from eligible list
+        let attempts = 0;
+        const maxSelectionAttempts = 1000;
+        
+        while (selected.length < numWords && attempts < maxSelectionAttempts && eligibleWords.length > 0) {
+            attempts++;
+            
+            const randomIndex = Math.floor(Math.random() * eligibleWords.length);
+            
+            if (isEnglish) {
+                const word = eligibleWords[randomIndex];
+                if (!selected.includes(word)) {
                     selected.push(word);
                 }
             } else {
-                const wordArr = wordList[Math.floor(Math.random() * wordList.length)];
+                const wordArr = eligibleWords[randomIndex];
                 const wordStr = wordArr.join('');
-                if (wordArr.length <= maxLen && !selected.includes(wordStr)) {
+                if (!selected.includes(wordStr)) {
                     selected.push(wordStr);
                 }
             }
         }
+        
+        console.log(`Selected ${selected.length} words for ${this.settings.difficulty} difficulty (max length: ${maxWordLength})`);
         
         this.currentWordSet = {
             words: selected,
@@ -205,7 +236,7 @@ class GameState {
     generateGrid() {
         let allWordsPlaced = false;
         let regenerationAttempts = 0;
-        const maxRegenerationAttempts = 10;
+        const maxRegenerationAttempts = 20; // Increased from 10
         const gridDims = this.getGridDimensions();
 
         while (!allWordsPlaced && regenerationAttempts < maxRegenerationAttempts) {
@@ -230,7 +261,7 @@ class GameState {
                 const graphemes = getGraphemes(word, this.currentWordSet.language);
                 let placed = false;
                 let attempts = 0;
-                const maxAttempts = 100;
+                const maxAttempts = 200; // Increased from 100
 
                 while (!placed && attempts < maxAttempts) {
                     attempts++;
@@ -247,12 +278,26 @@ class GameState {
                         wordsPlacedCount++;
                     }
                 }
+                
+                // Log if word couldn't be placed
+                if (!placed) {
+                    console.warn(`Failed to place word: "${word}" (${graphemes.length} chars) after ${maxAttempts} attempts`);
+                }
             }
 
             // Check if all words were placed
             if (wordsPlacedCount === this.currentWordSet.words.length) {
                 allWordsPlaced = true;
+                console.log(`✓ Successfully placed all ${wordsPlacedCount} words in attempt ${regenerationAttempts}`);
+            } else {
+                console.log(`✗ Only placed ${wordsPlacedCount}/${this.currentWordSet.words.length} words in attempt ${regenerationAttempts}`);
             }
+        }
+        
+        // Final validation
+        if (!allWordsPlaced) {
+            console.error(`WARNING: Could not place all words after ${maxRegenerationAttempts} attempts!`);
+            console.error(`Placed: ${Object.keys(this.wordPositions).length}/${this.currentWordSet.words.length}`);
         }
 
         // Fill empty cells with random single characters
