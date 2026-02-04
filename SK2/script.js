@@ -635,6 +635,9 @@ let isMouseDown = false;
 function handleCellMouseDown(e) {
     if (!game.isGameActive) return;
     
+    // Unlock audio on iOS when user interacts with grid
+    if (window.unlockAudio) window.unlockAudio();
+    
     isMouseDown = true;
     game.selectedCells = [];
     game.currentWord = '';
@@ -663,6 +666,9 @@ function handleCellMouseUp() {
 
 function handleCellTouchStart(e) {
     if (!game.isGameActive) return;
+    
+    // Unlock audio on iOS when user touches grid
+    if (window.unlockAudio) window.unlockAudio();
     
     e.preventDefault();
     game.selectedCells = [];
