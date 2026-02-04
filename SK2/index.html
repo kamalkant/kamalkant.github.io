@@ -212,139 +212,91 @@
     <script src="celebration.js"></script>
     <script src="script.js"></script>
     <script>
-      // Use HTML5 Audio instead of Web Audio API for better iOS compatibility
-      console.log('Initializing audio system...');
+      // Sound Synthesizer Logic - Simple and working approach
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       
-      // Create audio elements for sounds
-      const sounds = {
-        success: null,
-        wrong: null,
-        complete: null
-      };
+      // Load victory sound
+      let victorySound = null;
+      fetch('win-coins.mp3')
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
+        .then(audioBuffer => {
+          victorySound = audioBuffer;
+        })
+        .catch(err => console.log('Error loading victory sound:', err));
       
-      // Flag to track if audio is ready
-      let audioReady = false;
-      
-      // Initialize audio on first user interaction
-      function initAudio() {
-        if (audioReady) {
-          console.log('Audio already initialized');
-          return;
+      // Unlock audio on first interaction (iOS requirement)
+      let audioUnlocked = false;
+      function unlockAudio() {
+        if (audioUnlocked) return;
+        
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
         }
         
-        console.log('Initializing audio elements...');
+        // Play silent sound to unlock
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.value = 0.001;
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.start(0);
+        oscillator.stop(0.01);
         
-        try {
-          // Create success sound (using data URL for inline audio)
-          sounds.success = new Audio();
-          sounds.success.volume = 0.3;
-          
-          // Create wrong sound
-          sounds.wrong = new Audio();
-          sounds.wrong.volume = 0.2;
-          
-          // Create complete sound (victory MP3)
-          sounds.complete = new Audio('win-coins.mp3');
-          sounds.complete.volume = 0.7;
-          
-          // Preload all sounds
-          sounds.success.load();
-          sounds.wrong.load();
-          sounds.complete.load();
-          
-          audioReady = true;
-          console.log('✓ Audio initialized successfully');
-        } catch (err) {
-          console.error('Failed to initialize audio:', err);
-        }
+        audioUnlocked = true;
       }
       
-      // Initialize on any user interaction
-      const initEvents = ['touchstart', 'touchend', 'mousedown', 'click', 'keydown'];
-      initEvents.forEach(event => {
-        document.addEventListener(event, initAudio, { once: true, passive: true });
-      });
+      // Add unlock listeners
+      document.addEventListener('touchstart', unlockAudio, { once: true });
+      document.addEventListener('click', unlockAudio, { once: true });
       
-      // Expose globally
-      window.initAudio = initAudio;
-      
-      // Play sound function
       window.playSound = function(type) {
-        if (localStorage.getItem('soundEnabled') === 'false') {
-          console.log('Sound disabled in settings');
-          return;
-        }
+        if (localStorage.getItem('soundEnabled') === 'false') return;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
         
-        // Initialize audio if not ready
-        if (!audioReady) {
-          console.log('Audio not ready, initializing...');
-          initAudio();
-        }
+        const now = audioCtx.currentTime;
         
-        console.log('Playing sound:', type);
-        
-        try {
-          if (type === 'success') {
-            // Generate success tone using Web Audio as fallback
-            playTone(523.25, 0.1, 0.3, 'sine');
-          } else if (type === 'wrong') {
-            // Generate wrong tone
-            playTone(220, 0.08, 0.2, 'triangle');
-            setTimeout(() => playTone(180, 0.08, 0.2, 'triangle'), 100);
-          } else if (type === 'complete') {
-            // Play victory sound
-            if (sounds.complete) {
-              sounds.complete.currentTime = 0;
-              const playPromise = sounds.complete.play();
-              if (playPromise !== undefined) {
-                playPromise.then(() => {
-                  console.log('✓ Victory sound played');
-                }).catch(err => {
-                  console.error('Victory sound play failed:', err);
-                });
-              }
-            }
-          }
-        } catch (err) {
-          console.error('Error playing sound:', err);
-        }
-      };
-      
-      // Helper function to play tones using Web Audio
-      function playTone(frequency, duration, volume, type = 'sine') {
-        try {
-          const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          
-          // Resume context if suspended
-          if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-          }
-          
+        if (type === 'success') {
           const oscillator = audioCtx.createOscillator();
           const gainNode = audioCtx.createGain();
-          
           oscillator.connect(gainNode);
           gainNode.connect(audioCtx.destination);
           
-          oscillator.type = type;
-          oscillator.frequency.value = frequency;
-          gainNode.gain.value = volume;
-          
-          const now = audioCtx.currentTime;
+          oscillator.type = 'sine';
+          oscillator.frequency.setValueAtTime(523.25, now);
+          oscillator.frequency.exponentialRampToValueAtTime(880, now + 0.1);
+          gainNode.gain.setValueAtTime(0.3, now);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
           oscillator.start(now);
-          oscillator.stop(now + duration);
-          
-          // Cleanup
-          oscillator.onended = () => {
-            oscillator.disconnect();
-            gainNode.disconnect();
-          };
-          
-          console.log(`✓ Tone played: ${frequency}Hz`);
-        } catch (err) {
-          console.error('Error playing tone:', err);
+          oscillator.stop(now + 0.3);
+        } else if (type === 'wrong') {
+          [220, 180].forEach((freq, i) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            const start = now + (i * 0.1);
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, start);
+            osc.frequency.linearRampToValueAtTime(freq / 2, start + 0.08);
+            gain.gain.setValueAtTime(0.2, start);
+            gain.gain.linearRampToValueAtTime(0.01, start + 0.08);
+            osc.start(start);
+            osc.stop(start + 0.08);
+          });
+        } else if (type === 'complete') {
+          if (victorySound) {
+            const source = audioCtx.createBufferSource();
+            source.buffer = victorySound;
+            const gainNode = audioCtx.createGain();
+            source.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            gainNode.gain.setValueAtTime(0.7, now);
+            source.start(now);
+          }
         }
-      }
+      };
     </script>
   </body>
 </html>
