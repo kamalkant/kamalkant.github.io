@@ -212,8 +212,59 @@
     <script src="celebration.js"></script>
     <script src="script.js"></script>
     <script>
-      // Sound Synthesizer Logic - Simple and working approach
+      // Sound Synthesizer Logic with iOS compatibility
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // iOS requires user interaction to unlock audio
+      let audioUnlocked = false;
+      
+      function unlockAudio() {
+        if (audioUnlocked) return;
+        
+        console.log('Attempting to unlock audio...');
+        
+        // Resume audio context on user interaction
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().then(() => {
+            console.log('✓ Audio context resumed');
+            audioUnlocked = true;
+          }).catch(err => {
+            console.error('Failed to resume audio:', err);
+          });
+        } else {
+          audioUnlocked = true;
+          console.log('✓ Audio context already running');
+        }
+        
+        // Play a silent sound to unlock iOS audio
+        try {
+          const oscillator = audioCtx.createOscillator();
+          const gainNode = audioCtx.createGain();
+          gainNode.gain.value = 0.001; // Nearly silent
+          oscillator.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+          oscillator.start(audioCtx.currentTime);
+          oscillator.stop(audioCtx.currentTime + 0.01);
+        } catch (err) {
+          console.error('Error playing unlock sound:', err);
+        }
+      }
+      
+      // Expose unlockAudio globally so it can be called from game interactions
+      window.unlockAudio = unlockAudio;
+      
+      // Add event listeners for iOS audio unlock - multiple events for better coverage
+      document.addEventListener('touchstart', unlockAudio);
+      document.addEventListener('touchend', unlockAudio);
+      document.addEventListener('click', unlockAudio);
+      document.addEventListener('mousedown', unlockAudio);
+      document.addEventListener('keydown', unlockAudio);
+      
+      // Also unlock when game starts
+      window.addEventListener('load', () => {
+        // Try to unlock after a short delay
+        setTimeout(unlockAudio, 100);
+      });
       
       // Load victory sound
       let victorySound = null;
@@ -222,38 +273,24 @@
         .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
         .then(audioBuffer => {
           victorySound = audioBuffer;
+          console.log('Victory sound loaded');
         })
         .catch(err => console.log('Error loading victory sound:', err));
       
-      // Unlock audio on first interaction (iOS requirement)
-      let audioUnlocked = false;
-      function unlockAudio() {
-        if (audioUnlocked) return;
-        
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        
-        // Play silent sound to unlock
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-        gainNode.gain.value = 0.001;
-        oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        oscillator.start(0);
-        oscillator.stop(0.01);
-        
-        audioUnlocked = true;
-      }
-      
-      // Add unlock listeners
-      document.addEventListener('touchstart', unlockAudio, { once: true });
-      document.addEventListener('click', unlockAudio, { once: true });
-      
       window.playSound = function(type) {
         if (localStorage.getItem('soundEnabled') === 'false') return;
-        if (audioCtx.state === 'suspended') audioCtx.resume();
         
+        // Ensure audio context is running (iOS fix)
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().then(() => {
+            playAudioEffect(type);
+          });
+        } else {
+          playAudioEffect(type);
+        }
+      };
+      
+      function playAudioEffect(type) {
         const now = audioCtx.currentTime;
         
         if (type === 'success') {
@@ -263,13 +300,14 @@
           gainNode.connect(audioCtx.destination);
           
           oscillator.type = 'sine';
-          oscillator.frequency.setValueAtTime(523.25, now);
-          oscillator.frequency.exponentialRampToValueAtTime(880, now + 0.1);
+          oscillator.frequency.setValueAtTime(523.25, now); // C5
+          oscillator.frequency.exponentialRampToValueAtTime(880, now + 0.1); // A5
           gainNode.gain.setValueAtTime(0.3, now);
           gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
           oscillator.start(now);
           oscillator.stop(now + 0.3);
         } else if (type === 'wrong') {
+          // Dual-pip lower tone for better "wrong" feel
           [220, 180].forEach((freq, i) => {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
@@ -286,17 +324,22 @@
             osc.stop(start + 0.08);
           });
         } else if (type === 'complete') {
+          // Play the victory MP3
           if (victorySound) {
-            const source = audioCtx.createBufferSource();
-            source.buffer = victorySound;
-            const gainNode = audioCtx.createGain();
-            source.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            gainNode.gain.setValueAtTime(0.7, now);
-            source.start(now);
+            try {
+              const source = audioCtx.createBufferSource();
+              source.buffer = victorySound;
+              const gainNode = audioCtx.createGain();
+              source.connect(gainNode);
+              gainNode.connect(audioCtx.destination);
+              gainNode.gain.setValueAtTime(0.7, now); // Adjust volume as needed
+              source.start(now);
+            } catch (err) {
+              console.error('Error playing victory sound:', err);
+            }
           }
         }
-      };
+      }
     </script>
   </body>
 </html>
