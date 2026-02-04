@@ -104,14 +104,28 @@ class GameState {
             rightRank: 12
         };
         
-        // Persistent Settings - Sound enabled by default on all devices
+        // Detect iOS devices (vibration not supported in iOS Safari)
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
+        // Check if vibration API is supported
+        const vibrationSupported = 'vibrate' in navigator;
+        
+        // Persistent Settings
         this.settings = {
             sound: localStorage.getItem('soundEnabled') !== 'false',
-            vibration: localStorage.getItem('vibrationEnabled') !== 'false',
+            // Disable vibration by default on iOS or if not supported
+            vibration: vibrationSupported && !isIOS 
+                ? localStorage.getItem('vibrationEnabled') !== 'false'
+                : false,
             theme: localStorage.getItem('gameTheme') || 'default',
             language: localStorage.getItem('gameLanguage') || 'hindi',
             difficulty: localStorage.getItem('gameDifficulty') || 'easy'
         };
+        
+        // Save vibration state for iOS
+        if (isIOS || !vibrationSupported) {
+            localStorage.setItem('vibrationEnabled', 'false');
+        }
         
         this.applyTheme(this.settings.theme);
     }
@@ -133,8 +147,17 @@ class GameState {
     }
 
     vibrate(pattern = 50) {
-        if (this.settings.vibration && navigator.vibrate) {
-            navigator.vibrate(pattern);
+        // Check if vibration is enabled and supported
+        if (!this.settings.vibration) return;
+        
+        if ('vibrate' in navigator && typeof navigator.vibrate === 'function') {
+            try {
+                navigator.vibrate(pattern);
+            } catch (err) {
+                console.warn('Vibration failed:', err);
+            }
+        } else {
+            console.log('Vibration API not supported on this device');
         }
     }
 
@@ -913,5 +936,22 @@ window.addEventListener('load', () => {
     // Load initial theme and language from state
     game.applyTheme(game.settings.theme);
     updateUILanguage(game.settings.language);
+    
+    // Hide vibration toggle on iOS (not supported)
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const vibrationSupported = 'vibrate' in navigator;
+    
+    if (isIOS || !vibrationSupported) {
+        const vibrationToggleContainer = document.querySelector('#vibrationToggle')?.closest('.setting-item');
+        if (vibrationToggleContainer) {
+            vibrationToggleContainer.style.opacity = '0.5';
+            vibrationToggleContainer.style.pointerEvents = 'none';
+            const vibrationLabel = vibrationToggleContainer.querySelector('span');
+            if (vibrationLabel) {
+                vibrationLabel.textContent += ' (Not supported on this device)';
+            }
+        }
+    }
+    
     startGame();
 });
