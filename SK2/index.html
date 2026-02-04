@@ -212,99 +212,138 @@
     <script src="celebration.js"></script>
     <script src="script.js"></script>
     <script>
-      // Sound Synthesizer Logic with iOS compatibility
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      
-      // iOS requires user interaction to unlock audio
+      // Sound Synthesizer Logic with enhanced iOS compatibility
+      let audioCtx = null;
       let audioUnlocked = false;
       
+      // Initialize AudioContext lazily (better for iOS)
+      function getAudioContext() {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          console.log('AudioContext created, state:', audioCtx.state);
+        }
+        return audioCtx;
+      }
+      
+      // Aggressive unlock for iOS
       function unlockAudio() {
-        if (audioUnlocked) return;
-        
-        // Resume audio context on user interaction
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume().then(() => {
-            audioUnlocked = true;
-            console.log('Audio unlocked');
-          }).catch(err => {
-            console.error('Failed to resume audio:', err);
-          });
-        } else {
-          audioUnlocked = true;
+        if (audioUnlocked) {
+          console.log('Audio already unlocked');
+          return;
         }
         
-        // Play a very quiet sound to unlock iOS audio (must be > 0 to work)
+        const ctx = getAudioContext();
+        console.log('Attempting to unlock audio, current state:', ctx.state);
+        
+        // Method 1: Resume context
+        if (ctx.state === 'suspended') {
+          ctx.resume().then(() => {
+            console.log('✓ AudioContext resumed successfully');
+          }).catch(err => {
+            console.error('Failed to resume:', err);
+          });
+        }
+        
+        // Method 2: Play actual audio buffer (most reliable for iOS)
         try {
-          const oscillator = audioCtx.createOscillator();
-          const gainNode = audioCtx.createGain();
-          gainNode.gain.value = 0.0001; // Very quiet but not zero (required for iOS)
-          oscillator.connect(gainNode);
-          gainNode.connect(audioCtx.destination);
-          oscillator.frequency.value = 20; // Very low frequency (barely audible)
-          oscillator.start(audioCtx.currentTime);
-          oscillator.stop(audioCtx.currentTime + 0.03); // Slightly longer duration
+          // Create a tiny audio buffer
+          const buffer = ctx.createBuffer(1, 1, 22050);
+          const source = ctx.createBufferSource();
+          source.buffer = buffer;
+          source.connect(ctx.destination);
+          source.start(0);
+          console.log('✓ Unlock buffer played');
+          audioUnlocked = true;
         } catch (err) {
-          console.error('Error playing unlock sound:', err);
+          console.error('Buffer unlock failed:', err);
+          
+          // Method 3: Fallback to oscillator
+          try {
+            const oscillator = ctx.createOscillator();
+            const gainNode = ctx.createGain();
+            gainNode.gain.value = 0.001;
+            oscillator.connect(gainNode);
+            gainNode.connect(ctx.destination);
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + 0.01);
+            console.log('✓ Oscillator unlock played');
+            audioUnlocked = true;
+          } catch (err2) {
+            console.error('Oscillator unlock failed:', err2);
+          }
         }
       }
       
-      // Expose unlockAudio globally so it can be called from game interactions
+      // Expose globally
       window.unlockAudio = unlockAudio;
       
-      // Add event listeners for iOS audio unlock - multiple events for better coverage
-      document.addEventListener('touchstart', unlockAudio);
-      document.addEventListener('touchend', unlockAudio);
-      document.addEventListener('click', unlockAudio);
-      document.addEventListener('mousedown', unlockAudio);
-      document.addEventListener('keydown', unlockAudio);
-      
-      // Also unlock when game starts
-      window.addEventListener('load', () => {
-        // Try to unlock after a short delay
-        setTimeout(unlockAudio, 100);
+      // Add event listeners - trigger on ANY interaction
+      const unlockEvents = ['touchstart', 'touchend', 'mousedown', 'click', 'keydown'];
+      unlockEvents.forEach(event => {
+        document.addEventListener(event, unlockAudio, { passive: true });
       });
       
       // Load victory sound
       let victorySound = null;
-      fetch('win-coins.mp3')
-        .then(response => response.arrayBuffer())
-        .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
-        .then(audioBuffer => {
-          victorySound = audioBuffer;
-          console.log('Victory sound loaded');
-        })
-        .catch(err => console.log('Error loading victory sound:', err));
+      
+      // Load sound after first user interaction
+      function loadVictorySound() {
+        if (victorySound) return; // Already loaded
+        
+        const ctx = getAudioContext();
+        fetch('win-coins.mp3')
+          .then(response => response.arrayBuffer())
+          .then(arrayBuffer => ctx.decodeAudioData(arrayBuffer))
+          .then(audioBuffer => {
+            victorySound = audioBuffer;
+            console.log('Victory sound loaded');
+          })
+          .catch(err => console.log('Error loading victory sound:', err));
+      }
+      
+      // Try to load victory sound on first interaction
+      document.addEventListener('touchstart', loadVictorySound, { once: true, passive: true });
+      document.addEventListener('click', loadVictorySound, { once: true, passive: true });
       
       window.playSound = function(type) {
-        if (localStorage.getItem('soundEnabled') === 'false') return;
+        if (localStorage.getItem('soundEnabled') === 'false') {
+          console.log('Sound disabled in settings');
+          return;
+        }
+        
+        const ctx = getAudioContext();
+        console.log('playSound called, type:', type, 'ctx state:', ctx.state);
         
         // Always try to unlock audio first (iOS safety)
-        if (window.unlockAudio && !audioUnlocked) {
-          window.unlockAudio();
+        if (!audioUnlocked) {
+          console.log('Audio not unlocked, attempting unlock...');
+          unlockAudio();
         }
         
         // Ensure audio context is running (iOS fix)
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume().then(() => {
-            playAudioEffect(type);
+        if (ctx.state === 'suspended') {
+          console.log('Context suspended, resuming...');
+          ctx.resume().then(() => {
+            console.log('Context resumed, playing sound');
+            playAudioEffect(type, ctx);
           }).catch(err => {
             console.error('Failed to resume audio context:', err);
           });
         } else {
-          playAudioEffect(type);
+          playAudioEffect(type, ctx);
         }
       };
       
-      function playAudioEffect(type) {
-        console.log('Playing sound:', type, 'AudioContext state:', audioCtx.state);
-        const now = audioCtx.currentTime;
+      function playAudioEffect(type, ctx) {
+        console.log('Playing sound:', type, 'AudioContext state:', ctx.state);
+        const now = ctx.currentTime;
         
         try {
           if (type === 'success') {
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
+            const oscillator = ctx.createOscillator();
+            const gainNode = ctx.createGain();
             oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+            gainNode.connect(ctx.destination);
             
             oscillator.type = 'sine';
             oscillator.frequency.setValueAtTime(523.25, now); // C5
@@ -317,10 +356,10 @@
           } else if (type === 'wrong') {
             // Dual-pip lower tone for better "wrong" feel
             [220, 180].forEach((freq, i) => {
-              const osc = audioCtx.createOscillator();
-              const gain = audioCtx.createGain();
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
               osc.connect(gain);
-              gain.connect(audioCtx.destination);
+              gain.connect(ctx.destination);
               
               const start = now + (i * 0.1);
               osc.type = 'triangle';
@@ -336,11 +375,11 @@
             // Play the victory MP3
             if (victorySound) {
               try {
-                const source = audioCtx.createBufferSource();
+                const source = ctx.createBufferSource();
                 source.buffer = victorySound;
-                const gainNode = audioCtx.createGain();
+                const gainNode = ctx.createGain();
                 source.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
+                gainNode.connect(ctx.destination);
                 gainNode.gain.setValueAtTime(0.7, now); // Adjust volume as needed
                 source.start(now);
                 console.log('Victory sound played');
