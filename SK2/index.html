@@ -212,8 +212,39 @@
     <script src="celebration.js"></script>
     <script src="script.js"></script>
     <script>
-      // Sound Synthesizer Logic
+      // Sound Synthesizer Logic with iOS compatibility
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // iOS requires user interaction to unlock audio
+      let audioUnlocked = false;
+      
+      function unlockAudio() {
+        if (audioUnlocked) return;
+        
+        // Resume audio context on user interaction
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().then(() => {
+            console.log('Audio context resumed');
+            audioUnlocked = true;
+          });
+        } else {
+          audioUnlocked = true;
+        }
+        
+        // Play a silent sound to unlock iOS audio
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.value = 0; // Silent
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.start(0);
+        oscillator.stop(0.01);
+      }
+      
+      // Add event listeners for iOS audio unlock
+      document.addEventListener('touchstart', unlockAudio, { once: true });
+      document.addEventListener('touchend', unlockAudio, { once: true });
+      document.addEventListener('click', unlockAudio, { once: true });
       
       // Load victory sound
       let victorySound = null;
@@ -222,13 +253,24 @@
         .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
         .then(audioBuffer => {
           victorySound = audioBuffer;
+          console.log('Victory sound loaded');
         })
         .catch(err => console.log('Error loading victory sound:', err));
       
       window.playSound = function(type) {
         if (localStorage.getItem('soundEnabled') === 'false') return;
-        if (audioCtx.state === 'suspended') audioCtx.resume();
         
+        // Ensure audio context is running (iOS fix)
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().then(() => {
+            playAudioEffect(type);
+          });
+        } else {
+          playAudioEffect(type);
+        }
+      };
+      
+      function playAudioEffect(type) {
         const now = audioCtx.currentTime;
         
         if (type === 'success') {
@@ -264,16 +306,20 @@
         } else if (type === 'complete') {
           // Play the victory MP3
           if (victorySound) {
-            const source = audioCtx.createBufferSource();
-            source.buffer = victorySound;
-            const gainNode = audioCtx.createGain();
-            source.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            gainNode.gain.setValueAtTime(0.7, now); // Adjust volume as needed
-            source.start(now);
+            try {
+              const source = audioCtx.createBufferSource();
+              source.buffer = victorySound;
+              const gainNode = audioCtx.createGain();
+              source.connect(gainNode);
+              gainNode.connect(audioCtx.destination);
+              gainNode.gain.setValueAtTime(0.7, now); // Adjust volume as needed
+              source.start(now);
+            } catch (err) {
+              console.error('Error playing victory sound:', err);
+            }
           }
         }
-      };
+      }
     </script>
   </body>
 </html>
