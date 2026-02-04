@@ -104,7 +104,7 @@ class GameState {
             rightRank: 12
         };
         
-        // Persistent Settings
+        // Persistent Settings - Sound enabled by default on all devices
         this.settings = {
             sound: localStorage.getItem('soundEnabled') !== 'false',
             vibration: localStorage.getItem('vibrationEnabled') !== 'false',
