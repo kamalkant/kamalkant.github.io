@@ -20,19 +20,50 @@
     <div class="main_container">
     <!-- Top Navigation Bar -->
     <div class="top-nav">
-      <button class="nav-btn back-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M15 18l-6-6 6-6"/>
-        </svg>
-      </button>
+      <a href="https://www.amarujala.com/" style="text-decoration: none;">
+        <button class="nav-btn back-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+      </a>
       <h1 class="game-title">शब्दखोज़</h1>
-      <button class="nav-btn settings-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.015" y="0.015" width="23.97" height="23.97" stroke="#17B7C9" stroke-width="0.03"/>
-            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#0C5E98" stroke-width="1.5"/>
-            <path d="M13.7654 2.15224C13.3978 2 12.9319 2 12 2C11.0681 2 10.6022 2 10.2346 2.15224C9.74457 2.35523 9.35522 2.74458 9.15223 3.23463C9.05957 3.45834 9.0233 3.7185 9.00911 4.09799C8.98826 4.65568 8.70226 5.17189 8.21894 5.45093C7.73564 5.72996 7.14559 5.71954 6.65219 5.45876C6.31645 5.2813 6.07301 5.18262 5.83294 5.15102C5.30704 5.08178 4.77518 5.22429 4.35436 5.5472C4.03874 5.78938 3.80577 6.1929 3.33983 6.99993C2.87389 7.80697 2.64092 8.21048 2.58899 8.60491C2.51976 9.1308 2.66227 9.66266 2.98518 10.0835C3.13256 10.2756 3.3397 10.437 3.66119 10.639C4.1338 10.936 4.43789 11.4419 4.43786 12C4.43783 12.5581 4.13375 13.0639 3.66118 13.3608C3.33965 13.5629 3.13248 13.7244 2.98508 13.9165C2.66217 14.3373 2.51966 14.8691 2.5889 15.395C2.64082 15.7894 2.87379 16.193 3.33973 17C3.80568 17.807 4.03865 18.2106 4.35426 18.4527C4.77508 18.7756 5.30694 18.9181 5.83284 18.8489C6.07289 18.8173 6.31632 18.7186 6.65204 18.5412C7.14547 18.2804 7.73556 18.27 8.2189 18.549C8.70224 18.8281 8.98826 19.3443 9.00911 19.9021C9.02331 20.2815 9.05957 20.5417 9.15223 20.7654C9.35522 21.2554 9.74457 21.6448 10.2346 21.8478C10.6022 22 11.0681 22 12 22C12.9319 22 13.3978 22 13.7654 21.8478C14.2554 21.6448 14.6448 21.2554 14.8477 20.7654C14.9404 20.5417 14.9767 20.2815 14.9909 19.902C15.0117 19.3443 15.2977 18.8281 15.781 18.549C16.2643 18.2699 16.8544 18.2804 17.3479 18.5412C17.6836 18.7186 17.927 18.8172 18.167 18.8488C18.6929 18.9181 19.2248 18.7756 19.6456 18.4527C19.9612 18.2105 20.1942 17.807 20.6601 16.9999C21.1261 16.1929 21.3591 15.7894 21.411 15.395C21.4802 14.8691 21.3377 14.3372 21.0148 13.9164C20.8674 13.7243 20.6602 13.5628 20.3387 13.3608C19.8662 13.0639 19.5621 12.558 19.5621 11.9999C19.5621 11.4418 19.8662 10.9361 20.3387 10.6392C20.6603 10.4371 20.8675 10.2757 21.0149 10.0835C21.3378 9.66273 21.4803 9.13087 21.4111 8.60497C21.3592 8.21055 21.1262 7.80703 20.6602 7C20.1943 6.19297 19.9613 5.78945 19.6457 5.54727C19.2249 5.22436 18.693 5.08185 18.1671 5.15109C17.9271 5.18269 17.6837 5.28136 17.3479 5.4588C16.8545 5.71959 16.2644 5.73002 15.7811 5.45096C15.2977 5.17191 15.0117 4.65566 14.9909 4.09794C14.9767 3.71848 14.9404 3.45833 14.8477 3.23463C14.6448 2.74458 14.2554 2.35523 13.7654 2.15224Z" stroke="#0C5E98" stroke-width="1.5"/>
+      <div class="menu-container">
+        <button class="nav-btn menu-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="6" r="2" fill="currentColor"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            <circle cx="12" cy="18" r="2" fill="currentColor"/>
+          </svg>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <button class="dropdown-icon-btn" id="settingsMenuItem" title="Settings">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.015" y="0.015" width="23.97" height="23.97" stroke="#17B7C9" stroke-width="0.03"></rect>
+            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#0C5E98" stroke-width="1.5"></path>
+            <path d="M13.7654 2.15224C13.3978 2 12.9319 2 12 2C11.0681 2 10.6022 2 10.2346 2.15224C9.74457 2.35523 9.35522 2.74458 9.15223 3.23463C9.05957 3.45834 9.0233 3.7185 9.00911 4.09799C8.98826 4.65568 8.70226 5.17189 8.21894 5.45093C7.73564 5.72996 7.14559 5.71954 6.65219 5.45876C6.31645 5.2813 6.07301 5.18262 5.83294 5.15102C5.30704 5.08178 4.77518 5.22429 4.35436 5.5472C4.03874 5.78938 3.80577 6.1929 3.33983 6.99993C2.87389 7.80697 2.64092 8.21048 2.58899 8.60491C2.51976 9.1308 2.66227 9.66266 2.98518 10.0835C3.13256 10.2756 3.3397 10.437 3.66119 10.639C4.1338 10.936 4.43789 11.4419 4.43786 12C4.43783 12.5581 4.13375 13.0639 3.66118 13.3608C3.33965 13.5629 3.13248 13.7244 2.98508 13.9165C2.66217 14.3373 2.51966 14.8691 2.5889 15.395C2.64082 15.7894 2.87379 16.193 3.33973 17C3.80568 17.807 4.03865 18.2106 4.35426 18.4527C4.77508 18.7756 5.30694 18.9181 5.83284 18.8489C6.07289 18.8173 6.31632 18.7186 6.65204 18.5412C7.14547 18.2804 7.73556 18.27 8.2189 18.549C8.70224 18.8281 8.98826 19.3443 9.00911 19.9021C9.02331 20.2815 9.05957 20.5417 9.15223 20.7654C9.35522 21.2554 9.74457 21.6448 10.2346 21.8478C10.6022 22 11.0681 22 12 22C12.9319 22 13.3978 22 13.7654 21.8478C14.2554 21.6448 14.6448 21.2554 14.8477 20.7654C14.9404 20.5417 14.9767 20.2815 14.9909 19.902C15.0117 19.3443 15.2977 18.8281 15.781 18.549C16.2643 18.2699 16.8544 18.2804 17.3479 18.5412C17.6836 18.7186 17.927 18.8172 18.167 18.8488C18.6929 18.9181 19.2248 18.7756 19.6456 18.4527C19.9612 18.2105 20.1942 17.807 20.6601 16.9999C21.1261 16.1929 21.3591 15.7894 21.411 15.395C21.4802 14.8691 21.3377 14.3372 21.0148 13.9164C20.8674 13.7243 20.6602 13.5628 20.3387 13.3608C19.8662 13.0639 19.5621 12.558 19.5621 11.9999C19.5621 11.4418 19.8662 10.9361 20.3387 10.6392C20.6603 10.4371 20.8675 10.2757 21.0149 10.0835C21.3378 9.66273 21.4803 9.13087 21.4111 8.60497C21.3592 8.21055 21.1262 7.80703 20.6602 7C20.1943 6.19297 19.9613 5.78945 19.6457 5.54727C19.2249 5.22436 18.693 5.08185 18.1671 5.15109C17.9271 5.18269 17.6837 5.28136 17.3479 5.4588C16.8545 5.71959 16.2644 5.73002 15.7811 5.45096C15.2977 5.17191 15.0117 4.65566 14.9909 4.09794C14.9767 3.71848 14.9404 3.45833 14.8477 3.23463C14.6448 2.74458 14.2554 2.35523 13.7654 2.15224Z" stroke="#0C5E98" stroke-width="1.5"></path>
         </svg>
-      </button>
+          </button>
+          <button class="dropdown-icon-btn" id="soundMenuItem" title="Sound">
+            <!-- Unmute icon (shown when sound is ON) -->
+            <svg class="sound-icon sound-on" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+            <!-- Mute icon (shown when sound is OFF) -->
+            <svg class="sound-icon sound-off" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/>
+              <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          </button>
+          <button class="dropdown-icon-btn" id="refreshMenuItem" title="Refresh">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Leaderboard Section with Progress Bar -->
@@ -80,29 +111,29 @@
 
     <!-- Congratulations Banner -->
     <div class="congrats-banner" id="congratsBanner">
-      <span>बधाई हो! आपने अभी <span id="coinsWon">10</span>🪙 जीत लिए हैं 🎉</span>
+      <span>+<span id="coinsWon">10</span></span>
     </div>
+    <div class="game-header">
+            <div class="header-item timer-section">
+              <div class="timer-icon">⏱️</div>
+              <div class="timer-value" id="timer">0:00</div>
+            </div>
 
+            <div class="header-item rank-section">
+              <div class="score-change" id="scoreChange">+400</div>
+              <div class="rank-icon">📊</div>
+              <div class="rank-value" id="bestScore">0</div>
+            </div>
+
+            <div class="header-item best-score-section">
+              <div class="star-icon">⭐</div>
+              <div class="best-score-value" id="currentRank">0</div>
+            </div>
+          </div>
     <!-- Game Container -->
     <div class="game-container">
       <!-- Game Board Header -->
-      <div class="game-header">
-        <div class="header-item timer-section">
-          <div class="timer-icon">⏱️</div>
-          <div class="timer-value" id="timer">1:00</div>
-        </div>
-
-        <div class="header-item rank-section">
-          <div class="score-change" id="scoreChange">+400</div>
-          <div class="rank-icon">📊</div>
-          <div class="rank-value" id="currentRank">0</div>
-        </div>
-
-        <div class="header-item best-score-section">
-          <div class="best-score-value" id="bestScore">0</div>
-          <div class="star-icon">⭐</div>
-        </div>
-      </div>
+      
 
 
       <!-- Word Grid -->
@@ -136,17 +167,31 @@
 
     <!-- Game Over Modal -->
     <div class="modal" id="gameOverModal">
-      <div class="modal-content">
-        <img src="winImg.png" alt="" srcset="">
-        <div class="final-score">
-          <p><span id="yourScoreLabel">आपका स्कोर:</span> <span id="finalScore">0</span></p>
-          <p>
-            <span id="wordsFoundLabel">शब्द मिले:</span> <span id="wordsFound">0</span>/<span id="totalWords"
-              >0</span
-            >
-          </p>
+      <div class="modal-content game-over-modal">
+        <button class="modal-close-btn" id="closeGameOverBtn">✕</button>
+        <div class="modal-title">
+          🪙 <span class="coins-earned" id="coinsEarnedText">10</span> <span id="modalCoinsText"></span>कॉइन्स अर्जित करने</span><br><span id="modalCongratsPrefix">के लिए</span> <span class="congrats-text" id="modalCongratsText">बधाई!</span>
         </div>
-        <button class="btn btn-primary" id="playAgainBtn">फिर से खेलें</button>
+        
+        <div class="modal-message" id="modalMessage">
+          अच्छा प्रयास!
+        </div>
+        
+        <div class="modal-scores">
+          <div class="modal-score-item">
+            <span id="yourScoreLabel">आपका स्कोर:</span> <span id="modalYourScore" class="score-value">0</span>
+          </div>
+          <div class="modal-score-item">
+            <span id="bestScoreLabel">आज का सर्वोत्तम स्कोर:</span> <span id="modalBestScore" class="score-value">0</span>
+          </div>
+        </div>
+        
+        <button class="modal-refresh-btn" id="playAgainBtn">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          </svg>
+          <span id="playAgainText">पुनः खेलें</span>
+        </button>
       </div>
     </div>
 
@@ -188,9 +233,9 @@
         <div class="settings-section">
           <h3>Game Difficulty</h3>
           <select id="difficultySelect" class="language-select">
-            <option value="easy">Easy (4-5 words)</option>
-            <option value="medium">Medium (6-8 words)</option>
-            <option value="hard">Hard (9-12 words)</option>
+            <option value="easy">Easy (5 words)</option>
+            <option value="medium">Medium (8 words)</option>
+            <option value="hard">Hard (10 words)</option>
           </select>
         </div>
 
