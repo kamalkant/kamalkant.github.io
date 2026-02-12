@@ -923,6 +923,7 @@ elements.hintBtn.addEventListener('click', giveHint);
 if (elements.closeGameOverBtn) {
     elements.closeGameOverBtn.addEventListener('click', () => {
         elements.gameOverModal.classList.remove('show');
+        startGame(); // Refresh the game
     });
 }
 
