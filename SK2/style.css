@@ -154,8 +154,8 @@ body::after {
 }
 
 .dropdown-icon-btn {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(10px);
