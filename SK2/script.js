@@ -3,16 +3,17 @@ const CONFIG = {
     GRID_ROWS: 5,      // Vertical grid size (number of rows) - default for medium
     GRID_COLS: 5,      // Horizontal grid size (number of columns) - default for medium
     TIMER_DURATION: 600, // seconds
-    POINTS_PER_WORD: 100,
+    POINTS_PER_WORD: 100,  // Maximum points per word (p)
+    TIME_PENALTY: 1,       // Points lost per second (1 point/second)
     HINT_PENALTY: 50,
     WORDS_TO_FIND: 6,  // Number of words to find in each game (default for medium)
 };
 
 // Difficulty settings
 const DIFFICULTY_SETTINGS = {
-    easy: { min: 5, max: 6, rows: 5, cols: 5, maxWordLength: 4 },
-    medium: { min: 6, max: 8, rows: 6, cols: 6, maxWordLength: 5 },
-    hard: { min: 9, max: 12, rows: 7, cols: 7, maxWordLength: 6 }
+    easy: { min: 5, max: 5, rows: 5, cols: 5, maxWordLength: 4 },
+    medium: { min: 8, max: 8, rows: 6, cols: 6, maxWordLength: 5 },
+    hard: { min: 10, max: 10, rows: 7, cols: 7, maxWordLength: 6 }
 };
 
 // Helper function to split text into grapheme clusters
@@ -43,18 +44,30 @@ const UI_TRANSLATIONS = {
         newGameBtn: "नया खेल शुरू करें",
         gameOverTitle: "खेल समाप्त!",
         yourScore: "आपका स्कोर:",
+        bestScore: "आज का सर्वोत्तम स्कोर:",
         wordsFound: "शब्द मिले:",
         outOf: "में से",
-        playAgain: "फिर से खेलें"
+        playAgain: "फिर से खेलें",
+        modalCoinsText: "कॉइन्स अर्जित करने",
+        modalCongratsPrefix: "के लिए",
+        modalCongratsText: "बधाई!",
+        modalMessage: "अच्छा प्रयास!",
+        playAgainText: "पुनः खेलें"
     },
     english: {
         wordListTitle: "Select letters to find words",
         newGameBtn: "Start New Game",
         gameOverTitle: "Game Over!",
         yourScore: "Your Score:",
+        bestScore: "Today's Best Score:",
         wordsFound: "Words Found:",
         outOf: "out of",
-        playAgain: "Play Again"
+        playAgain: "Play Again",
+        modalCoinsText: "coins earned for",
+        modalCongratsPrefix: "",
+        modalCongratsText: "Congratulations!",
+        modalMessage: "Good Effort!",
+        playAgainText: "Play Again"
     }
 };
 
@@ -71,15 +84,27 @@ function updateUILanguage(lang) {
     const newGameBtn = document.getElementById('newGameBtn');
     if (newGameBtn) newGameBtn.textContent = t.newGameBtn;
     
-    // Update game over modal labels
+    // Update game over modal labels (old elements - may not exist)
     const yourScoreLabel = document.getElementById('yourScoreLabel');
     if (yourScoreLabel) yourScoreLabel.textContent = t.yourScore;
+    
+    const bestScoreLabel = document.getElementById('bestScoreLabel');
+    if (bestScoreLabel) bestScoreLabel.textContent = t.bestScore;
     
     const wordsFoundLabel = document.getElementById('wordsFoundLabel');
     if (wordsFoundLabel) wordsFoundLabel.textContent = t.wordsFound;
     
     const playAgainBtn = document.getElementById('playAgainBtn');
     if (playAgainBtn) playAgainBtn.textContent = t.playAgain;
+    
+    // Update new modal text elements
+    if (elements.modalCoinsText) elements.modalCoinsText.textContent = t.modalCoinsText;
+    if (elements.modalCongratsPrefix) elements.modalCongratsPrefix.textContent = t.modalCongratsPrefix;
+    if (elements.modalCongratsText) elements.modalCongratsText.textContent = t.modalCongratsText;
+    if (elements.modalMessage) elements.modalMessage.textContent = t.modalMessage;
+    if (elements.playAgainText) elements.playAgainText.textContent = t.playAgainText;
+    if (elements.yourScoreLabel) elements.yourScoreLabel.textContent = t.yourScore;
+    if (elements.bestScoreLabel) elements.bestScoreLabel.textContent = t.bestScore;
 }
 
 // ===== Game State =====
@@ -87,7 +112,7 @@ class GameState {
     constructor() {
         this.score = 0;
         this.bestScore = parseInt(localStorage.getItem('bestScore')) || 0;
-        this.timeRemaining = CONFIG.TIMER_DURATION;
+        this.timeRemaining = 0;
         this.selectedCells = [];
         this.grid = []; // Array of grapheme clusters
         this.wordPositions = {}; // Store where each word is placed
@@ -98,6 +123,8 @@ class GameState {
         this.timerInterval = null;
         this.currentWord = '';
         this.currentWordSet = null;
+        this.gameStartTime = null; // Track when game started
+        this.currentWordStartTime = null; // Track when current word search started
         this.leaderboardData = {
             currentUserScore: 0,
             leftRank: 10,
@@ -117,7 +144,7 @@ class GameState {
             vibration: vibrationSupported && !isIOS 
                 ? localStorage.getItem('vibrationEnabled') !== 'false'
                 : false,
-            theme: localStorage.getItem('gameTheme') || 'default',
+            theme: localStorage.getItem('gameTheme') || 'sunset',
             language: localStorage.getItem('gameLanguage') || 'hindi',
             difficulty: localStorage.getItem('gameDifficulty') || 'easy'
         };
@@ -181,13 +208,15 @@ class GameState {
 
     reset() {
         this.score = 0;
-        this.timeRemaining = CONFIG.TIMER_DURATION;
+        this.timeRemaining = 0;
         this.selectedCells = [];
         this.currentWord = '';
         this.isGameActive = true;
         this.wordPositions = {};
         this.foundWords = []; // Reset found words
         this.wordColors = {}; // Reset word colors
+        this.gameStartTime = Date.now(); // Set game start time
+        this.currentWordStartTime = Date.now(); // Set initial word start time
         this.selectRandomWordSet();
         this.generateGrid();
     }
@@ -402,13 +431,28 @@ const elements = {
     newGameBtn: document.getElementById('newGameBtn'),
     hintBtn: document.getElementById('hintBtn'),
     gameOverModal: document.getElementById('gameOverModal'),
+    closeGameOverBtn: document.getElementById('closeGameOverBtn'),
+    coinsEarnedText: document.getElementById('coinsEarnedText'),
+    modalCoinsText: document.getElementById('modalCoinsText'),
+    modalCongratsPrefix: document.getElementById('modalCongratsPrefix'),
+    modalCongratsText: document.getElementById('modalCongratsText'),
+    modalMessage: document.getElementById('modalMessage'),
+    playAgainText: document.getElementById('playAgainText'),
+    modalYourScore: document.getElementById('modalYourScore'),
+    modalBestScore: document.getElementById('modalBestScore'),
+    yourScoreLabel: document.getElementById('yourScoreLabel'),
+    bestScoreLabel: document.getElementById('bestScoreLabel'),
     finalScore: document.getElementById('finalScore'),
     wordsFound: document.getElementById('wordsFound'),
     totalWords: document.getElementById('totalWords'),
     playAgainBtn: document.getElementById('playAgainBtn'),
     leftRank: document.getElementById('leftRank'),
     rightRank: document.getElementById('rightRank'),
-    settingsBtn: document.querySelector('.settings-btn'),
+    menuBtn: document.querySelector('.menu-btn'),
+    dropdownMenu: document.getElementById('dropdownMenu'),
+    settingsMenuItem: document.getElementById('settingsMenuItem'),
+    soundMenuItem: document.getElementById('soundMenuItem'),
+    refreshMenuItem: document.getElementById('refreshMenuItem'),
     settingsModal: document.getElementById('settingsModal'),
     closeSettingsBtn: document.getElementById('closeSettingsBtn'),
     soundToggle: document.getElementById('soundToggle'),
@@ -454,10 +498,10 @@ function updateTimer() {
     const seconds = game.timeRemaining % 60;
     elements.timer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
     
-    if (game.timeRemaining <= 0) {
+    if (game.timeRemaining >= CONFIG.TIMER_DURATION) {
         endGame();
     } else {
-        game.timeRemaining--;
+        game.timeRemaining++;
     }
 }
 
@@ -475,9 +519,8 @@ function showScorePopup(points) {
         elements.scoreChange.classList.remove('show');
     }, 2000);
     
-    // Show congratulations banner
-    const coins = Math.floor(points / 10); // Convert points to coins
-    elements.coinsWon.textContent = coins;
+    // Show congratulations banner with actual points earned
+    elements.coinsWon.textContent = points;
     elements.congratsBanner.classList.add('show');
     
     setTimeout(() => {
@@ -724,7 +767,15 @@ function checkWord() {
     
     if (game.currentWordSet.words.includes(word) && !foundWordsList.includes(word)) {
         // Word found!
-        game.addScore(CONFIG.POINTS_PER_WORD);
+        // Calculate time-decay score: max(0, p - (t1 - t0))
+        const currentTime = Date.now();
+        const timeTaken = Math.floor((currentTime - game.currentWordStartTime) / 1000); // seconds
+        const pointsEarned = Math.max(0, CONFIG.POINTS_PER_WORD - (timeTaken * CONFIG.TIME_PENALTY));
+        
+        game.addScore(pointsEarned);
+        
+        // Reset word start time for next word
+        game.currentWordStartTime = Date.now();
         
         // Effects
         window.playSound('success');
@@ -737,7 +788,7 @@ function checkWord() {
         // Draw connection line with the same color (this also stores it in foundWords array)
         drawConnectionLine(game.selectedCells, word, wordColor);
         
-        showScorePopup(CONFIG.POINTS_PER_WORD);
+        showScorePopup(pointsEarned);
         updateScore();
         renderWordList();
         
@@ -815,9 +866,23 @@ function endGame(allWordsFound = false) {
     }
     
     // Show game over modal
-    elements.finalScore.textContent = game.score;
-    elements.wordsFound.textContent = game.foundWords.length;
-    elements.totalWords.textContent = game.currentWordSet.words.length;
+    const coinsEarned = Math.floor(game.score / 10);
+    if (elements.coinsEarnedText) {
+        elements.coinsEarnedText.textContent = coinsEarned;
+    }
+    
+    // Update score displays
+    if (elements.modalYourScore) elements.modalYourScore.textContent = game.score;
+    if (elements.modalBestScore) elements.modalBestScore.textContent = game.bestScore;
+    
+    // Update optional elements if they exist
+    if (elements.finalScore) elements.finalScore.textContent = game.score;
+    if (elements.wordsFound) elements.wordsFound.textContent = game.foundWords.length;
+    if (elements.totalWords) elements.totalWords.textContent = game.currentWordSet.words.length;
+    
+    // Update modal text to current language
+    updateUILanguage(game.settings.language);
+    
     elements.gameOverModal.classList.add('show');
 }
 
@@ -854,6 +919,13 @@ function giveHint() {
 // ===== Event Listeners =====
 elements.newGameBtn.addEventListener('click', startGame);
 elements.hintBtn.addEventListener('click', giveHint);
+
+if (elements.closeGameOverBtn) {
+    elements.closeGameOverBtn.addEventListener('click', () => {
+        elements.gameOverModal.classList.remove('show');
+    });
+}
+
 elements.playAgainBtn.addEventListener('click', () => {
     elements.gameOverModal.classList.remove('show');
     startGame();
@@ -866,8 +938,23 @@ document.addEventListener('selectstart', (e) => {
     }
 });
 
-// Settings Event Listeners
-elements.settingsBtn.addEventListener('click', () => {
+// Dropdown Menu Event Listeners
+elements.menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    elements.dropdownMenu.classList.toggle('show');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    if (!elements.dropdownMenu.contains(e.target) && !elements.menuBtn.contains(e.target)) {
+        elements.dropdownMenu.classList.remove('show');
+    }
+});
+
+// Settings menu item - opens settings modal
+elements.settingsMenuItem.addEventListener('click', () => {
+    elements.dropdownMenu.classList.remove('show');
+    
     // Sync toggles with state
     elements.soundToggle.checked = game.settings.sound;
     elements.vibrationToggle.checked = game.settings.vibration;
@@ -880,6 +967,37 @@ elements.settingsBtn.addEventListener('click', () => {
     });
     
     elements.settingsModal.classList.add('show');
+});
+
+// Sound menu item - toggles sound on/off
+elements.soundMenuItem.addEventListener('click', () => {
+    game.settings.sound = !game.settings.sound;
+    game.toggleSound(game.settings.sound);
+    
+    // Toggle between mute and unmute icons
+    const soundOnIcon = elements.soundMenuItem.querySelector('.sound-on');
+    const soundOffIcon = elements.soundMenuItem.querySelector('.sound-off');
+    
+    if (game.settings.sound) {
+        soundOnIcon.style.display = 'block';
+        soundOffIcon.style.display = 'none';
+        elements.soundMenuItem.style.backgroundColor = '';
+    } else {
+        soundOnIcon.style.display = 'none';
+        soundOffIcon.style.display = 'block';
+        elements.soundMenuItem.style.backgroundColor = '#000';
+    }
+    
+    // Play a sound to confirm if turning on
+    if (game.settings.sound) {
+        window.playSound('success');
+    }
+});
+
+// Refresh menu item - starts a new game
+elements.refreshMenuItem.addEventListener('click', () => {
+    elements.dropdownMenu.classList.remove('show');
+    startGame();
 });
 
 elements.closeSettingsBtn.addEventListener('click', () => {
@@ -957,6 +1075,20 @@ window.addEventListener('load', () => {
                 vibrationLabel.textContent += ' (Not supported on this device)';
             }
         }
+    }
+    
+    // Initialize sound button icons based on current state
+    const soundOnIcon = elements.soundMenuItem.querySelector('.sound-on');
+    const soundOffIcon = elements.soundMenuItem.querySelector('.sound-off');
+    
+    if (game.settings.sound) {
+        soundOnIcon.style.display = 'block';
+        soundOffIcon.style.display = 'none';
+        elements.soundMenuItem.style.backgroundColor = '';
+    } else {
+        soundOnIcon.style.display = 'none';
+        soundOffIcon.style.display = 'block';
+        elements.soundMenuItem.style.backgroundColor = '#000';
     }
     
     startGame();
