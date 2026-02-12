@@ -3,7 +3,7 @@ const CONFIG = {
     GRID_ROWS: 5,      // Vertical grid size (number of rows) - default for medium
     GRID_COLS: 5,      // Horizontal grid size (number of columns) - default for medium
     TIMER_DURATION: 600, // seconds
-    POINTS_PER_WORD: 100,  // Maximum points per word (p)
+    POINTS_PER_WORD: 60,   // Maximum points per word (p) - matches reference game
     TIME_PENALTY: 1,       // Points lost per second (1 point/second)
     HINT_PENALTY: 50,
     WORDS_TO_FIND: 6,  // Number of words to find in each game (default for medium)
