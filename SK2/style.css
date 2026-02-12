@@ -127,6 +127,62 @@ body::after {
   transform: scale(0.95);
 }
 
+/* ===== Dropdown Menu ===== */
+.menu-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all var(--transition-medium);
+  z-index: 1000;
+  padding: 8px;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-icon-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  border: 0px solid rgba(255, 255, 255, 0.3);
+  color: #0C5E98;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-medium);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-icon-btn:active {
+  transform: scale(0.95);
+}
+
+.dropdown-icon-btn svg {
+  flex-shrink: 0;
+}
+
 /* ===== Leaderboard Section ===== */
 .leaderboard-container {
   max-width: 1200px;
@@ -805,6 +861,231 @@ body::after {
   font-size: 1.5rem;
 }
 
+/* ===== Game Over Modal Redesign ===== */
+.game-over-modal {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 50%, #FF4757 100%);
+  padding:4.5rem 2rem 2rem;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  max-width: 500px;
+  box-shadow: 0 25px 70px rgba(255, 71, 87, 0.4);
+}
+
+/* Decorative background circles */
+.game-over-modal::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  top: -50px;
+  right: -50px;
+  z-index: 0;
+}
+
+.game-over-modal::after {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  bottom: -30px;
+  left: -30px;
+  z-index: 0;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  transform: scale(1.1);
+}
+
+.modal-coin-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: coinBounce 0.6s ease;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes coinBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+.modal-title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.coins-earned {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #FFD700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.congrats-text {
+  color: #FFE66D;
+  font-weight: 800;
+}
+
+.modal-message {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.modal-scores {
+  color: white;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-score-item {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-score-item .score-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #FFD700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.modal-refresh-btn {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-refresh-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.modal-refresh-btn:active {
+  transform: translateY(0);
+}
+
+.modal-refresh-btn svg {
+  animation: rotateRefresh 2s linear infinite;
+}
+
+@keyframes rotateRefresh {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== Theme-Specific Modal Colors ===== */
+/* Default theme - Red/Coral */
+body .game-over-modal,
+body.theme-default .game-over-modal {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 50%, #FF4757 100%);
+}
+
+/* Sunset theme - Deep Red to Orange */
+body.theme-sunset .game-over-modal {
+  background: linear-gradient(135deg, #E31E25 0%, #FF6B6B 50%, #FF8E53 100%);
+}
+
+/* Ocean theme - Blue gradient */
+body.theme-ocean .game-over-modal {
+  background: linear-gradient(135deg, #667eea 0%, #5a67d8 50%, #4c51bf 100%);
+}
+
+/* Forest theme - Green gradient */
+body.theme-forest .game-over-modal {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 50%, #2f855a 100%);
+}
+
+/* Royal theme - Purple gradient */
+body.theme-royal .game-over-modal {
+  background: linear-gradient(135deg, #9f7aea 0%, #805ad5 50%, #6b46c1 100%);
+}
+
+/* Gold theme - Yellow/Gold gradient */
+body.theme-gold .game-over-modal {
+  background: linear-gradient(135deg, #f6d365 0%, #ecc94b 50%, #d69e2e 100%);
+}
+
+/* Adjust text colors for lighter themes */
+body.theme-forest .modal-title,
+body.theme-forest .modal-message,
+body.theme-gold .modal-title,
+body.theme-gold .modal-message {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.theme-gold .coins-earned {
+  color: #744210;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+body.theme-gold .congrats-text {
+  color: #975A16;
+}
+
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   body {
@@ -833,10 +1114,6 @@ body::after {
   .score-badge {
     font-size: 1.2rem;
     padding: 0rem 0.8rem;
-  }
-
-  .game-container {
-    /* padding: var(--spacing-xs); */
   }
 
   .game-header {
@@ -1079,12 +1356,48 @@ body.theme-sunset .game-title,body.theme-sunset .nav-btn svg path,body.theme-roy
   color: #FFF;
   stroke: #FFF;
 }
-#wordGrid[style="grid-template-columns: repeat(5, 1fr);"] {
-  
+.rank-section {
+  visibility: hidden;
 }
-#wordGrid[style="grid-template-columns: repeat(6, 1fr);"] {
-  
+.game-header {
+  background: transparent;
+    border: none;
+    min-height: fit-content;
+    position: relative;
+    top:5px;
+    max-width: 600px;
 }
-#wordGrid[style="grid-template-columns: repeat(7, 1fr);"] {
-  
+.leaderboard-container {
+  margin: 0;
+  display: none;
+}
+.word-list-container {
+  padding:10px 5px;
+  margin-bottom: 10px;
+}
+.congrats-banner {
+  margin-top:0;
+}
+.main_container:has(.top-nav .menu-container .dropdown-menu.show)::after {
+  content: " ";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  pointer-events: none;
+}
+.menu-container {
+  z-index:9999;
+}
+.dropdown-icon-btn,.main_container:has(.top-nav .menu-container .dropdown-menu.show) .top-nav .menu-container .nav-btn {
+  background: rgba(255, 255, 255, 0.8);
+}
+.dropdown-menu {
+  padding: 0;
+}
+#soundMenuItem[style="opacity: 0.5; background-color: rgb(0, 0, 0);"] svg:is(path,polygon) {
+  stroke: #fff;
 }
