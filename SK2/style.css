@@ -102,8 +102,8 @@ body::after {
 }
 
 .nav-btn {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(10px);
@@ -1350,8 +1350,9 @@ body.theme-sunset::after, body.theme-ocean::after, body.theme-forest::after, bod
     .lbt-avatar {font-size: 45px;}
   }
 .modal-content img {
-  width: 100%;
-  max-width: 200px;
+  /* width: 100%;
+  max-width: 200px; */
+  vertical-align: bottom;
 }
 body.theme-sunset .game-title,body.theme-sunset .nav-btn svg path,body.theme-royal .game-title {
   color: #FFF;
