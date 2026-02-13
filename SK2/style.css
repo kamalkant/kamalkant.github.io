@@ -797,6 +797,89 @@ body::after {
   color: var(--white);
 }
 
+/* ===== Intro/Welcome Screen ===== */
+.intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, #E8F0FE 0%, #F5F9FF 100%);
+  z-index: 10000;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+  padding: 0 10px;
+  background: linear-gradient(180deg, #E31E25 0%, #FFFFFF 100%);
+}
+
+.intro-screen.hidden {
+  display: none;
+}
+
+.intro-content {
+  max-width: 460px;
+  width: 100%;
+  padding: 0px;
+  text-align: center;
+  margin: auto;
+}
+
+.intro-instruction {
+  background: #2C2C2C;
+  color: white;
+  padding: 16px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.intro-grid-demo {
+  background: white;
+  border-radius: 16px;
+  padding: 0px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.intro-demo-gif {
+  width: 100%;
+  /* max-width: 400px; */
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+
+.intro-start-btn {
+  background: linear-gradient(135deg, #E31E25 0%, #C6181D 100%);
+  color: white;
+  border: none;
+  padding: 18px 60px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(227, 30, 37, 0.4);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.intro-start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(227, 30, 37, 0.5);
+  background: linear-gradient(135deg, #F5222D 0%, #E31E25 100%);
+}
+
+.intro-start-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(227, 30, 37, 0.4);
+}
+
 /* ===== Modal ===== */
 .modal {
   display: none;
@@ -1261,6 +1344,7 @@ body.theme-gold .congrats-text {
   display: inline-block;
   width: 60px;
   height: 34px;
+  min-width: 60px;
 }
 
 .switch input {
@@ -1410,4 +1494,11 @@ body.theme-sunset .game-title,body.theme-sunset .nav-btn svg path,body.theme-roy
 }
 .theme-sunset :is(.timer-value, .rank-value, .best-score-value) {
   color: #FFF;
+}
+#settingsMenuItem svg rect {
+  stroke: transparent;
+}
+#introScreen .game-title {
+  text-align: center;
+    padding: 10px 0;
 }
