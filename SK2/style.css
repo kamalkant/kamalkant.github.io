@@ -812,6 +812,7 @@ body::after {
   animation: fadeIn 0.3s ease;
   padding: 0 10px;
   background: linear-gradient(180deg, #E31E25 0%, #FFFFFF 100%);
+  position: absolute;
 }
 
 .intro-screen.hidden {
@@ -867,6 +868,7 @@ body::after {
   box-shadow: 0 6px 20px rgba(227, 30, 37, 0.4);
   transition: all 0.3s ease;
   font-family: inherit;
+  margin-bottom: 50px;
 }
 
 .intro-start-btn:hover {
@@ -1505,4 +1507,7 @@ body.theme-sunset .game-title,body.theme-sunset .nav-btn svg path,body.theme-roy
 
 .setting-item[style="opacity: 0.5; pointer-events: none;"] {
   display: none;
+}
+body.theme-sunset:has(#introScreen[class="intro-screen"]) {
+  background: transparent;
 }
