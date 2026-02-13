@@ -459,7 +459,9 @@ const elements = {
     vibrationToggle: document.getElementById('vibrationToggle'),
     themeOptions: document.querySelectorAll('.theme-option'),
     languageSelect: document.getElementById('languageSelect'),
-    difficultySelect: document.getElementById('difficultySelect')
+    difficultySelect: document.getElementById('difficultySelect'),
+    introScreen: document.getElementById('introScreen'),
+    introStartBtn: document.getElementById('introStartBtn')
 };
 
 // ===== Game Instance =====
@@ -1092,5 +1094,17 @@ window.addEventListener('load', () => {
         elements.soundMenuItem.style.backgroundColor = '#000';
     }
     
+    // Don't auto-start game - wait for intro screen button
+    // startGame();
+});
+
+// Intro screen start button
+elements.introStartBtn.addEventListener('click', () => {
+    // Unlock audio for iOS Safari (requires user interaction)
+    if (window.unlockAudio) {
+        window.unlockAudio();
+    }
+    
+    elements.introScreen.classList.add('hidden');
     startGame();
 });
