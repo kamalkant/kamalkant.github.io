@@ -840,7 +840,7 @@ body::after {
 .intro-grid-demo {
   background: white;
   border-radius: 16px;
-  padding: 0px;
+  padding: 10px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   margin-bottom: 10px;
   position: relative;
@@ -1501,5 +1501,8 @@ body.theme-sunset .game-title,body.theme-sunset .nav-btn svg path,body.theme-roy
 #introScreen .game-title {
   text-align: center;
     padding: 10px 0;
-    color:#FFFFFF;
+}
+
+.setting-item[style="opacity: 0.5; pointer-events: none;"] {
+  display: none;
 }
