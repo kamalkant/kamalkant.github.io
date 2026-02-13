@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>शब्द खोज - रोज खेलें और नए शब्द सीखें</title>
+    <meta
+      name="description"
+      content="Play the ultimate Hindi word search game with leaderboards, timers, and exciting challenges!"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" type="image/ico" href="https://staticasset.amarujala.com/v1/favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
+    
+    <!-- Google Tag Manager -->
+    <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5M8X46V');
+    </script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+        window.dataLayer = window.dataLayer || [];
+    </script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5M8X46V" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="main_container">
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
+      <a href="https://www.amarujala.com/" style="text-decoration: none;">
+        <button class="nav-btn back-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+      </a>
+      <h1 class="game-title">शब्दखोज़</h1>
+      <div class="menu-container">
+        <button class="nav-btn menu-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="6" r="2" fill="currentColor"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            <circle cx="12" cy="18" r="2" fill="currentColor"/>
+          </svg>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <button class="dropdown-icon-btn" id="settingsMenuItem" title="Settings">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.015" y="0.015" width="23.97" height="23.97" stroke="#17B7C9" stroke-width="0.03"></rect>
+            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#0C5E98" stroke-width="1.5"></path>
+            <path d="M13.7654 2.15224C13.3978 2 12.9319 2 12 2C11.0681 2 10.6022 2 10.2346 2.15224C9.74457 2.35523 9.35522 2.74458 9.15223 3.23463C9.05957 3.45834 9.0233 3.7185 9.00911 4.09799C8.98826 4.65568 8.70226 5.17189 8.21894 5.45093C7.73564 5.72996 7.14559 5.71954 6.65219 5.45876C6.31645 5.2813 6.07301 5.18262 5.83294 5.15102C5.30704 5.08178 4.77518 5.22429 4.35436 5.5472C4.03874 5.78938 3.80577 6.1929 3.33983 6.99993C2.87389 7.80697 2.64092 8.21048 2.58899 8.60491C2.51976 9.1308 2.66227 9.66266 2.98518 10.0835C3.13256 10.2756 3.3397 10.437 3.66119 10.639C4.1338 10.936 4.43789 11.4419 4.43786 12C4.43783 12.5581 4.13375 13.0639 3.66118 13.3608C3.33965 13.5629 3.13248 13.7244 2.98508 13.9165C2.66217 14.3373 2.51966 14.8691 2.5889 15.395C2.64082 15.7894 2.87379 16.193 3.33973 17C3.80568 17.807 4.03865 18.2106 4.35426 18.4527C4.77508 18.7756 5.30694 18.9181 5.83284 18.8489C6.07289 18.8173 6.31632 18.7186 6.65204 18.5412C7.14547 18.2804 7.73556 18.27 8.2189 18.549C8.70224 18.8281 8.98826 19.3443 9.00911 19.9021C9.02331 20.2815 9.05957 20.5417 9.15223 20.7654C9.35522 21.2554 9.74457 21.6448 10.2346 21.8478C10.6022 22 11.0681 22 12 22C12.9319 22 13.3978 22 13.7654 21.8478C14.2554 21.6448 14.6448 21.2554 14.8477 20.7654C14.9404 20.5417 14.9767 20.2815 14.9909 19.902C15.0117 19.3443 15.2977 18.8281 15.781 18.549C16.2643 18.2699 16.8544 18.2804 17.3479 18.5412C17.6836 18.7186 17.927 18.8172 18.167 18.8488C18.6929 18.9181 19.2248 18.7756 19.6456 18.4527C19.9612 18.2105 20.1942 17.807 20.6601 16.9999C21.1261 16.1929 21.3591 15.7894 21.411 15.395C21.4802 14.8691 21.3377 14.3372 21.0148 13.9164C20.8674 13.7243 20.6602 13.5628 20.3387 13.3608C19.8662 13.0639 19.5621 12.558 19.5621 11.9999C19.5621 11.4418 19.8662 10.9361 20.3387 10.6392C20.6603 10.4371 20.8675 10.2757 21.0149 10.0835C21.3378 9.66273 21.4803 9.13087 21.4111 8.60497C21.3592 8.21055 21.1262 7.80703 20.6602 7C20.1943 6.19297 19.9613 5.78945 19.6457 5.54727C19.2249 5.22436 18.693 5.08185 18.1671 5.15109C17.9271 5.18269 17.6837 5.28136 17.3479 5.4588C16.8545 5.71959 16.2644 5.73002 15.7811 5.45096C15.2977 5.17191 15.0117 4.65566 14.9909 4.09794C14.9767 3.71848 14.9404 3.45833 14.8477 3.23463C14.6448 2.74458 14.2554 2.35523 13.7654 2.15224Z" stroke="#0C5E98" stroke-width="1.5"></path>
+        </svg>
+          </button>
+          <button class="dropdown-icon-btn" id="soundMenuItem" title="Sound">
+            <!-- Unmute icon (shown when sound is ON) -->
+            <svg class="sound-icon sound-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path fill="currentColor" d="M426.7 256c0-71-43.4-131.8-105-157.5l-16.4 39.4C351.5 157.2 384 202.8 384 256c0 53.3-32.5 98.8-78.8 118.1l16.4 39.4C383.3 387.8 426.7 327 426.7 256m-85.4 0c0-35.5-21.7-65.9-52.5-78.7l-16.4 39.4c15.4 6.4 26.2 21.6 26.2 39.4c0 17.7-10.8 32.9-26.2 39.4l16.4 39.4c30.8-13 52.5-43.4 52.5-78.9m13.2-236.3L338 59.1C415.1 91.2 469.3 167.2 469.3 256c0 88.7-54.2 164.8-131.3 196.9l16.4 39.4C447 453.7 512 362.5 512 256S447 58.3 354.5 19.7M0 149.3v213.3h85.3L234.7 512V0L85.3 149.3z"/></svg>
+            <!-- Mute icon (shown when sound is OFF) -->
+            <svg class="sound-icon sound-off" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/>
+              <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          </button>
+          <button class="dropdown-icon-btn" id="refreshMenuItem" title="Refresh">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard Section with Progress Bar -->
+    <div class="leaderboard-container">
+      <div class="leaderboard" style="display: none;margin: 0 auto 120px;">
+        <div class="leader-item left">
+          <div class="avatar lbt-avatar">
+            <!-- <img src="https://i.pravatar.cc/150?img=33" alt="Player" /> -->
+             🙍‍♂️
+          </div>
+          <div class="rank-badge">#<span id="leftRank">10</span></div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="leader-item center">
+          <div class="avatar current-user">
+            <img src="https://i.pravatar.cc/150?img=12" alt="You" />
+            <div class="score-badge">
+              <span id="currentUserScore">10</span>
+              <div class="coin-icon">🪙</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill2"></div>
+          </div>
+        </div>
+
+        <div class="leader-item right"><div class="avatar lbt-avatar">
+            <!-- <img src="https://i.pravatar.cc/150?img=68" alt="Player" /> -->
+             👑
+          </div>
+          <div class="rank-badge">#<span id="rightRank">12</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intro/Welcome Screen -->
+    <div class="intro-screen" id="introScreen">
+      <h1 class="game-title">शब्दखोज़</h1>
+      <div class="intro-content">
+        <div class="intro-instruction">
+          अक्षरों को सही क्रम में चुनें और शब्द बनाएं
+        </div>
+        
+        <div class="intro-grid-demo">
+          <img src="newGif.gif" alt="How to play" class="intro-demo-gif">
+        </div>
+        
+        <button class="intro-start-btn" id="introStartBtn">
+          खेलना शुरू करें
+        </button>
+      </div>
+    </div>
+
+    <!-- Congratulations Banner -->
+    <div class="congrats-banner" id="congratsBanner">
+      <span>+<span id="coinsWon">10</span></span>
+    </div>
+    <div class="game-header">
+            <div class="header-item timer-section">
+              <div class="timer-icon">⏱️</div>
+              <div class="timer-value" id="timer">0:00</div>
+            </div>
+
+            <div class="header-item rank-section">
+              <div class="score-change" id="scoreChange">+400</div>
+              <div class="rank-icon">📊</div>
+              <div class="rank-value" id="bestScore">0</div>
+            </div>
+
+            <div class="header-item best-score-section">
+              <div class="star-icon">⭐</div>
+              <div class="best-score-value" id="currentRank">0</div>
+            </div>
+          </div>
+    <!-- Game Container -->
+    <div class="game-container">
+      <!-- Game Board Header -->
+      
+
+
+      <!-- Word Grid -->
+      <div class="word-grid-container">
+        <svg class="word-connections" id="wordConnections">
+          <!-- Connection lines will be drawn here -->
+        </svg>
+        <div class="word-grid" id="wordGrid">
+          <!-- Grid will be generated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Word List Display -->
+      <div class="word-list-container">
+        <div class="pattern-display" id="patternDisplay" style="display: none;">
+          <!-- Pattern will be shown here -->
+        </div>
+        <div class="word-list" id="wordList">
+          <!-- Words will be generated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Control Buttons -->
+      <div class="controls" style="display: none;">
+        <button class="btn btn-primary" id="newGameBtn">
+          नया खेल शुरू करें
+        </button>
+        <button class="btn btn-secondary" id="hintBtn" style="display: none;">संकेत</button>
+      </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="modal" id="gameOverModal">
+      <div class="modal-content game-over-modal">
+        <button class="modal-close-btn" id="closeGameOverBtn">✕</button>
+        <div class="modal-title">
+          <img src="https://staticimg.amarujala.com/assets/images/2025/11/18/aucoin_691c11e38ab1e.png" alt="" srcset=""> <span class="coins-earned" id="coinsEarnedText">10</span> <span id="modalCoinsText"></span>कॉइन्स अर्जित करने</span><br><span id="modalCongratsPrefix">के लिए</span> <span class="congrats-text" id="modalCongratsText">बधाई!</span>
+        </div>
+        
+        <div class="modal-message" id="modalMessage">
+          अच्छा प्रयास!
+        </div>
+        
+        <div class="modal-scores">
+          <div class="modal-score-item">
+            <span id="yourScoreLabel">आपका स्कोर:</span> <span id="modalYourScore" class="score-value">0</span>
+          </div>
+          <div class="modal-score-item">
+            <span id="bestScoreLabel">आज का सर्वोत्तम स्कोर:</span> <span id="modalBestScore" class="score-value">0</span>
+          </div>
+        </div>
+        
+        <button class="modal-refresh-btn" id="playAgainBtn">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          </svg>
+          <span id="playAgainText">पुनः खेलें</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+      <div class="modal-content settings-content">
+        <div class="settings-header">
+          <h2>Settings</h2>
+          <button class="close-btn" id="closeSettingsBtn">&times;</button>
+        </div>
+        
+        <div class="settings-divider"></div>
+
+        <div class="settings-section">
+          <div class="setting-item">
+            <span>Sound</span>
+            <label class="switch">
+              <input type="checkbox" id="soundToggle" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <span>Vibration</span>
+            <label class="switch">
+              <input type="checkbox" id="vibrationToggle" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Language</h3>
+          <select id="languageSelect" class="language-select">
+            <option value="hindi">हिंदी (Hindi)</option>
+            <option value="english">English</option>
+          </select>
+        </div>
+
+        <div class="settings-section">
+          <h3>Game Difficulty</h3>
+          <select id="difficultySelect" class="language-select">
+            <option value="easy">Easy (5 words)</option>
+            <option value="medium">Medium (8 words)</option>
+            <option value="hard">Hard (10 words)</option>
+          </select>
+        </div>
+
+        <div class="settings-section">
+          <h3>Themes</h3>
+          <div class="theme-grid">
+            <div class="theme-option theme-default active" data-theme="default" style="background: linear-gradient(135deg, #78F2FF 0%, #FFFFFF 100%);"></div>
+            <div class="theme-option theme-sunset" data-theme="sunset" style="background: linear-gradient(135deg, #E31E25 0%, #fff 100%);"></div>
+            <div class="theme-option theme-ocean" data-theme="ocean" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);"></div>
+            <div class="theme-option theme-forest" data-theme="forest" style="background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);"></div>
+            <div class="theme-option theme-royal" data-theme="royal" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+            <div class="theme-option theme-gold" data-theme="gold" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+    <script src="config.js"></script>
+    <script src="celebration.js"></script>
+    <script src="script.js"></script>
+    <script src="tracking.js"></script>
+    <script>
+      // Sound Synthesizer Logic with iOS compatibility
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // iOS requires user interaction to unlock audio
+      let audioUnlocked = false;
+      
+      function unlockAudio() {
+        if (audioUnlocked) return;
+        
+        console.log('Attempting to unlock audio...');
+        
+        // Resume audio context on user interaction
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().then(() => {
+            console.log('✓ Audio context resumed');
+            audioUnlocked = true;
+          }).catch(err => {
+            console.error('Failed to resume audio:', err);
+          });
+        } else {
+          audioUnlocked = true;
+          console.log('✓ Audio context already running');
+        }
+        
+        // Play a silent sound to unlock iOS audio
+        try {
+          const oscillator = audioCtx.createOscillator();
+          const gainNode = audioCtx.createGain();
+          gainNode.gain.value = 0.001; // Nearly silent
+          oscillator.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+          oscillator.start(audioCtx.currentTime);
+          oscillator.stop(audioCtx.currentTime + 0.01);
+        } catch (err) {
+          console.error('Error playing unlock sound:', err);
+        }
+      }
+      
+      // Expose unlockAudio globally so it can be called from game interactions
+      window.unlockAudio = unlockAudio;
+      
+      // Add event listeners for iOS audio unlock - multiple events for better coverage
+      document.addEventListener('touchstart', unlockAudio);
+      document.addEventListener('touchend', unlockAudio);
+      document.addEventListener('click', unlockAudio);
+      document.addEventListener('mousedown', unlockAudio);
+      document.addEventListener('keydown', unlockAudio);
+      
+      // Also unlock when game starts
+      window.addEventListener('load', () => {
+        // Try to unlock after a short delay
+        setTimeout(unlockAudio, 100);
+      });
+      
+      // Load victory sound
+      let victorySound = null;
+      fetch('win-coins.mp3')
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
+        .then(audioBuffer => {
+          victorySound = audioBuffer;
+          console.log('Victory sound loaded');
+        })
+        .catch(err => console.log('Error loading victory sound:', err));
+      
+      window.playSound = function(type) {
+        if (localStorage.getItem('soundEnabled') === 'false') return;
+        
+        // Ensure audio context is running (iOS fix)
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().then(() => {
+            playAudioEffect(type);
+          });
+        } else {
+          playAudioEffect(type);
+        }
+      };
+      
+      function playAudioEffect(type) {
+        const now = audioCtx.currentTime;
+        
+        if (type === 'success') {
+          const oscillator = audioCtx.createOscillator();
+          const gainNode = audioCtx.createGain();
+          oscillator.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+          
+          oscillator.type = 'sine';
+          oscillator.frequency.setValueAtTime(523.25, now); // C5
+          oscillator.frequency.exponentialRampToValueAtTime(880, now + 0.1); // A5
+          gainNode.gain.setValueAtTime(0.3, now);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+          oscillator.start(now);
+          oscillator.stop(now + 0.3);
+        } else if (type === 'wrong') {
+          // Dual-pip lower tone for better "wrong" feel
+          [220, 180].forEach((freq, i) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            const start = now + (i * 0.1);
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, start);
+            osc.frequency.linearRampToValueAtTime(freq / 2, start + 0.08);
+            gain.gain.setValueAtTime(0.2, start);
+            gain.gain.linearRampToValueAtTime(0.01, start + 0.08);
+            osc.start(start);
+            osc.stop(start + 0.08);
+          });
+        } else if (type === 'complete') {
+          // Play the victory MP3
+          if (victorySound) {
+            try {
+              const source = audioCtx.createBufferSource();
+              source.buffer = victorySound;
+              const gainNode = audioCtx.createGain();
+              source.connect(gainNode);
+              gainNode.connect(audioCtx.destination);
+              gainNode.gain.setValueAtTime(0.7, now); // Adjust volume as needed
+              source.start(now);
+            } catch (err) {
+              console.error('Error playing victory sound:', err);
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
