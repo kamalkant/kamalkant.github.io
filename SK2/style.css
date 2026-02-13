@@ -77,7 +77,7 @@ body::after {
 }
 
 .main_container {
-  max-width: 800px;
+  max-width: 460px;
   margin: auto;
 }
 
@@ -713,6 +713,9 @@ body::after {
   background: var(--cream);
   color: var(--text-dark);
   border-color: var(--cream-dark);
+  background: #E31E25;
+  color: #fff;
+  border-color: #c6181d;
 }
 
 .word-item.pending::before {
@@ -728,6 +731,8 @@ body::after {
   color: var(--white);
   border-color: var(--green-success);
   animation: wordFound 0.5s ease;
+  background: #6b6b6b;
+  border-color: #626262;
 }
 
 .word-item.found::before {
@@ -1402,4 +1407,7 @@ body.theme-sunset .game-title,body.theme-sunset .nav-btn svg path,body.theme-roy
 }
 #soundMenuItem[style="opacity: 0.5; background-color: rgb(0, 0, 0);"] svg:is(path,polygon) {
   stroke: #fff;
+}
+.theme-sunset :is(.timer-value, .rank-value, .best-score-value) {
+  color: #FFF;
 }
