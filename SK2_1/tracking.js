@@ -218,7 +218,13 @@ function trackBackButton(source = 'header') {
             'Sk_web': 'Sk_web_back_click'
         });
         
-        console.log('📊 Back button tracked');
+        // GA4 event (EXACT format from old game)
+        window.dataLayer.push({
+            'event': 'game_data',
+            'augame': 'crossword_exit'
+        });
+        
+        console.log('📊 Back button tracked (crossword_exit)');
     } catch (error) {
         console.error('Error tracking back button:', error);
     }
@@ -239,7 +245,13 @@ function trackModalClose(modalType = 'game_over') {
             'Sk_modal': modalType
         });
         
-        console.log('📊 Modal close tracked:', modalType);
+        // GA4 event (EXACT format from old game)
+        window.dataLayer.push({
+            'event': 'game_data',
+            'augame': 'crossword_close'
+        });
+        
+        console.log('📊 Modal close tracked (crossword_close):', modalType);
     } catch (error) {
         console.error('Error tracking modal close:', error);
     }
