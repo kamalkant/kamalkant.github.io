@@ -22,7 +22,7 @@ function trackGameStart() {
             'Sk_web': 'Sk_web_game_started'
         });
         
-        console.log('📊 Game start events tracked (old game format)');
+        console.log('📊 Game start events tracked');
     } catch (error) {
         console.error('Error tracking game start:', error);
     }
@@ -596,4 +596,4 @@ window.gameTracking = {
     trackSessionEnd
 };
 
-console.log('✅ Shabd Khoj tracking initialized (old game format)');
+console.log('✅ Shabd Khoj tracking initialized');
