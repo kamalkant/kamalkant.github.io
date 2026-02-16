@@ -452,6 +452,7 @@ const elements = {
     dropdownMenu: document.getElementById('dropdownMenu'),
     settingsMenuItem: document.getElementById('settingsMenuItem'),
     soundMenuItem: document.getElementById('soundMenuItem'),
+    backBtn: document.querySelector('.back-btn'),
     refreshMenuItem: document.getElementById('refreshMenuItem'),
     settingsModal: document.getElementById('settingsModal'),
     closeSettingsBtn: document.getElementById('closeSettingsBtn'),
@@ -885,6 +886,18 @@ function endGame(allWordsFound = false) {
     // Update modal text to current language
     updateUILanguage(game.settings.language);
     
+    // Track game completion (fires crossword_end event)
+    if (window.gameTracking) {
+        window.gameTracking.trackGameComplete(
+            game.score,
+            game.bestScore,
+            game.foundWords.length,
+            game.currentWordSet.words.length,
+            game.timeRemaining,
+            coinsEarned
+        );
+    }
+    
     elements.gameOverModal.classList.add('show');
 }
 
@@ -924,6 +937,11 @@ elements.hintBtn.addEventListener('click', giveHint);
 
 if (elements.closeGameOverBtn) {
     elements.closeGameOverBtn.addEventListener('click', () => {
+        // Track modal close (fires crossword_close event)
+        if (window.gameTracking) {
+            window.gameTracking.trackModalClose('game_over');
+        }
+        
         elements.gameOverModal.classList.remove('show');
         startGame(); // Refresh the game
     });
@@ -933,6 +951,15 @@ elements.playAgainBtn.addEventListener('click', () => {
     elements.gameOverModal.classList.remove('show');
     startGame();
 });
+
+// Track Back Button (crossword_exit)
+if (elements.backBtn) {
+    elements.backBtn.addEventListener('click', () => {
+        if (window.gameTracking) {
+            window.gameTracking.trackBackButton('header');
+        }
+    });
+}
 
 // Prevent text selection during drag
 document.addEventListener('selectstart', (e) => {
