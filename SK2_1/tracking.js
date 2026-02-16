@@ -125,7 +125,7 @@ function trackGameComplete(finalScore, bestScore, wordsFound, totalWords, timeTa
         // GA4 event (EXACT format from old game)
         window.dataLayer.push({
             'event': 'game_data',
-            'augame': 'crossword_end',
+            'Augame': 'crossword_end',
             'final_score': finalScore,
             'words_found': wordsFound,
             'total_words': totalWords,
@@ -221,7 +221,7 @@ function trackBackButton(source = 'header') {
         // GA4 event (EXACT format from old game)
         window.dataLayer.push({
             'event': 'game_data',
-            'augame': 'crossword_exit'
+            'Augame': 'crossword_exit'
         });
         
         console.log('📊 Back button tracked (crossword_exit)');
@@ -248,7 +248,7 @@ function trackModalClose(modalType = 'game_over') {
         // GA4 event (EXACT format from old game)
         window.dataLayer.push({
             'event': 'game_data',
-            'augame': 'crossword_close'
+            'Augame': 'crossword_close'
         });
         
         console.log('📊 Modal close tracked (crossword_close):', modalType);
