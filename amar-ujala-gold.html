@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>अमर उजाला GOLD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:       #2e9e4f;
+      --gold:        #f1bd6f;
+      --dark:        #3f4448;
+      --border:      #d7d7d3;
+      --shadow:      1px 2px 8px rgba(0,0,0,0.08);
+      --bg:          #f4f4f4;
+      --white:       #ffffff;
+      --text:        #111111;
+      --text-muted:  #444444;
+      --radius-card: 13px;
+    }
+    body {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── HEADER ─────────────────────────────────── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid #e2e2e2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      height: 58px;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text);
+      width: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .back-btn>img {
+      filter: invert(1);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo-name {
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+
+    .gold-pill {
+      background: var(--gold);
+      color: #5a3a00;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.5px;
+    }
+
+    .header-right { width: 36px; } /* balance flex */
+
+    /* ─── GREETING ────────────────────────────────── */
+    .greeting-wrap {
+      text-align: center;
+      padding: 14px 20px 4px;
+    }
+
+    .greeting {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      overflow: hidden;
+    }
+
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ─── HERO ────────────────────────────────────── */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 16px 16px;
+    }
+
+    .spark {
+      font-size: 13px;
+      color: #000000;
+      flex-shrink: 0;
+      white-space: nowrap;
+      letter-spacing: 3px;
+    }
+
+    .hero-title {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.55;
+      color: var(--text);
+      text-align: center;
+    }
+
+    /* ─── GRID ────────────────────────────────────── */
+    .main {
+      padding: 0 14px 140px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .cards-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    /* ─── CARD ────────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow);
+      padding: 12px 12px 14px;
+      padding-top: 8px;
+      position: relative;
+      overflow: visible;
+      flex: 0 0 calc(50% - 6px);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: -5px;
+      right:20px;
+      /* background: var(--green); */
+      background: #646464;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      padding:5px 11px 1px;
+      border-radius: 0 0 10px 10px;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      /* align-items: center; */
+      justify-content: center;
+      font-size: 40px;
+      overflow: hidden;
+    }
+
+    .card-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* Astrology card — portrait zoomed & cropped to face */
+    .card-icon.astrology {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #eee;
+      background: #f5e0c8;
+    }
+    .card-icon.astrology img {
+      
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--text);
+      flex: 1;
+      padding-top:15px;
+    }
+
+    .card-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .card-features li {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.4;
+    }
+
+    .check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--green);
+      margin-top: 2px;
+    }
+
+    .check::after {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 7px;
+      border-right: 1.8px solid #fff;
+      border-bottom: 1.8px solid #fff;
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+
+    /* ─── BOTTOM CTA ──────────────────────────────── */
+    .bottom-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 10px 14px 16px;
+      box-shadow: 0 -3px 18px rgba(0,0,0,0.09);
+      z-index: 300;
+    }
+
+    .pricing-box {
+      border: 2px solid #464646;
+      border-radius: var(--radius-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 20px;
+      margin-bottom: 10px;
+    }
+
+    .price-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .price-final {
+      background: var(--gold);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      padding:6px 14px 2px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .buy-btn {
+      width: 100%;
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.18s, transform 0.1s;
+    }
+
+    .buy-btn:hover  { background: #2a2e31; }
+    .buy-btn:active { transform: scale(0.98); }
+
+    .arrow-icon {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-top: 2.5px solid #fff;
+      border-right: 2.5px solid #fff;
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ─── TOAST ───────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #333;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 999;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ─── RESPONSIVE: TABLET ──────────────────────── */
+    @media (min-width: 560px) {
+      .cards-grid { gap: 14px; }
+      .card { flex: 0 0 calc(33.333% - 9.33px); }
+      .hero-title  { font-size: 21px; }
+    }
+    @media (max-width: 386px) {
+      .card-icon{margin-top: 15px;align-items: center;}
+      .card-top{align-items: center;}
+    }
+    /* ─── RESPONSIVE: DESKTOP ─────────────────────── */
+    @media (min-width: 768px) {
+      .header        { padding: 0 40px; height: 64px; }
+      .logo-name     { font-size: 24px; }
+      .greeting-wrap { padding: 18px 40px 6px; }
+      .hero          { padding: 15px 24px 25px; }
+      .hero-title    { font-size: 24px; }
+      .main          { padding: 0 40px 120px; }
+      .cards-grid    { gap: 20px; }
+      .card          { flex: 0 0 calc(33.333% - 13.33px); }
+      .card          { padding:15px 20px 20px; }
+      .card-title    { font-size: 15px; }
+      .card-features li { font-size: 13.5px; }
+
+      /* Desktop: CTA in a row */
+      .bottom-cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        padding: 14px 40px 18px;
+      }
+
+      .pricing-box {
+        margin-bottom: 0;
+        flex: 0 0 auto;
+        min-width: 260px;
+      }
+
+      .buy-btn {
+        max-width: 280px;
+        flex: 0 0 auto;
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .main { padding: 0 60px 120px; }
+      .card-features li { font-size: 18px; }
+      .card-title { font-size:22px;}
+      .card-badge{font-size: 16px;}
+      .buy-btn{padding: 18px 20px;border-radius: var(--radius-card);}
+    }
+    .spark>span {
+      font-size: 20px;
+    }
+    .card-badge::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -10px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid rgb(0, 0, 0);
+      border-right: 5px solid transparent;
+      border-top: 5px solid transparent;
+    }
+    .card-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -10px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid  rgb(0, 0, 0);
+      border-top: 5px solid transparent;
+    }
+    .UserLabel>span {
+      background-color: var(--gold);
+      border-radius:20px;
+      padding:8px 15px 5px;
+      font-size: 13px;
+    }
+    @media (max-width: 340px) {
+      .cards-grid {flex-direction: column;}
+      .hero-title {font-size: 12px;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <button class="back-btn" aria-label="Back" onclick="history.back()">
+      <img src="https://staticimg.amarujala.com/assets/images/2024/05/08/arr-bck_663b283a6d63a.png?w=50&dpr=1.3" alt="">
+    </button>
+    <div class="logo">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAAAjCAQAAAAA9k+YAAAIiklEQVR42u2ba3BV1RXHf7wkKWR4 QwkRArFaXuGqwIAhYEFKdUQUBC1vgeHh1AKVUBksVSxSKQPRFgdjpEKhjkO1bShpMYCFqUqhYAg1 VS5WSw0WEnyQSDUmnn64NyfnnL32eeUGqLL3l3v33mvtc9b/nL3XWvt/QFdGsoFDnKaSjzlJIXdx uXxJShfyOIeh1EpmxEc05TqGMuiSq8Po47iXFIYwkOu/onUI/VV4VwnQ1tcCAFrzkeuoi1eLlXXI +ErXk3Zz9OaIp8gOAD78PwH4W5cBtpanfQktASou0Rt6/TLAbgAPNzuOMItbyOGMIFTOIP5xid3I F3yBgcHR0Ev0Z9R+CQH+t3MHfg4Dg7nm/86cFMQepyMjGUEaG4XesaQSIUKENEZTo/Q/SAoRIgyg FZsE+RyGMUFb7+AGdigyUW7kNqZzk+N+2vJtbmSEWQczhl+LpthLOtmWkcFrGnmK1k8ZywDSeEZw Wb/DtYFnUO1Vw3j60kuwSRmjyHQCnIXBzbaWOwVjHDJ7lwi96Rbprnyu9E+x9D8qyEc8/fyrBKlv BIgTJgrytfRscPzxQ0XrOVIAWK70fEirEDM8KKw8nQF4SnjohdKaQY6WdlQqop/QId67VDBVL4t0 qgDwVEv/akH+eh83ekiRWhPIUM8K8y5sMMAPKDqraJtQgH+k6KmmK4CwekT9qWzPJ4Ixrr7IAD+n SO0LZKj7hXl/ftEBzmAGy3mA8fG30lra0BNYlniAp4jLWZrLEp14gNvGzVRfNitSpYGg+Kkw7ybt 6HZcS1/P2pz1DQC4H6/Z+p+nvdk3lD3UYhDlRKIB7ka5YIqDZJHDQiZScAEAvhqDPEfbXxSpNwLA 20kM81Zrx88O7cX6Bfh7onTMZXzEdYaQAE9gIxPIpUpUukxzQY0BcJ0bZnX9Ogp+wW5PWFvQnzbA 7WLwZzD5ogH8Y618Bjd7zBAS4CWuSruz4IIAHLEEaee5xmyXAp2Hfby5b2IIj0asvkeSVm5OowI8 2dFzmMW8Gf99WlxBEwDwYheVLwJrLgDATyghx900oQeF4qyZPgA+5nLVk13kJmNQQbkQ0xv8lxJO U0E57wvuqDfAKfzH1v4OVwAdlE2kiEyuZHfjA/waTYBRrGcZ9/BHD4C7egC8SgNwR82TW6PJNxX6 2nv1AC9zlWtGMi1pThfGcVSRvRtIIkkMYrwBXudovzc+5/O21j9p4+CQAN+vNUWe51JeD3ArpgiA rCKNbLIZRje2ad/gVwIshNVm2OZeSrUabgjgoj2p5KTSQodJyY73t5pUcf0akug4eDZFzOM+/iAY o8KSDHGLgyeF3LdiAHcX4295nxvoC5imPM1a7mGFEGyofrpbecEh++fQAE/SxgK5tkz7lY2X6MgU zTHKE+A+oR2Tuj14lo+xNWykXYiUxBLtMt+M5p7SGcpuPCEEwMmg5KhfMud4/EIBDC1Nn87qWvT0 APipBgMMO0VeyUo2U8QO8pmrJED8l6mC7g1AEiWc5QRlvE9vrXS+Q/KFEAA3A/7qaM1vLICTXJ9b 6VT19x4Av6EFsIy9HOAAB9jLu64AZ4gu1fgEUZN+KejOBl63uU9yca4u5+kcGGCAtx2ta80ZfmFr 79EwgDtwkGxXY0hMj/4uAHfhMy3AD3t469ZEx0Jxz01NCMA3aULAn5n/tmhlxyiSo0MB7IwVVpoz zKeUQgopZB876dQQgNvzDgZLXY2xXjDGI0COBuB0lyV4pUXvDzwzWfuFEbt8QjhDIp1ZTs4+UDSf BwZb4Onk++GYFgrgMwEPPEIA3C8+yUfam5EVx8y8SANwG5GXWf9g+Af4KnGZnu0D3lwM1ruOkDaI gcB5898C3zv4zFAARx2tWxMPcP1av81Fcb545AD3affgVxP0BkvGMaiK35aufJ3DjghSLZ35VNA8 HdjqeUa1VpGbFBjg5oKV9jfGeXCx2bRCG0H+S8xpwfe1AK/WAjwnIMDS8b7Bb3zurx/QPQCvI7bU Zlv+LxIkU4Q823WhwiQn5entxgC4C2fNxsd8+Yyxul0DUK+44yYzLyttW4E/gCOeD4pa6teWs5Zj CmvZJ2rNAuBlS6TdR5F8QmPM4ImOcUp738ZgdAy3NO9R2AQRIZ9clzXNcclkfVeUWm7T7Q9gWCnq GizwT1oKJOBa5os7tMRCjIWLo21hnZ2tda/2LDk4wC14z5V61IQmiaHsTLN0fE4+AyzJSDm9f44O npSdGQIfk1AAY+6p9jzWLNuYFbxii+dfsjE+5vC1eHs6uzTbxwZTdouNG7mGDAD6KmnKWP1maMrO T8RYvJ5P0ztRnKx5CgXmWQpcvmBY44uT1YPN8Q2ghlcdfM1gAOso7MfIYSZzeYx3hS8b9jqCoALy OOhyaNHLss+WOZjXZY6DAUPxXcIA3FLx5auZT2uS6UcRpxJJurslAPW7xCfpDuAKMhlsYRiFA1jm Uemuy429pa/zbJJDfEq93EDS3TjxUYslip5MLKsy1ech3Vu+abNeJQjActJDPtexlkliOOTlHQCM oNpT6oiFCRKWVblUq/3WxNNmpwn5HWcWuqmv48LEA9xCu3fWfYkjz50i8qDtu/ntomS6koqQDhka TptdJGqvoHXj8KKnCryFOr7QcI9bMuLuiL8ieeGDXCXu4rR4ZbW2DJnEpMzVBG5VrCPZNeCq1Hjc Yz1TMnUAP6T95qGuDOS4Mmadci0PCY9mNwDho5Z/ups+lcUUUEyUKFGK2UFOXJW1zKSKoxSbNUqJ yW/wU27jML/jt2YtZJePB2QkWzjGKT7mHGc4zk6m08zXfFmsYw9/5y2OU8p+NjLG53Vup5RTnKGc U5SwiaHCqPEc5kVLLWJb3HO/09Gzm18JJL8stlJClBMcIleM3idyxKZnF9vj5+EL+JutZ19s//4f L/CegIcZ5GcAAAAASUVORK5CYII=" alt="" height="25">
+    </div>
+    <div class="header-right"></div>
+  </header>
+
+  <!-- ── GREETING ── -->
+  <div class="greeting-wrap">
+    <div class="greeting UserLabel">
+      <span>Topper's advantage</span>
+    </div>
+  </div>
+  <div class="greeting-wrap">
+    <div class="greeting">
+      <span>Hello, Kamal Kant</span>
+      <div class="avatar">
+        <img
+          src="http://localhost:3845/assets/da9da1929e9204783f9def74765c4558a7d53fde.png"
+          alt="User"
+          onerror="this.outerHTML='<span>👤</span>'"
+        />
+      </div>
+    </div>
+  </div>
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <span class="spark">✦ <span>✦</span></span>
+    <h1 class="hero-title">प्रीमियम लाभ, पुरस्कार, विशेष छूट और अधिक पाएं</h1>
+    <span class="spark"><span>✦</span> ✦</span>
+  </section>
+
+  <!-- ── CARDS ── -->
+  <main class="main">
+    <div class="cards-grid">
+
+      <!-- 1. Premium Astrology -->
+      <div class="card">
+        <div class="card-badge">कीमत ₹399</div>
+        <div class="card-top">
+          <div class="card-icon astrology">
+            <img width="60" height="60" src="https://spiderimg.amarujala.com/assets/images/2026/05/06/backgroundborder_69fb1f264c518.png" alt="Get Your Benefit" title="Get Your Benefit" class="gm-lazy gm-loaded gm-observing gm-observing-cb">
+          </div>
+          <div class="card-title">प्रीमियम ज्योतिषी सेवा</div>
+        </div>
+        <ul class="card-features">
+          <li><span class="check"></span><span>संक्षिप्त कुंडली</span></li>
+          <li><span class="check"></span><span>विशेषज्ञ सलाह</span></li>
+        </ul>
+      </div>
+
+      <!-- 2. Premium Service -->
+      <div class="card">
+        <div class="card-badge">कीमत ₹399</div>
+        <div class="card-top">
+          <div class="card-icon" style="background:#1a1a2e;">
+            <img width="60" height="60" src="https://staticimg.amarujala.com/assets/images/2026/04/29/au-premium-logo-512x512-1_69f20eb55df5e.png?w=60&amp;dpr=1" alt="Ads Free Experience" title="Ads Free Experience" class="gm-lazy gm-loaded gm-observing gm-observing-cb">
+          </div>
+          <div class="card-title">अमर उजाला प्रीमियम</div>
+        </div>
+        <ul class="card-features">
+          <li><span class="check"></span><span>एड - लाइट अनुभव</span></li>
+          <li><span class="check"></span><span>विशेष कहानियाँ</span></li>
+          <li><span class="check"></span><span>प्रीमियम वीडियो सामग्री</span></li>
+        </ul>
+      </div>
+
+      <!-- 3. First Reward -->
+      <div class="card">
+        <div class="card-badge">कीमत ₹5000</div>
+        <div class="card-top">
+          <div class="card-icon" style="background:#fff3e0;">
+            <img width="60" height="60" src="https://staticimg.amarujala.com/assets/images/2026/05/01/rectangle-41956-2_69f440ee60eb3.png?w=60&amp;dpr=1" alt="Earn Reward Now" title="Earn Reward Now" class="gm-lazy gm-loaded gm-observing gm-observing-cb">
+          </div>
+          <div class="card-title">फर्स्ट रिवॉर्ड</div>
+        </div>
+        <ul class="card-features">
+          <li><span class="check"></span><span>2X पुरस्कार</span></li>
+          <li><span class="check"></span><span>पढ़ें और कमाएं</span></li>
+        </ul>
+      </div>
+
+      <!-- 4. Discount Voucher -->
+      <div class="card">
+        <div class="card-badge">कीमत ₹1500</div>
+        <div class="card-top">
+          <div class="card-icon" style="background:#fff8e1;">
+            <img
+              src="http://localhost:3845/assets/a4779ac0cc504923481894906031e4e0d14336db.png"
+              alt="Voucher"
+              onerror="this.outerHTML='🎁'"
+            />
+          </div>
+          <div class="card-title">डिस्काउंट वाउचर</div>
+        </div>
+        <ul class="card-features">
+          <li><span class="check"></span><span>OTT वाउचर</span></li>
+          <li><span class="check"></span><span>शॉपिंग वाउचर</span></li>
+        </ul>
+      </div>
+
+      <!-- 5. E-Paper -->
+      <div class="card">
+        <div class="card-badge">कीमत ₹399</div>
+        <div class="card-top">
+          <div class="card-icon" style="background:#f0f0f0; border:1px solid #ddd;">
+            <img
+              src="https://spiderimg.amarujala.com/assets/images/2026/05/06/epaper_69faff4864346.png"
+              alt="E-Paper"
+              onerror="this.outerHTML='📰'"
+            />
+          </div>
+          <div class="card-title">ई-पेपर</div>
+        </div>
+        <ul class="card-features">
+          <li><span class="check"></span><span>दैनिक ई-पत्रिका</span></li>
+          <li><span class="check"></span><span>सभी आर्काइव्ज उपलब्ध</span></li>
+          <li><span class="check"></span><span>सभी एडिशन्स उपलब्ध</span></li>
+          <li><span class="check"></span><span>सभी मैगजीन्स उपलब्ध</span></li>
+        </ul>
+      </div>
+
+      <!-- 6. Online Puja -->
+      <div class="card">
+        <div class="card-badge">कीमत ₹2000</div>
+        <div class="card-top">
+          <div class="card-icon" style="background:#fff3e0;">
+            <img
+              src="https://spiderimg.amarujala.com/assets/images/2026/05/06/image-17_69faffa652c47.png"
+              alt="Puja"
+              onerror="this.outerHTML='🛕'"
+            />
+          </div>
+          <div class="card-title">ऑनलाइन पूजा बुक करें</div>
+        </div>
+        <ul class="card-features">
+          <li><span class="check"></span><span>लाइव पूजा में भाग लें</span></li>
+          <li><span class="check"></span><span>प्रसाद बॉक्स पाएं</span></li>
+          <li><span class="check"></span><span>आशीर्वाद प्राप्त करें</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── BOTTOM CTA ── -->
+  <div class="bottom-cta">
+    <div class="pricing-box">
+      <span class="price-text">₹698 की कीमत पर</span>
+      <span class="price-final">₹200</span>
+    </div>
+    <button class="buy-btn" id="buyBtn">
+      अभी खरीदें <span class="arrow-icon"></span>
+    </button>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">🎉 आपका ऑर्डर प्रोसेस हो रहा है…</div>
+
+  <script>
+    // Dynamic bottom padding so content isn't hidden behind CTA
+    (function updatePadding() {
+      const cta  = document.querySelector('.bottom-cta');
+      const main = document.querySelector('.main');
+      if (cta && main) {
+        main.style.paddingBottom = (cta.offsetHeight + 24) + 'px';
+      }
+    })();
+    window.addEventListener('resize', function () {
+      const cta  = document.querySelector('.bottom-cta');
+      const main = document.querySelector('.main');
+      if (cta && main) {
+        main.style.paddingBottom = (cta.offsetHeight + 24) + 'px';
+      }
+    });
+
+    // Buy button toast
+    document.getElementById('buyBtn').addEventListener('click', function () {
+      var toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(function () { toast.classList.remove('show'); }, 2800);
+    });
+  </script>
+
+</body>
+</html>
