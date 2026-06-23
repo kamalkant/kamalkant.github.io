@@ -165,7 +165,7 @@ section {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   gap: 4rem;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .hero-content h2 {
