@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>2026 Roof Replacement Program | Homeowner Relief Initiative</title>
+  <meta name="description" content="Check eligibility for the 2026 Roof Replacement Initiative. Qualified homeowners can get their roof inspected and replaced with minimal out-of-pocket costs. Free inspection. Zero upfront costs.">
+  <meta name="keywords" content="roof replacement program, roof replacement grants, 2026 roof relief, homeowner roof repairs, zip code roof checker, roof inspection">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="2026 Roof Replacement Initiative | Check Eligibility">
+  <meta property="og:description" content="Qualified homeowners can get their roof replaced at almost no cost. Verify your zip code now.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/hero-new-roof.png">
+
+  <!-- Styling and Fonts -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="info-banner">
+    <i class="fa-solid fa-triangle-exclamation"></i> Official Advertorial: 2026 National Homeowner Relief & Roof Renewal Program
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-wrapper">
+        <i class="fa-solid fa-house-chimney-window logo-icon"></i>
+        <div class="logo-text">Roof<span>Renewal</span></div>
+      </div>
+      <a href="tel:8005550199" class="header-phone">
+        <i class="fa-solid fa-phone-volume"></i> Hotline: (800) 555-0199
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Left: Hero Text and Qualification Wizard -->
+        <div class="hero-content">
+          <h2>Homeowners In <span class="geo-state" id="state-placeholder">Your State</span> Are Getting <strong>Roof Replacements at Almost No Cost</strong></h2>
+          <p class="hero-tagline">Find out if your zip code is covered under the new 2026 Roof Renewal initiative before funding allocations expire.</p>
+          
+          <ul class="benefit-list">
+            <li><i class="fa-solid fa-check"></i> <strong>$0 Out-of-Pocket Inspections</strong></li>
+            <li><i class="fa-solid fa-check"></i> <strong>Up to 70% Off Replacement Value</strong></li>
+            <li><i class="fa-solid fa-check"></i> <strong>Local Licensed & Insured Contractors</strong></li>
+          </ul>
+
+          <!-- Qualification Wizard Card -->
+          <div class="wizard-card" id="wizard">
+            
+            <!-- Progress Tracker -->
+            <div class="wizard-progress">
+              <div class="progress-bar-fill" id="progress-fill"></div>
+              <div class="progress-step active" data-step="1">1</div>
+              <div class="progress-step" data-step="2">2</div>
+              <div class="progress-step" data-step="3">3</div>
+              <div class="progress-step" data-step="4">4</div>
+              <div class="progress-step" data-step="5">5</div>
+            </div>
+
+            <!-- Step 1: Zip Code Check -->
+            <div class="wizard-step active" id="step-1">
+              <h3>Check Eligibility By Zip Code</h3>
+              <p>Enter your zip code to check active contractor availability and state rebate allocations in your area.</p>
+              <div class="form-group">
+                <input type="text" id="zip-input" class="input-text" placeholder="Enter Zip Code (e.g., 90210)" maxlength="5" pattern="[0-9]*" inputmode="numeric">
+              </div>
+              <button class="btn-primary" id="btn-zip-next">Check Eligibility <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+
+            <!-- Step 2: Ownership -->
+            <div class="wizard-step" id="step-2">
+              <h3>Do you own this property?</h3>
+              <p>Programs and grants are exclusively available to registered homeowners.</p>
+              <div class="option-grid">
+                <div class="option-card" data-val="yes">
+                  <i class="fa-solid fa-house-user"></i>
+                  <span>Yes, I am the owner</span>
+                </div>
+                <div class="option-card" data-val="no">
+                  <i class="fa-solid fa-building-user"></i>
+                  <span>No, I rent / lease</span>
+                </div>
+              </div>
+              <div class="step-footer">
+                <button class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Roof Type -->
+            <div class="wizard-step" id="step-3">
+              <h3>Select Current Roof Type</h3>
+              <p>Help us estimate the project scope and contractor matching details.</p>
+              <div class="option-grid triple">
+                <div class="option-card" data-val="shingle">
+                  <i class="fa-solid fa-border-all"></i>
+                  <span>Shingle</span>
+                </div>
+                <div class="option-card" data-val="metal">
+                  <i class="fa-solid fa-window-minimize"></i>
+                  <span>Metal</span>
+                </div>
+                <div class="option-card" data-val="tile_slate">
+                  <i class="fa-solid fa-grip"></i>
+                  <span>Tile / Slate</span>
+                </div>
+                <div class="option-card" data-val="flat_other">
+                  <i class="fa-solid fa-layer-group"></i>
+                  <span>Flat / Other</span>
+                </div>
+              </div>
+              <div class="step-footer">
+                <button class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back</button>
+              </div>
+            </div>
+
+            <!-- Step 4: Roof Age -->
+            <div class="wizard-step" id="step-4">
+              <h3>Estimated Roof Age</h3>
+              <p>Older roofs qualify for higher state subsidies and urgency priorities.</p>
+              <div class="option-grid">
+                <div class="option-card" data-val="under_10">
+                  <i class="fa-solid fa-clock-rotate-left"></i>
+                  <span>Under 10 Years</span>
+                </div>
+                <div class="option-card" data-val="10_20">
+                  <i class="fa-solid fa-hourglass-half"></i>
+                  <span>10 - 20 Years</span>
+                </div>
+                <div class="option-card" data-val="over_20">
+                  <i class="fa-solid fa-circle-exclamation"></i>
+                  <span>Over 20 Years</span>
+                </div>
+              </div>
+              <div class="step-footer">
+                <button class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back</button>
+              </div>
+            </div>
+
+            <!-- Step 5: Analyzing Data (Loading State) -->
+            <div class="wizard-step" id="step-5">
+              <div class="analyzing-container">
+                <div class="spinner"></div>
+                <h3>Analyzing Area Qualification</h3>
+                <p>We are matching your details against live local database registries.</p>
+                <div class="analysis-points">
+                  <div class="analysis-item" id="analysis-1">
+                    <i class="fa-solid fa-circle-notch"></i>
+                    <span>Verifying Zip Code covered areas...</span>
+                  </div>
+                  <div class="analysis-item" id="analysis-2">
+                    <i class="fa-regular fa-circle"></i>
+                    <span>Checking rebate program budget...</span>
+                  </div>
+                  <div class="analysis-item" id="analysis-3">
+                    <i class="fa-regular fa-circle"></i>
+                    <span>Locating local licensed inspectors...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 6: Congratulations & Lead capture -->
+            <div class="wizard-step" id="step-6">
+              <div class="success-container">
+                <div class="success-badge">
+                  <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3>Congratulations! You Qualify</h3>
+                <p>Your zip code has active allocations. Claim your free inspection and estimate details below.</p>
+                
+                <form id="lead-form" class="lead-form" onsubmit="event.preventDefault();">
+                  <div class="form-group">
+                    <input type="text" id="full-name" class="input-text" placeholder="Full Name" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="email" id="email-address" class="input-text" placeholder="Email Address" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="tel" id="phone-number" class="input-text" placeholder="Phone Number" required>
+                  </div>
+                  <button type="submit" class="btn-primary" id="btn-submit-lead">Get Free Estimate & Inspector Match <i class="fa-solid fa-calendar-check"></i></button>
+                </form>
+              </div>
+            </div>
+
+          </div> <!-- End Wizard Card -->
+        </div>
+
+        <!-- Right: Interactive Before/After Roof Slider -->
+        <div class="slider-column">
+          <div class="slider-wrapper" id="roof-slider">
+            <span class="slider-label label-before">Before (Weathered)</span>
+            <span class="slider-label label-after">After (Replaced)</span>
+            
+            <img src="assets/hero-old-roof.png" alt="Weathered damaged roof" class="slider-img img-before" id="img-before">
+            <img src="assets/hero-new-roof.png" alt="Newly replaced modern roof" class="slider-img img-after">
+            
+            <div class="slider-handle" id="slider-handle">
+              <div class="slider-button">
+                <i class="fa-solid fa-left-right"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="hero-trust">
+            <div class="trustpilot-badge">
+              <div class="trustpilot-logo"><i class="fa-solid fa-star"></i> Trustpilot</div>
+              <div class="stars">
+                <i class="fa-solid fa-star-half-stroke" style="background:#00b67a; color:white; padding:1px; border-radius:2px;"></i>
+                <i class="fa-solid fa-star" style="color:#00b67a;"></i>
+                <i class="fa-solid fa-star" style="color:#00b67a;"></i>
+                <i class="fa-solid fa-star" style="color:#00b67a;"></i>
+                <i class="fa-solid fa-star" style="color:#00b67a;"></i>
+              </div>
+              <span style="font-size: 0.75rem; color: #475569; font-weight:600;">Rated 4.9/5 | 1,840+ Reviews</span>
+            </div>
+            
+            <div class="channel-logos">
+              <span>As featured on:</span>
+              <div style="font-weight: 800; font-size: 1.1rem; color: #cbd5e1; display:flex; gap:0.75rem;">
+                <span style="letter-spacing:1px; color:#94a3b8;">NBC</span>
+                <span style="letter-spacing:1px; color:#94a3b8;">CBS</span>
+                <span style="letter-spacing:1px; color:#94a3b8;">FOX</span>
+                <span style="letter-spacing:1px; color:#94a3b8;">ABC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2>How It Works</h2>
+        <p>Getting your roof inspected and replaced through the 2026 Initiative is fast, structured, and simple.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-icon-wrapper">
+            <i class="fa-solid fa-clipboard-question"></i>
+          </div>
+          <h3>Check Qualification</h3>
+          <p>Complete the quick 60-second wizard above to verify your zip code, home status, and program allocations.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-icon-wrapper">
+            <i class="fa-solid fa-magnifying-glass-location"></i>
+          </div>
+          <h3>$0 Roof Assessment</h3>
+          <p>We match you with a certified local inspector who will inspect your roof damage at absolutely zero cost.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-icon-wrapper">
+            <i class="fa-solid fa-hammer"></i>
+          </div>
+          <h3>Modern Roof Renewal</h3>
+          <p>If approved, select from premium materials and get your roof professionally replaced with state subsidies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Savings Calculator Section -->
+  <section class="calculator-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Savings & Subsidy Estimator</h2>
+        <p>Use our interactive estimator to see potential local rebates based on your roof's characteristics.</p>
+      </div>
+
+      <div class="calc-wrapper">
+        <div class="calc-inputs">
+          <div class="calc-group">
+            <label for="calc-size">Estimated Roof Size (sq. ft.)</label>
+            <div class="range-slider-wrapper">
+              <input type="range" id="calc-size" class="range-slider" min="1000" max="5000" step="100" value="2000">
+              <span class="range-value" id="calc-size-val">2,000 sq. ft.</span>
+            </div>
+          </div>
+
+          <div class="calc-group">
+            <label for="calc-condition">Current Roof Condition</label>
+            <select id="calc-condition" class="select-custom">
+              <option value="critical">Severe Damage / Old Age (20+ Years)</option>
+              <option value="moderate" selected>Moderate Wear & Tear (10-20 Years)</option>
+              <option value="minor">Minor Wear (Under 10 Years)</option>
+            </select>
+          </div>
+
+          <div class="calc-group">
+            <label for="calc-state">Your State</label>
+            <select id="calc-state" class="select-custom">
+              <option value="CA">California (High Rebates)</option>
+              <option value="TX">Texas (Medium Rebates)</option>
+              <option value="FL">Florida (High Rebates)</option>
+              <option value="NY">New York (High Rebates)</option>
+              <option value="IL">Illinois (Medium Rebates)</option>
+              <option value="OTHER" selected>Other States (Standard)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <span>Your Estimated Rebate / Subsidy</span>
+          <div class="calc-savings-value" id="calc-savings">$8,500</div>
+          <p>This estimate represents combined federal energy credits, regional weatherization grants, and builder promotional support.</p>
+          <button class="calc-btn" id="btn-calc-apply">Claim This Subsidy <i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Real Homeowner Success Stories</h2>
+        <p>See how homeowners across the United States have renewed their properties using our matching program.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div>
+            <div class="review-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="review-text">"Our roof was 22 years old and leaking. We filled out the qualification form, and got matched with a licensed inspector. Within 3 weeks we had a beautiful new slate gray roof, and the initiative covered 85% of it! Incredible program."</p>
+          </div>
+          <div class="review-user">
+            <div class="user-avatar">JD</div>
+            <div class="user-info">
+              <h4>James D.</h4>
+              <p>Dallas, Texas</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="review-text">"I was worried about upfront inspector fees but they came out and evaluated my roof damage at $0 cost. The team explained state incentives. Replaced our shingles and we paid next to nothing out of pocket. Extremely professional."</p>
+          </div>
+          <div class="review-user">
+            <div class="user-avatar">SL</div>
+            <div class="user-info">
+              <h4>Sarah L.</h4>
+              <p>Tampa, Florida</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="review-text">"After the heavy spring storms, our roof shingles were curling and damaged. This site connected us to a local contracting company. They managed everything, verified our federal tax-credit support, and completed the job in 2 days."</p>
+          </div>
+          <div class="review-user">
+            <div class="user-avatar">MR</div>
+            <div class="user-info">
+              <h4>Michael R.</h4>
+              <p>Columbus, Ohio</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p>Find answers to common questions about the 2026 Roof Replacement Initiative.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What is the 2026 Roof Replacement Program?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>It is a matching service designed to help homeowners leverage federal energy credits, state-level weatherization initiatives, and manufacturer incentives to get roof repairs or replacements done with minimal out-of-pocket costs.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is the inspection truly free?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Certified roofing inspectors match with homeowners through our portal and provide a comprehensive physical damage evaluation at no charge or obligation to you.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do I qualify?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>You must own a single-family house, reside in the United States, and live in a covered postal code where funds are actively allocated. Older roofs (10+ years) or roofs with active storm wear receive high matching priority.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What roofing materials are covered?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Most local programs cover standard asphalt shingle, modern metal roofs, and tile. If you choose energy-efficient architectural shingles, you may also qualify for additional green tax credits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Social Activity Toast -->
+  <div class="activity-toast" id="activity-toast">
+    <div class="toast-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="toast-content">
+      <h5 id="toast-title">Sarah M. from Austin, TX</h5>
+      <p id="toast-desc">Just qualified for a $0 inspection and roof replacement discount.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="logo-wrapper">
+          <i class="fa-solid fa-house-chimney-window logo-icon" style="color:#94a3b8;"></i>
+          <div class="logo-text" style="color:white;">Roof<span style="color:#94a3b8;">Renewal</span></div>
+        </div>
+        <nav class="footer-nav">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact Us</a>
+        </nav>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          &copy; 2026 Roof Renewal USA. This site is an advertorial and directory matching service. All registered product names and marks are property of their respective owners.
+        </div>
+        <div class="footer-seals">
+          <span style="font-size:0.75rem; color:#64748b; margin-right:10px;">Secure SSL Connection</span>
+          <i class="fa-solid fa-shield-halved" style="font-size:1.5rem; color:#475569;"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Logic script -->
+  <script src="app.js"></script>
+</body>
+</html>
