@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>2026 Roof Replacement Program | Homeowner Relief Initiative</title>
+  <meta name="description" content="Check eligibility for the 2026 Roof Replacement Initiative. Qualified homeowners can get their roof inspected and replaced with minimal out-of-pocket costs. Free inspection. Zero upfront costs.">
+  <meta name="keywords" content="roof replacement program, roof replacement grants, 2026 roof relief, homeowner roof repairs, zip code roof checker, roof inspection">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="2026 Roof Replacement Initiative | Check Eligibility">
+  <meta property="og:description" content="Qualified homeowners can get their roof replaced at almost no cost. Verify your zip code now.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/hero-new-roof.png">
+
+  <!-- Styling and Fonts -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="info-banner">
+    <i class="fa-solid fa-triangle-exclamation"></i> Official Advertorial: 2026 National Homeowner Relief & Roof Renewal Program
+  </div>
+
+  <!-- Header -->
+  <header class="main-header" style="display: none;">
+    <div class="header-container">
+      <div class="logo-wrapper">
+        <i class="fa-solid fa-house-chimney-window logo-icon"></i>
+        <div class="logo-text">Roof<span>Renewal</span></div>
+      </div>
+      <a href="tel:8005550199" class="header-phone">
+        <i class="fa-solid fa-phone-volume"></i> (800) 555-0199
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Left: Hero Text and Qualification Wizard -->
+        <div class="hero-content">
+          <h2>Homeowners In <span class="geo-state" id="state-placeholder">Your State</span> Are Getting <strong>Roof Replacements at Almost No Cost</strong></h2>
+          
+
+          <!-- Qualification Wizard Card -->
+          <div class="wizard-card" id="wizard">
+            
+            <!-- Progress Tracker -->
+            <div class="wizard-progress">
+              <div class="progress-bar-fill" id="progress-fill"></div>
+              <div class="progress-step active" data-step="1">1</div>
+              <div class="progress-step" data-step="2">2</div>
+              <div class="progress-step" data-step="3">3</div>
+              <div class="progress-step" data-step="4">4</div>
+              <div class="progress-step" data-step="5">5</div>
+            </div>
+
+            <!-- Step 1: Zip Code Check -->
+            <div class="wizard-step active" id="step-1">
+              <h3>Check Eligibility By Zip Code</h3>
+              <p>Enter your zip code to check active contractor availability and state rebate allocations in your area.</p>
+              <div class="form-group">
+                <input type="text" id="zip-input" class="input-text" placeholder="Enter Zip Code (e.g., 90210)" maxlength="5" pattern="[0-9]*" inputmode="numeric">
+              </div>
+              <button class="btn-primary" id="btn-zip-next">Check Eligibility <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+
+            <!-- Step 2: Ownership -->
+            <div class="wizard-step" id="step-2">
+              <h3>Do you own this property?</h3>
+              <p>Programs and grants are exclusively available to registered homeowners.</p>
+              <div class="option-grid">
+                <div class="option-card" data-val="yes">
+                  <i class="fa-solid fa-house-user"></i>
+                  <span>Yes, I am the owner</span>
+                </div>
+                <div class="option-card" data-val="no">
+                  <i class="fa-solid fa-building-user"></i>
+                  <span>No, I rent / lease</span>
+                </div>
+              </div>
+              <div class="step-footer">
+                <button class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Roof Type -->
+            <div class="wizard-step" id="step-3">
+              <h3>Select Current Roof Type</h3>
+              <p>Help us estimate the project scope and contractor matching details.</p>
+              <div class="option-grid triple">
+                <div class="option-card" data-val="shingle">
+                  <i class="fa-solid fa-border-all"></i>
+                  <span>Shingle</span>
+                </div>
+                <div class="option-card" data-val="metal">
+                  <i class="fa-solid fa-window-minimize"></i>
+                  <span>Metal</span>
+                </div>
+                <div class="option-card" data-val="tile_slate">
+                  <i class="fa-solid fa-grip"></i>
+                  <span>Tile / Slate</span>
+                </div>
+                <div class="option-card" data-val="flat_other">
+                  <i class="fa-solid fa-layer-group"></i>
+                  <span>Flat / Other</span>
+                </div>
+              </div>
+              <div class="step-footer">
+                <button class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back</button>
+              </div>
+            </div>
+
+            <!-- Step 4: Roof Age -->
+            <div class="wizard-step" id="step-4">
+              <h3>Estimated Roof Age</h3>
+              <p>Older roofs qualify for higher state subsidies and urgency priorities.</p>
+              <div class="option-grid">
+                <div class="option-card" data-val="under_10">
+                  <i class="fa-solid fa-clock-rotate-left"></i>
+                  <span>Under 10 Years</span>
+                </div>
+                <div class="option-card" data-val="10_20">
+                  <i class="fa-solid fa-hourglass-half"></i>
+                  <span>10 - 20 Years</span>
+                </div>
+                <div class="option-card" data-val="over_20">
+                  <i class="fa-solid fa-circle-exclamation"></i>
+                  <span>Over 20 Years</span>
+                </div>
+              </div>
+              <div class="step-footer">
+                <button class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back</button>
+              </div>
+            </div>
+
+            <!-- Step 5: Analyzing Data (Loading State) -->
+            <div class="wizard-step" id="step-5">
+              <div class="analyzing-container">
+                <div class="spinner"></div>
+                <h3>Analyzing Area Qualification</h3>
+                <p>We are matching your details against live local database registries.</p>
+                <div class="analysis-points">
+                  <div class="analysis-item" id="analysis-1">
+                    <i class="fa-solid fa-circle-notch"></i>
+                    <span>Verifying Zip Code covered areas...</span>
+                  </div>
+                  <div class="analysis-item" id="analysis-2">
+                    <i class="fa-regular fa-circle"></i>
+                    <span>Checking rebate program budget...</span>
+                  </div>
+                  <div class="analysis-item" id="analysis-3">
+                    <i class="fa-regular fa-circle"></i>
+                    <span>Locating local licensed inspectors...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 6: Congratulations & Lead capture -->
+            <div class="wizard-step" id="step-6">
+              <div class="success-container">
+                <div class="success-badge">
+                  <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3>Congratulations! You Qualify</h3>
+                <p>Your zip code has active allocations. Claim your free inspection and estimate details below.</p>
+                
+                <form id="lead-form" class="lead-form" onsubmit="event.preventDefault();">
+                  <div class="form-group">
+                    <input type="text" id="full-name" class="input-text" placeholder="Full Name" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="email" id="email-address" class="input-text" placeholder="Email Address" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="tel" id="phone-number" class="input-text" placeholder="Phone Number" required>
+                  </div>
+                  <button type="submit" class="btn-primary" id="btn-submit-lead">Get Free Estimate & Inspector Match <i class="fa-solid fa-calendar-check"></i></button>
+                </form>
+              </div>
+            </div>
+
+          </div> <!-- End Wizard Card -->
+          <p>&nbsp;</p>
+          <p class="hero-tagline">Find out if your zip code is covered under the new 2026 Roof Renewal initiative before funding allocations expire.</p>
+          
+          <ul class="benefit-list">
+            <li><i class="fa-solid fa-check"></i> <strong>$0 Out-of-Pocket Inspections</strong></li>
+            <li><i class="fa-solid fa-check"></i> <strong>Up to 70% Off Replacement Value</strong></li>
+            <li><i class="fa-solid fa-check"></i> <strong>Local Licensed & Insured Contractors</strong></li>
+          </ul>
+        </div>
+
+        <!-- Right: Interactive Before/After Roof Slider -->
+        <div class="slider-column">
+          <div class="slider-wrapper" id="roof-slider">
+            <span class="slider-label label-before">Before (Weathered)</span>
+            <span class="slider-label label-after">After (Replaced)</span>
+            
+            <img src="assets/hero-old-roof.png" alt="Weathered damaged roof" class="slider-img img-before" id="img-before">
+            <img src="assets/hero-new-roof.png" alt="Newly replaced modern roof" class="slider-img img-after">
+            
+            <div class="slider-handle" id="slider-handle">
+              <div class="slider-button">
+                <i class="fa-solid fa-left-right"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="hero-trust">
+            <div class="trustpilot-badge">
+              <div class="trustpilot-logo"><i class="fa-solid fa-star"></i> Trustpilot</div>
+              <div class="stars">
+                <i class="fa-solid fa-star-half-stroke" style="background:#00b67a; color:white; padding:1px; border-radius:2px;"></i>
+                <i class="fa-solid fa-star" style="color:#00b67a;"></i>
+                <i class="fa-solid fa-star" style="color:#00b67a;"></i>
+                <i class="fa-solid fa-star" style="color:#00b67a;"></i>
+                <i class="fa-solid fa-star" style="color:#00b67a;"></i>
+              </div>
+              <span style="font-size: 0.75rem; color: #475569; font-weight:600;">Rated 4.9/5 | 1,840+ Reviews</span>
+            </div>
+            
+            <div class="channel-logos">
+              <span>As featured on:</span>
+              <div style="font-weight: 800; font-size: 1.1rem; color: #cbd5e1; display:flex; gap:0.75rem;">
+                <span style="letter-spacing:1px; color:#94a3b8;">NBC</span>
+                <span style="letter-spacing:1px; color:#94a3b8;">CBS</span>
+                <span style="letter-spacing:1px; color:#94a3b8;">FOX</span>
+                <span style="letter-spacing:1px; color:#94a3b8;">ABC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  
+
+  <!-- Interactive Savings Calculator Section -->
+  
+
+  <!-- Testimonials Section -->
+  
+
+  <!-- FAQ Section -->
+  
+
+  <!-- Live Social Activity Toast -->
+  <div class="activity-toast" id="activity-toast">
+    <div class="toast-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="toast-content">
+      <h5 id="toast-title">Sarah M. from Austin, TX</h5>
+      <p id="toast-desc">Just qualified for a $0 inspection and roof replacement discount.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="logo-wrapper">
+          <i class="fa-solid fa-house-chimney-window logo-icon" style="color:#94a3b8;"></i>
+          <div class="logo-text" style="color:white;">Roof<span style="color:#94a3b8;">Renewal</span></div>
+        </div>
+        <nav class="footer-nav">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact Us</a>
+        </nav>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          &copy; 2026 Roof Renewal USA. This site is an advertorial and directory matching service. All registered product names and marks are property of their respective owners.
+        </div>
+        <div class="footer-seals">
+          <span style="font-size:0.75rem; color:#64748b; margin-right:10px;">Secure SSL Connection</span>
+          <i class="fa-solid fa-shield-halved" style="font-size:1.5rem; color:#475569;"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Logic script -->
+  <script src="app.js?v=4"></script>
+</body>
+</html>
