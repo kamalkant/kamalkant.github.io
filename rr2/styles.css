@@ -1281,7 +1281,7 @@ section {
     font-size: 2.75rem;
   }
   .hero {
-    background-image: url("../assets/hero-new-roof.png");
+    background-image: url("./assets/hero-new-roof.png");
     background-repeat: no-repeat;
     background-size: contain;
     position: relative;
