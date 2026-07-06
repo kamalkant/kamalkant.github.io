@@ -1,1 +1,122 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>वैदिक घड़ी · Vedic Cosmic Clock</title>
+  <meta name="description" content="A cosmic Vedic clock — live panchang, nakshatra, rashi and navagraha positions rendered as a deep-space observatory." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Rajdhani:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Three.js deep space background -->
+  <canvas id="space"></canvas>
+  <div id="vignette"></div>
+
+  <!-- ===== Header ===== -->
+  <header class="cosmic-header">
+    <div class="header-om">ॐ</div>
+    <div class="header-titles">
+      <h1 data-i18n="title.h1">वैदिक घड़ी</h1>
+      <p data-i18n="title.sub">वैदिक कॉस्मिक घड़ी · खगोलीय वेधशाला</p>
+    </div>
+    <div class="header-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button id="langHi" class="active" type="button">हिंदी</button>
+        <button id="langEn" type="button">EN</button>
+      </div>
+      <div class="header-location glass-chip" id="locationChip" title="Click to re-detect your location">
+        <span class="loc-dot"></span><span id="locationText">उज्जैन · 23.18°N 75.79°E</span>
+      </div>
+      <button class="glass-chip fs-btn" id="fsBtn" type="button" title="Full screen (F11)">⛶</button>
+    </div>
+  </header>
+
+  <!-- ===== Main layout ===== -->
+  <main class="cosmic-layout">
+
+    <!-- Left panel : Panchang -->
+    <aside class="glass-panel panel-left">
+      <h2 class="panel-title"><span>☸</span> <span data-i18n="panel.panchang">पंचांग</span></h2>
+      <ul class="stat-list" id="panchangList">
+        <li><span class="k" data-i18n="k.tithi">तिथि</span><span class="v" id="pTithi">—</span></li>
+        <li><span class="k" data-i18n="k.nakshatra">नक्षत्र</span><span class="v" id="pNakshatra">—</span></li>
+        <li><span class="k" data-i18n="k.yoga">योग</span><span class="v" id="pYoga">—</span></li>
+        <li><span class="k" data-i18n="k.karana">करण</span><span class="v" id="pKarana">—</span></li>
+        <li><span class="k" data-i18n="k.paksha">पक्ष</span><span class="v" id="pPaksha">—</span></li>
+        <li><span class="k" data-i18n="k.vara">वार</span><span class="v" id="pVara">—</span></li>
+      </ul>
+      <div class="sun-times">
+        <div class="sun-time">
+          <div class="sun-icon rise">☀</div>
+          <div><small data-i18n="k.sunrise">सूर्योदय</small> <b id="pSunrise">—</b></div>
+        </div>
+        <div class="sun-time">
+          <div class="sun-icon set">☽</div>
+          <div><small data-i18n="k.sunset">सूर्यास्त</small> <b id="pSunset">—</b></div>
+        </div>
+      </div>
+      <div class="progress-block">
+        <small data-i18n="k.tithiProgress">तिथि प्रगति</small>
+        <div class="progress-track"><div class="progress-fill" id="tithiBar"></div></div>
+      </div>
+    </aside>
+
+    <!-- Center : the clock -->
+    <section class="clock-stage">
+      <div class="clock-halo"></div>
+      <div id="clockContainer"></div>
+    </section>
+
+    <!-- Right panel : Celestial -->
+    <aside class="glass-panel panel-right">
+      <h2 class="panel-title"><span>🪐</span> <span data-i18n="panel.navagraha">नवग्रह</span></h2>
+      <ul class="graha-list" id="grahaList"></ul>
+
+      <div class="moon-block">
+        <div class="moon-phase-visual"><canvas id="moonPhaseCanvas" width="72" height="72"></canvas></div>
+        <div>
+          <small data-i18n="k.moonphase">चंद्र कला</small>
+          <b id="pMoonPhase">—</b>
+          <em id="pMoonIllum">—</em>
+        </div>
+      </div>
+
+      <ul class="kaal-list">
+        <li class="kaal bad"><span class="k" data-i18n="k.rahu">राहु काल</span><span class="v" id="pRahu">—</span></li>
+        <li class="kaal good"><span class="k" data-i18n="k.abhijit">अभिजीत मुहूर्त</span><span class="v" id="pAbhijit">—</span></li>
+        <li class="kaal good"><span class="k" data-i18n="k.brahma">ब्रह्म मुहूर्त</span><span class="v" id="pBrahma">—</span></li>
+        <li class="kaal" id="choghadiyaRow"><span class="k" data-i18n="k.choghadiya">चौघड़िया</span><span class="v" id="pChoghadiya">—</span></li>
+      </ul>
+    </aside>
+  </main>
+
+  <!-- ===== Bottom bar ===== -->
+  <footer class="glass-panel bottom-bar">
+    <div class="bb-item"><small data-i18n="k.date">दिनांक</small><b id="bDate">—</b></div>
+    <div class="bb-sep"></div>
+    <div class="bb-item"><small data-i18n="k.vikram">विक्रम संवत</small><b id="bVikram">—</b></div>
+    <div class="bb-sep"></div>
+    <div class="bb-item"><small data-i18n="k.shaka">शक संवत</small><b id="bShaka">—</b></div>
+    <div class="bb-sep"></div>
+    <div class="bb-item"><small data-i18n="k.local">स्थानीय समय</small><b id="bLocal" class="mono">—</b></div>
+    <div class="bb-sep"></div>
+    <div class="bb-item"><small data-i18n="k.utc">यूटीसी</small><b id="bUTC" class="mono">—</b></div>
+    <div class="bb-sep"></div>
+    <div class="bb-item wide"><small data-i18n="k.muhurta">मुहूर्त</small><b id="bMuhurta">—</b></div>
+  </footer>
+
+  <div class="corner-note" data-i18n="note">अनुमानित खगोलीय गणना · लाहिड़ी अयनांश · उज्जैन की वैदिक घड़ी से प्रेरित</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/astro.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/space.js"></script>
+  <script src="js/clock.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
 
