@@ -300,7 +300,7 @@ body.no-webgl {
 }
 
 /* ---------- graha list (right) ---------- */
-.graha-list { list-style: none; max-height: 218px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(255,215,0,.3) transparent; }
+.graha-list { list-style: none; max-height: 218px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(255,215,0,.3) transparent;padding-right: 10px; }
 .graha-list li {
   display: grid;
   grid-template-columns: 26px 1fr auto;
@@ -562,7 +562,7 @@ body.no-webgl {
   .cosmic-layout {
     grid-template-columns: 1fr;
     grid-template-areas: 'clock' 'left' 'right';
-    padding: 6px 14px;
+    padding: 6px 10px 6px 10px;
   }
   .cosmic-header { flex-wrap: wrap; padding: 14px 16px 4px; }
   .header-right { margin-left: 0; width: 100%; justify-content: center; flex-wrap: wrap; }
@@ -574,4 +574,24 @@ body.no-webgl {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
+@media (max-width: 420px) {
+  .cosmic-header {
+    justify-content: center;
+  }
+  .cosmic-header .header-om {
+    display: none;
+  }
+  .cosmic-header .header-titles {
+    text-align: center;
+    padding-top:0px;
+  }
+  .header-titles h1 {
+    font-size:29px;
+  }
+  .fs-btn {
+    position: absolute;
+        top: 5px;
+        right: 5px;
+  }
 }
