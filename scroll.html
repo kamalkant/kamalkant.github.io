@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Controlled Video</title>
+  <style>
+    /* Reset margins and set background */
+    body {
+      margin: 0;
+      background-color: #000;
+      font-family: sans-serif;
+    }
 
+    /* Creates scrollable space. Larger height = slower video playback. */
+    .scroll-container {
+      height: 400vh; 
+      overflow: hidden;
+    }
+
+    /* Pins the video to the viewport */
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    /* Optional overlay text to show scroll depth */
+    .overlay-text {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      color: #fff;
+      font-size: 24px;
+      z-index: 2;
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
+      border-radius: 5px;
+      pointer-events: none;
+    }
+    &::-webkit-scrollbar {
+    display: none;
+  }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll container holds the scroll height -->
+  <div class="scroll-container">
+    <!-- Video element pinned to the screen -->
+    <video id="v0" tabindex="0" autobuffer preload="auto" muted playsinline>
+      <source type="video/mp4" src="https://storage.googleapis.com/stagecloud/Samsung_Galaxy_Z_Fold_8_202607271331.mp4">
+    </video>
+    <div class="overlay-text" id="status">Scroll down to play</div>
+  </div>
+
+  <script>
+    const video = document.getElementById("v0");
+
+let targetTime = 0;
+let currentTime = 0;
+const accel = 0.08; // Slightly lower for Chrome hardware smoothing
+
+window.addEventListener("scroll", () => {
+  const scrollTop = window.scrollY;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollFraction = scrollTop / maxScroll;
+
+  if (video.duration) {
+    targetTime = scrollFraction * video.duration;
+  }
+});
+
+function updateVideo() {
+  // CRITICAL FIX: If Chrome is still loading the previous frame, skip this loop iteration
+  if (video.seeking) {
+    requestAnimationFrame(updateVideo);
+    return;
+  }
+
+  // Smooth out the timeline jump
+  currentTime += (targetTime - currentTime) * accel;
+  
+  if (video.duration) {
+    // Only update if the difference is noticeable (prevents micro-stutter)
+    if (Math.abs(currentTime - video.currentTime) > 0.01) {
+      video.currentTime = currentTime;
+    }
+  }
+  
+  requestAnimationFrame(updateVideo);
+}
+
+video.addEventListener("loadedmetadata", () => {
+  requestAnimationFrame(updateVideo);
+});
+
+  </script>
+</body>
+</html>
