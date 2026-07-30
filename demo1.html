@@ -28,8 +28,32 @@
       left: 0;
       width: 100%;
       height: 100vh;
-      object-fit: cover;
+      object-fit: fill;
       z-index: 1;
+    }
+
+    #v1 {
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    #close-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 3;
+      padding: 10px 15px;
+      font-size: 20px;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
     /* Optional overlay text to show scroll depth */
@@ -58,15 +82,22 @@
     <video id="v0" tabindex="0" autobuffer preload="auto" muted playsinline>
       <source type="video/mp4" src="https://storage.googleapis.com/stagecloud/Sparsh_Pearl_CP_Bath_Fittings_Launch_by_Saif_Ali_Khan_11_202607291639_alpha-1.webm">
     </video>
+    <video id="v1" tabindex="0" autobuffer preload="auto" muted playsinline>
+      <source type="video/mp4" src="https://storage.googleapis.com/stagecloud/grok-video-93a307e9-07e7-4d79-9dde-662eecc6659d.mp4">
+    </video>
+    <button id="close-btn">X</button>
     <div class="overlay-text" id="status">Scroll down to play</div>
   </div>
 
   <script>
     const video = document.getElementById("v0");
+    const video2 = document.getElementById("v1");
+    const closeBtn = document.getElementById("close-btn");
 
 let targetTime = 0;
 let currentTime = 0;
 const accel = 0.08; // Slightly lower for Chrome hardware smoothing
+let isVideo2Playing = false;
 
 window.addEventListener("scroll", () => {
   const scrollTop = window.scrollY;
@@ -76,6 +107,33 @@ window.addEventListener("scroll", () => {
   if (video.duration) {
     targetTime = scrollFraction * video.duration;
   }
+
+  if (scrollFraction >= 0.99) {
+    if (!isVideo2Playing) {
+      video2.style.opacity = 1;
+      closeBtn.style.opacity = 1;
+      closeBtn.style.pointerEvents = "auto";
+      video2.currentTime = 0;
+      video2.play().catch(e => console.log(e));
+      isVideo2Playing = true;
+    }
+  } else {
+    if (isVideo2Playing) {
+      video2.style.opacity = 0;
+      closeBtn.style.opacity = 0;
+      closeBtn.style.pointerEvents = "none";
+      video2.pause();
+      isVideo2Playing = false;
+    }
+  }
+});
+
+closeBtn.addEventListener("click", () => {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  window.scrollTo({
+    top: maxScroll * 0.98,
+    behavior: 'smooth'
+  });
 });
 
 function updateVideo() {
